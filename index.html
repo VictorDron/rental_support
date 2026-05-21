@@ -232,21 +232,163 @@
   .mt-18{margin-top:18px}
   .mb-18{margin-bottom:18px}
 
+  /* MOBILE NAV (default hidden on desktop) */
+  .nav-toggle{display:none}
+  .sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:45}
+  .sidebar-backdrop.open{opacity:1;pointer-events:auto}
+  body.nav-locked{overflow:hidden}
+
+  /* ===== TABLET (≤1100px) ===== */
   @media(max-width:1100px){
     .kpi-grid{grid-template-columns:repeat(2,1fr)}
     .deal-detail-grid{grid-template-columns:1fr}
+    .page{padding:24px 22px}
+    .topbar{padding:0 22px}
   }
-  @media(max-width:700px){
-    .sidebar{transform:translateX(-100%);transition:.25s}
+
+  /* ===== SMALL TABLET / LARGE PHONE (≤820px) ===== */
+  @media(max-width:820px){
+    /* drawer */
+    .sidebar{transform:translateX(-100%);transition:transform .25s ease;box-shadow:24px 0 48px -16px rgba(0,0,0,.6);width:280px}
     .sidebar.open{transform:translateX(0)}
     .main{margin-left:0}
-    .page{padding:18px}
+    .nav-toggle{display:flex}
+
+    /* topbar */
+    .topbar{height:56px;padding:0 14px;gap:8px}
+    .breadcrumb{font-size:13px;flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+    .breadcrumb .bc-root,.breadcrumb .sep{display:none}
+    .topbar-actions{gap:6px}
+    .btn-new-deal{padding:8px 10px}
+    .btn-new-deal .btn-label{display:none}
+
+    /* page */
+    .page{padding:18px 14px;min-height:calc(100vh - 56px)}
+    .page-head{margin-bottom:18px;gap:12px;align-items:flex-start}
+    .page-title{font-size:22px;letter-spacing:-.3px}
+    .page-sub{font-size:12.5px}
+    .page-actions{flex-wrap:wrap;gap:6px;width:100%}
+    .page-actions .btn{flex:1 1 auto;justify-content:center}
+
+    /* cards */
+    .card{padding:16px;border-radius:12px}
+    .card-head{flex-wrap:wrap;gap:8px}
+    .card-head .row{font-size:11px}
+
+    /* layouts forçados a 1 coluna */
+    .grid[style*="2fr 1fr"],
+    .grid[style*="1fr 1fr 1fr"],
+    .grid[style*="1.4fr 1fr"],
+    .grid[style*="1fr 2fr"]{grid-template-columns:1fr !important}
+
+    /* KPI */
+    .kpi{padding:14px}
+    .kpi-value{font-size:26px}
+
+    /* topbar sticky com altura nova */
+    .topbar{top:0}
+
+    /* tables → scroll horizontal sutil */
+    .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -16px;padding:0 16px}
+    .table-scroll .table{min-width:560px}
+
+    /* deal-stepper compacto: só etapa atual + progresso */
+    .deal-stepper{padding:12px 14px;flex-direction:column;align-items:stretch;gap:10px}
+    .deal-stepper .step-line{display:none}
+    .deal-stepper .step{display:none}
+    .deal-stepper .step.current{display:flex}
+    .deal-stepper::after{
+      content:'';display:block;height:6px;border-radius:3px;
+      background:linear-gradient(90deg,var(--green) 0,var(--green) 33%,var(--accent) 33%,var(--accent) 50%,var(--bg-4) 50%,var(--bg-4) 100%);
+    }
+
+    /* tabs com scroll preservado e fade nas bordas */
+    .tabs{margin:0 -14px 16px;padding:0 14px}
+
+    /* alert mais enxuto */
+    .alert{padding:12px 14px;gap:10px;border-radius:12px}
+    .alert-icon{width:28px;height:28px;font-size:13px}
+    .alert-title{font-size:13px}
+    .alert-body{font-size:12px}
+    .alert-actions{flex-wrap:wrap}
+
+    /* margin-card */
+    .margin-card{padding:18px}
+    .margin-card > div[style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr !important;gap:14px !important}
+
+    /* kanban: scroll horizontal mas colunas mais estreitas */
+    .kanban{grid-auto-columns:78vw;grid-template-columns:none;grid-auto-flow:column;scroll-snap-type:x mandatory;padding-bottom:12px;margin:0 -14px;padding-left:14px;padding-right:14px}
+    .kb-col{scroll-snap-align:start;min-height:auto}
+
+    /* gantt scroll com indicação */
+    .gantt-wrap{min-width:720px}
+    .gantt-label{width:140px;font-size:11.5px}
+
+    /* sidebar-foot mais compacto */
+    .sidebar{padding:18px 14px}
+
+    /* charts altura reduzida — aplicado via JS-friendly seletor */
+    .card div[style*="height:260px"]{height:200px !important}
+    .card div[style*="height:200px"]{height:170px !important}
+
+    /* equip cards */
+    .equip-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+    .equip-img{height:88px;font-size:26px}
+
+    /* NPS ring menor */
+    .nps-ring,.nps-ring svg{width:160px;height:160px}
+    .nps-num{font-size:42px}
+
+    /* soon card */
+    .soon-card{padding:40px 24px}
+    .soon-title{font-size:18px}
+  }
+
+  /* ===== PHONE (≤560px) ===== */
+  @media(max-width:560px){
+    .page{padding:16px 12px}
+    .page-title{font-size:20px}
+    .kpi-grid{grid-template-columns:1fr;gap:10px}
+    .kpi{display:grid;grid-template-columns:1fr auto;grid-template-areas:"label value" "meta value";column-gap:14px;row-gap:4px;align-items:center;padding:14px 16px}
+    .kpi-label{grid-area:label;font-size:10.5px;letter-spacing:1px}
+    .kpi-value{grid-area:value;font-size:24px;margin:0;text-align:right}
+    .kpi-meta{grid-area:meta;font-size:11.5px}
+    .kpi::before{display:none}
+
+    .topbar-actions .icon-btn:nth-child(1){display:none} /* esconde busca, mantém sino + CTA */
+
+    /* tornar todos os "grid" inline com 2 colunas em 1 coluna */
+    .grid[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
+
+    .equip-grid{grid-template-columns:1fr 1fr;gap:10px}
+    .equip-img{height:78px;font-size:22px}
+    .equip-name{font-size:12px}
+
+    .kanban{grid-auto-columns:86vw}
+
+    .review-card{padding:12px}
+    .review-text{font-size:12.5px}
+
+    .deal-stepper{padding:10px 12px}
+    .nps-ring,.nps-ring svg{width:140px;height:140px}
+    .nps-num{font-size:36px}
+
+    .btn{padding:7px 12px;font-size:12.5px}
+    .icon-btn{width:32px;height:32px}
+  }
+
+  @media(max-width:380px){
+    .topbar{padding:0 10px}
+    .page-title{font-size:18px}
+    .page-actions .btn{font-size:12px;padding:7px 10px}
   }
 </style>
 </head>
 <body>
 
-<aside class="sidebar">
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<aside class="sidebar" id="sidebar">
   <div class="brand">
     <div style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">
       <img src="assets/logo.png" alt="Support Rental" class="brand-logo">
@@ -318,22 +460,25 @@
 
 <main class="main">
   <header class="topbar">
+    <button class="icon-btn nav-toggle" id="navToggle" title="Abrir menu" aria-label="Abrir menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="breadcrumb">
-      <span>Support Rental</span>
+      <span class="bc-root">Support Rental</span>
       <span class="sep">/</span>
       <strong id="bcCurrent">Dashboard</strong>
     </div>
     <div class="topbar-actions">
-      <button class="icon-btn" title="Buscar">
+      <button class="icon-btn" title="Buscar" aria-label="Buscar">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
-      <button class="icon-btn" title="Notificações">
+      <button class="icon-btn" title="Notificações" aria-label="Notificações">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <span class="dot"></span>
       </button>
-      <button class="btn btn-primary">
+      <button class="btn btn-primary btn-new-deal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Novo Deal
+        <span class="btn-label">Novo Deal</span>
       </button>
     </div>
   </header>
@@ -532,18 +677,20 @@
             <div class="card-title">Configurador de proposta · gerado por IA</div>
             <span class="pill green">Atualizada há 2h</span>
           </div>
-          <table class="table">
-            <thead><tr><th>Item</th><th>Qtd</th><th>Diária</th><th>Subtotal</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Painel LED P2.6 outdoor</strong><div class="text-sm text-mut">Backdrop palco · 6×3m</div></td><td>18 mod.</td><td class="mono">R$ 1.200</td><td class="mono text-accent">R$ 43.200</td></tr>
-              <tr><td><strong>Sistema PA · L'Acoustics</strong><div class="text-sm text-mut">Cobertura 1.200 pax</div></td><td>1 sis.</td><td class="mono">R$ 18.500</td><td class="mono text-accent">R$ 37.000</td></tr>
-              <tr><td><strong>Iluminação · Moving Beam 230</strong></td><td>24 un.</td><td class="mono">R$ 280</td><td class="mono text-accent">R$ 13.440</td></tr>
-              <tr><td><strong>Mobiliário Lounge VIP</strong><div class="text-sm text-mut">12 sofás + 8 mesas</div></td><td>1 pct</td><td class="mono">R$ 8.500</td><td class="mono text-accent">R$ 17.000</td></tr>
-              <tr><td><strong>Totem LED carregador</strong></td><td>6 un.</td><td class="mono">R$ 450</td><td class="mono text-accent">R$ 5.400</td></tr>
-              <tr><td><strong>Equipe técnica · 2 dias</strong><div class="text-sm text-mut">8 técnicos + 1 coord.</div></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 38.400</td></tr>
-              <tr><td><strong>Logística · 3 caminhões</strong></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 12.500</td></tr>
-            </tbody>
-          </table>
+          <div class="table-scroll">
+            <table class="table">
+              <thead><tr><th>Item</th><th>Qtd</th><th>Diária</th><th>Subtotal</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Painel LED P2.6 outdoor</strong><div class="text-sm text-mut">Backdrop palco · 6×3m</div></td><td>18 mod.</td><td class="mono">R$ 1.200</td><td class="mono text-accent">R$ 43.200</td></tr>
+                <tr><td><strong>Sistema PA · L'Acoustics</strong><div class="text-sm text-mut">Cobertura 1.200 pax</div></td><td>1 sis.</td><td class="mono">R$ 18.500</td><td class="mono text-accent">R$ 37.000</td></tr>
+                <tr><td><strong>Iluminação · Moving Beam 230</strong></td><td>24 un.</td><td class="mono">R$ 280</td><td class="mono text-accent">R$ 13.440</td></tr>
+                <tr><td><strong>Mobiliário Lounge VIP</strong><div class="text-sm text-mut">12 sofás + 8 mesas</div></td><td>1 pct</td><td class="mono">R$ 8.500</td><td class="mono text-accent">R$ 17.000</td></tr>
+                <tr><td><strong>Totem LED carregador</strong></td><td>6 un.</td><td class="mono">R$ 450</td><td class="mono text-accent">R$ 5.400</td></tr>
+                <tr><td><strong>Equipe técnica · 2 dias</strong><div class="text-sm text-mut">8 técnicos + 1 coord.</div></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 38.400</td></tr>
+                <tr><td><strong>Logística · 3 caminhões</strong></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 12.500</td></tr>
+              </tbody>
+            </table>
+          </div>
           <div style="display:flex;justify-content:flex-end;padding:14px 14px 0;border-top:1px solid var(--line);margin-top:6px">
             <div style="text-align:right">
               <div class="text-sm text-mut">Subtotal custos · R$ 166.940</div>
@@ -799,16 +946,18 @@
           <div class="card-sub">Eventos ordenados por margem decrescente</div>
         </div>
       </div>
-      <table class="table">
-        <thead><tr><th>Evento</th><th>Cliente</th><th>Receita</th><th>Custo</th><th>Margem</th><th>%</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Lançamento ESG</strong></td><td>Petrobras</td><td class="mono">R$ 287.000</td><td class="mono">R$ 142.000</td><td class="mono text-accent">R$ 145.000</td><td class="mono" style="color:var(--green);font-weight:600">50,5%</td><td><span class="pill green">Entregue</span></td></tr>
-          <tr><td><strong>Convenção Anual</strong></td><td>Bradesco</td><td class="mono">R$ 412.000</td><td class="mono">R$ 238.000</td><td class="mono text-accent">R$ 174.000</td><td class="mono" style="color:var(--green);font-weight:600">42,2%</td><td><span class="pill amber">Em execução</span></td></tr>
-          <tr><td><strong>Treinamento Executivo</strong></td><td>Vale</td><td class="mono">R$ 98.000</td><td class="mono">R$ 58.000</td><td class="mono text-accent">R$ 40.000</td><td class="mono" style="color:var(--accent);font-weight:600">40,8%</td><td><span class="pill blue">Confirmado</span></td></tr>
-          <tr><td><strong>Roadshow Q2</strong></td><td>Itaú BBA</td><td class="mono">R$ 156.000</td><td class="mono">R$ 102.000</td><td class="mono text-accent">R$ 54.000</td><td class="mono" style="color:var(--orange);font-weight:600">34,6%</td><td><span class="pill purple">Planejamento</span></td></tr>
-          <tr><td><strong>Lançamento Produto</strong></td><td>Ambev</td><td class="mono">R$ 178.000</td><td class="mono">R$ 132.000</td><td class="mono" style="color:var(--red)">R$ 46.000</td><td class="mono" style="color:var(--red);font-weight:600">25,8%</td><td><span class="pill red">Margem baixa</span></td></tr>
-        </tbody>
-      </table>
+      <div class="table-scroll">
+        <table class="table">
+          <thead><tr><th>Evento</th><th>Cliente</th><th>Receita</th><th>Custo</th><th>Margem</th><th>%</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Lançamento ESG</strong></td><td>Petrobras</td><td class="mono">R$ 287.000</td><td class="mono">R$ 142.000</td><td class="mono text-accent">R$ 145.000</td><td class="mono" style="color:var(--green);font-weight:600">50,5%</td><td><span class="pill green">Entregue</span></td></tr>
+            <tr><td><strong>Convenção Anual</strong></td><td>Bradesco</td><td class="mono">R$ 412.000</td><td class="mono">R$ 238.000</td><td class="mono text-accent">R$ 174.000</td><td class="mono" style="color:var(--green);font-weight:600">42,2%</td><td><span class="pill amber">Em execução</span></td></tr>
+            <tr><td><strong>Treinamento Executivo</strong></td><td>Vale</td><td class="mono">R$ 98.000</td><td class="mono">R$ 58.000</td><td class="mono text-accent">R$ 40.000</td><td class="mono" style="color:var(--accent);font-weight:600">40,8%</td><td><span class="pill blue">Confirmado</span></td></tr>
+            <tr><td><strong>Roadshow Q2</strong></td><td>Itaú BBA</td><td class="mono">R$ 156.000</td><td class="mono">R$ 102.000</td><td class="mono text-accent">R$ 54.000</td><td class="mono" style="color:var(--orange);font-weight:600">34,6%</td><td><span class="pill purple">Planejamento</span></td></tr>
+            <tr><td><strong>Lançamento Produto</strong></td><td>Ambev</td><td class="mono">R$ 178.000</td><td class="mono">R$ 132.000</td><td class="mono" style="color:var(--red)">R$ 46.000</td><td class="mono" style="color:var(--red);font-weight:600">25,8%</td><td><span class="pill red">Margem baixa</span></td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -1167,6 +1316,23 @@ document.querySelectorAll('.tab').forEach(t => {
     t.classList.add('active');
   });
 });
+
+// =================== MOBILE NAV ===================
+const sidebar = document.getElementById('sidebar');
+const backdrop = document.getElementById('sidebarBackdrop');
+const navToggle = document.getElementById('navToggle');
+
+function openNav(){ sidebar.classList.add('open'); backdrop.classList.add('open'); document.body.classList.add('nav-locked'); }
+function closeNav(){ sidebar.classList.remove('open'); backdrop.classList.remove('open'); document.body.classList.remove('nav-locked'); }
+
+navToggle?.addEventListener('click', () => {
+  sidebar.classList.contains('open') ? closeNav() : openNav();
+});
+backdrop?.addEventListener('click', closeNav);
+sidebar?.querySelectorAll('.nav-item').forEach(n => {
+  n.addEventListener('click', () => { if(window.innerWidth <= 820) closeNav(); });
+});
+window.addEventListener('resize', () => { if(window.innerWidth > 820) closeNav(); });
 
 renderKanban();
 renderEquip();
