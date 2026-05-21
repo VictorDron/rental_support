@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Rental · OS Operacional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0a0a0b; --bg-2:#111114; --bg-3:#16161a; --bg-4:#1d1d23;
+    --line:#24242b; --line-2:#2e2e36;
+    --text:#f5f5f7; --text-2:#a8a8b3; --text-3:#6b6b76;
+    --accent:#d4a857; --accent-2:#e8c179; --accent-soft:rgba(212,168,87,.12);
+    --green:#3ecf8e; --green-soft:rgba(62,207,142,.12);
+    --red:#ef4d5b; --red-soft:rgba(239,77,91,.12);
+    --blue:#5e9eff; --blue-soft:rgba(94,158,255,.12);
+    --purple:#a78bfa; --purple-soft:rgba(167,139,250,.12);
+    --orange:#f59e3a; --orange-soft:rgba(245,158,58,.12);
+    --r-sm:6px; --r-md:10px; --r-lg:14px;
+    --font-display:'Bricolage Grotesque',sans-serif;
+    --font-body:'Inter Tight',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{display:flex;min-height:100vh}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input,select,textarea{font-family:inherit}
+  a{color:inherit;text-decoration:none}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:#3a3a45}
+
+  /* SIDEBAR */
+  .sidebar{width:248px;background:var(--bg-2);border-right:1px solid var(--line);padding:22px 14px;position:fixed;height:100vh;overflow-y:auto;z-index:50;display:flex;flex-direction:column}
+  .brand{display:flex;align-items:center;gap:10px;padding:6px 8px 22px;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .brand-mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--accent) 0%,#b8893f 100%);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;color:#1a0f00;font-size:18px;box-shadow:0 6px 16px -6px rgba(212,168,87,.6)}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1}
+  .brand-text strong{font-family:var(--font-display);font-weight:700;font-size:14px}
+  .brand-text span{font-size:10px;color:var(--text-3);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+  .nav-group{margin-bottom:18px}
+  .nav-group-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-3);padding:0 10px;margin-bottom:6px;font-weight:600}
+  .nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);color:var(--text-2);font-size:13.5px;font-weight:500;margin-bottom:2px;transition:.15s;position:relative}
+  .nav-item:hover{background:var(--bg-3);color:var(--text)}
+  .nav-item.active{background:var(--bg-4);color:var(--text)}
+  .nav-item.active::before{content:'';position:absolute;left:-14px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:0 3px 3px 0}
+  .nav-item svg{width:16px;height:16px;flex-shrink:0;opacity:.9}
+  .nav-item .badge{margin-left:auto;background:var(--accent-soft);color:var(--accent);padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600}
+  .nav-item .badge.red{background:var(--red-soft);color:var(--red)}
+  .nav-item .badge.soon{background:var(--bg-4);color:var(--text-3)}
+  .sidebar-foot{margin-top:auto;padding:14px 8px 0;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3a3a45,#22222a);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;color:var(--text)}
+  .sidebar-foot-info{display:flex;flex-direction:column;line-height:1.2;flex:1;min-width:0}
+  .sidebar-foot-info strong{font-size:13px;font-weight:600}
+  .sidebar-foot-info span{font-size:11px;color:var(--text-3)}
+
+  /* MAIN */
+  .main{margin-left:248px;flex:1;min-width:0}
+  .topbar{height:60px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:var(--bg);position:sticky;top:0;z-index:40;backdrop-filter:blur(8px)}
+  .breadcrumb{display:flex;align-items:center;gap:8px;color:var(--text-3);font-size:13px}
+  .breadcrumb strong{color:var(--text);font-weight:500}
+  .breadcrumb .sep{color:var(--line-2)}
+  .topbar-actions{display:flex;align-items:center;gap:12px}
+  .icon-btn{width:34px;height:34px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text-2);transition:.15s;position:relative}
+  .icon-btn:hover{background:var(--bg-3);color:var(--text)}
+  .icon-btn .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--bg)}
+  .page{padding:28px 32px;min-height:calc(100vh - 60px);display:none}
+  .page.active{display:block;animation:fadeIn .3s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+  .page-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;gap:24px;flex-wrap:wrap}
+  .page-title{font-family:var(--font-display);font-weight:700;font-size:28px;letter-spacing:-.5px;line-height:1.1}
+  .page-sub{color:var(--text-3);font-size:13.5px;margin-top:6px}
+  .page-actions{display:flex;gap:8px;align-items:center}
+
+  /* BTNS */
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--r-sm);font-size:13px;font-weight:500;transition:.15s;border:1px solid transparent}
+  .btn-primary{background:var(--accent);color:#1a0f00;font-weight:600}
+  .btn-primary:hover{background:var(--accent-2)}
+  .btn-secondary{background:var(--bg-3);color:var(--text);border-color:var(--line)}
+  .btn-secondary:hover{background:var(--bg-4);border-color:var(--line-2)}
+  .btn-ghost{color:var(--text-2)}
+  .btn-ghost:hover{background:var(--bg-3);color:var(--text)}
+  .btn svg{width:14px;height:14px}
+
+  /* CARDS */
+  .card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px}
+  .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .card-title{font-size:13px;font-weight:600;color:var(--text)}
+  .card-sub{font-size:11.5px;color:var(--text-3);margin-top:2px}
+  .grid{display:grid;gap:14px}
+
+  /* KPI */
+  .kpi-grid{grid-template-columns:repeat(4,1fr)}
+  .kpi{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;position:relative;overflow:hidden}
+  .kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.4}
+  .kpi-label{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-3);font-weight:600}
+  .kpi-value{font-family:var(--font-display);font-weight:700;font-size:32px;letter-spacing:-1px;margin:8px 0 2px;line-height:1}
+  .kpi-meta{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3)}
+  .kpi-delta{display:inline-flex;align-items:center;gap:2px;font-weight:600}
+  .kpi-delta.up{color:var(--green)}
+  .kpi-delta.down{color:var(--red)}
+
+  /* TABLE */
+  .table{width:100%;border-collapse:collapse;font-size:13px}
+  .table th{text-align:left;padding:10px 14px;font-weight:500;color:var(--text-3);text-transform:uppercase;font-size:10.5px;letter-spacing:1px;border-bottom:1px solid var(--line)}
+  .table td{padding:13px 14px;border-bottom:1px solid var(--line);color:var(--text)}
+  .table tbody tr{transition:.15s}
+  .table tbody tr:hover{background:var(--bg-3)}
+  .table tbody tr:last-child td{border-bottom:none}
+
+  /* PILLS */
+  .pill{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+  .pill::before{content:'';width:5px;height:5px;border-radius:50%}
+  .pill.green{background:var(--green-soft);color:var(--green)} .pill.green::before{background:var(--green)}
+  .pill.red{background:var(--red-soft);color:var(--red)} .pill.red::before{background:var(--red)}
+  .pill.blue{background:var(--blue-soft);color:var(--blue)} .pill.blue::before{background:var(--blue)}
+  .pill.amber{background:var(--accent-soft);color:var(--accent)} .pill.amber::before{background:var(--accent)}
+  .pill.purple{background:var(--purple-soft);color:var(--purple)} .pill.purple::before{background:var(--purple)}
+  .pill.orange{background:var(--orange-soft);color:var(--orange)} .pill.orange::before{background:var(--orange)}
+  .pill.neutral{background:var(--bg-4);color:var(--text-2)} .pill.neutral::before{background:var(--text-3)}
+
+  /* KANBAN */
+  .kanban{display:grid;grid-template-columns:repeat(6,minmax(260px,1fr));gap:14px;overflow-x:auto;padding-bottom:8px}
+  .kb-col{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;min-height:600px}
+  .kb-col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+  .kb-col-title{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .kb-col-title .stage-dot{width:8px;height:8px;border-radius:50%}
+  .kb-col-count{background:var(--bg-4);color:var(--text-2);padding:1px 8px;border-radius:12px;font-size:11px;font-weight:600}
+  .kb-col-total{font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-mono)}
+  .deal-card{background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-md);padding:12px;margin-bottom:8px;cursor:pointer;transition:.15s;position:relative}
+  .deal-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 6px 20px -8px rgba(0,0,0,.5)}
+  .deal-card.hot::after{content:'🔥';position:absolute;top:8px;right:8px;font-size:13px}
+  .deal-client{font-weight:600;font-size:13px;margin-bottom:3px;color:var(--text)}
+  .deal-event{font-size:11.5px;color:var(--text-2);margin-bottom:8px;line-height:1.4}
+  .deal-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text-3)}
+  .deal-value{font-family:var(--font-mono);color:var(--accent);font-weight:600}
+  .deal-sla{display:flex;align-items:center;gap:4px}
+  .deal-sla.ok{color:var(--green)} .deal-sla.warn{color:var(--orange)} .deal-sla.late{color:var(--red)}
+
+  /* DEAL DETAIL */
+  .deal-detail-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+  .deal-stepper{display:flex;align-items:center;gap:0;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 20px;margin-bottom:18px;overflow-x:auto}
+  .step{display:flex;align-items:center;gap:10px;flex-shrink:0;position:relative}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--bg-4);color:var(--text-3);font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--line)}
+  .step.done .step-num{background:var(--green);color:#0a2818;border-color:var(--green)}
+  .step.current .step-num{background:var(--accent);color:#1a0f00;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  .step-info{display:flex;flex-direction:column;line-height:1.2}
+  .step-info span{font-size:10.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.6px}
+  .step-info strong{font-size:13px;font-weight:600;margin-top:2px}
+  .step-line{flex:1;height:1px;background:var(--line);margin:0 14px;min-width:24px}
+  .step.done ~ .step-line{background:var(--green)}
+  .tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:18px;overflow-x:auto}
+  .tab{padding:10px 16px;color:var(--text-3);font-size:13px;font-weight:500;border-bottom:2px solid transparent;transition:.15s;cursor:pointer;white-space:nowrap}
+  .tab:hover{color:var(--text)}
+  .tab.active{color:var(--text);border-bottom-color:var(--accent)}
+
+  /* PATRIMONIO */
+  .equip-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+  .equip-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px;cursor:pointer;transition:.15s;position:relative;overflow:hidden}
+  .equip-card:hover{border-color:var(--line-2);transform:translateY(-1px)}
+  .equip-card.conflict{border-color:var(--red);box-shadow:0 0 0 1px var(--red),0 0 24px -8px var(--red);animation:pulse 2s ease infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 1px var(--red),0 0 24px -8px var(--red)}50%{box-shadow:0 0 0 1px var(--red),0 0 36px -4px var(--red)}}
+  .equip-img{height:110px;background:linear-gradient(135deg,#1a1a20,#0e0e12);border-radius:var(--r-sm);margin-bottom:10px;display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:32px;border:1px solid var(--line)}
+  .equip-name{font-weight:600;font-size:13px;margin-bottom:2px}
+  .equip-sku{font-family:var(--font-mono);font-size:10.5px;color:var(--text-3);margin-bottom:8px}
+  .equip-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text-2)}
+
+  /* ALERT */
+  .alert{background:var(--red-soft);border:1px solid var(--red);border-radius:var(--r-lg);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+  .alert-icon{width:32px;height:32px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700}
+  .alert-content{flex:1}
+  .alert-title{font-weight:600;color:var(--red);font-size:13.5px;margin-bottom:2px}
+  .alert-body{font-size:12.5px;color:var(--text-2);line-height:1.5}
+  .alert-actions{display:flex;gap:8px;margin-top:10px}
+
+  /* GANTT */
+  .gantt{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;overflow-x:auto}
+  .gantt-wrap{min-width:760px}
+  .gantt-row{display:flex;align-items:center;height:38px;border-bottom:1px solid var(--line)}
+  .gantt-row:last-child{border-bottom:none}
+  .gantt-label{width:200px;font-size:12.5px;color:var(--text-2);font-weight:500;flex-shrink:0;padding-right:12px}
+  .gantt-track{flex:1;height:100%;position:relative;display:flex;align-items:center;background:repeating-linear-gradient(to right,transparent 0 calc(100%/7 - 1px),var(--line) calc(100%/7 - 1px) calc(100%/7))}
+  .gantt-bar{height:22px;border-radius:6px;font-size:11px;font-weight:600;display:flex;align-items:center;padding:0 10px;color:#1a0f00;position:absolute;cursor:pointer;transition:.15s;white-space:nowrap;overflow:hidden}
+  .gantt-bar:hover{filter:brightness(1.15);z-index:2}
+  .gantt-bar.amber{background:var(--accent)}
+  .gantt-bar.blue{background:var(--blue);color:#fff}
+  .gantt-bar.green{background:var(--green);color:#0a2818}
+  .gantt-bar.purple{background:var(--purple);color:#fff}
+  .gantt-bar.orange{background:var(--orange);color:#1a0f00}
+  .gantt-header{display:flex;align-items:center;height:32px;border-bottom:1px solid var(--line);margin-bottom:6px}
+  .gantt-header-label{width:200px;flex-shrink:0}
+  .gantt-header-days{flex:1;display:flex}
+  .gantt-day{flex:1;text-align:center;font-size:10.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+  .gantt-day.weekend{color:var(--accent)}
+
+  /* FINANCEIRO */
+  .margin-card{background:linear-gradient(135deg,var(--bg-2) 0%,var(--bg-3) 100%);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;position:relative;overflow:hidden}
+  .margin-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--accent))}
+  .margin-progress{height:8px;background:var(--bg-4);border-radius:4px;overflow:hidden;margin-top:12px}
+  .margin-progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--green),var(--accent));transition:width .6s ease}
+  .cost-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .cost-row:last-child{border-bottom:none}
+  .cost-row strong{font-family:var(--font-mono);font-weight:600}
+
+  /* NPS */
+  .nps-ring-wrap{display:flex;flex-direction:column;align-items:center;padding:20px 0}
+  .nps-ring{width:200px;height:200px;position:relative}
+  .nps-value{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .nps-num{font-family:var(--font-display);font-weight:700;font-size:54px;line-height:1}
+  .nps-label{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+  .review-card{background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-md);padding:14px;margin-bottom:10px}
+  .review-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .review-stars{color:var(--accent);font-size:14px;letter-spacing:2px}
+  .review-text{font-size:13px;color:var(--text-2);line-height:1.5;font-style:italic}
+
+  /* SOON page */
+  .soon-card{background:var(--bg-2);border:1px dashed var(--line-2);border-radius:var(--r-lg);padding:60px 40px;text-align:center}
+  .soon-icon{font-size:48px;margin-bottom:16px;opacity:.4}
+  .soon-title{font-family:var(--font-display);font-weight:700;font-size:22px;margin-bottom:8px}
+  .soon-text{color:var(--text-3);max-width:520px;margin:0 auto;font-size:13.5px;line-height:1.6}
+
+  /* misc */
+  .row{display:flex;align-items:center;gap:10px}
+  .ml-auto{margin-left:auto}
+  .text-sm{font-size:12px}
+  .text-mut{color:var(--text-3)}
+  .text-accent{color:var(--accent)}
+  .mono{font-family:var(--font-mono)}
+  .mt-12{margin-top:12px}
+  .mt-18{margin-top:18px}
+  .mb-18{margin-bottom:18px}
+
+  @media(max-width:1100px){
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+    .deal-detail-grid{grid-template-columns:1fr}
+  }
+  @media(max-width:700px){
+    .sidebar{transform:translateX(-100%);transition:.25s}
+    .sidebar.open{transform:translateX(0)}
+    .main{margin-left:0}
+    .page{padding:18px}
+  }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-mark">S</div>
+    <div class="brand-text">
+      <strong>Support Rental</strong>
+      <span>OS Operacional</span>
+    </div>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Operação</div>
+    <a href="#" class="nav-item active" data-route="dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      Dashboard
+    </a>
+    <a href="#" class="nav-item" data-route="crm">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v6H3zM3 13h12v8H3zM18 13h3v8h-3z"/></svg>
+      CRM · Pipeline
+      <span class="badge">12</span>
+    </a>
+    <a href="#" class="nav-item" data-route="deal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Deal · Bradesco
+    </a>
+    <a href="#" class="nav-item" data-route="operacional">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Operacional
+      <span class="badge red">3</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Recursos</div>
+    <a href="#" class="nav-item" data-route="patrimonio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      Patrimônio
+      <span class="badge red">!</span>
+    </a>
+    <a href="#" class="nav-item" data-route="logistica">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
+      Logística
+      <span class="badge soon">soon</span>
+    </a>
+    <a href="#" class="nav-item" data-route="pessoas">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Pessoas
+      <span class="badge soon">soon</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Financeiro & Cliente</div>
+    <a href="#" class="nav-item" data-route="financeiro">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Financeiro
+    </a>
+    <a href="#" class="nav-item" data-route="nps">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Experiência · NPS
+    </a>
+  </div>
+
+  <div class="sidebar-foot">
+    <div class="avatar">LA</div>
+    <div class="sidebar-foot-info">
+      <strong>Leonardo Arruda</strong>
+      <span>Diretor Comercial</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="breadcrumb">
+      <span>Support Rental</span>
+      <span class="sep">/</span>
+      <strong id="bcCurrent">Dashboard</strong>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" title="Buscar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn" title="Notificações">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="dot"></span>
+      </button>
+      <button class="btn btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Novo Deal
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== DASHBOARD ===== -->
+  <section class="page active" id="page-dashboard">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Bom dia, Leonardo.</h1>
+        <p class="page-sub">Quarta-feira, 21 de maio · 4 eventos em execução, 7 em montagem</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Maio 2026 ▾</button>
+        <button class="btn btn-secondary">Exportar</button>
+      </div>
+    </div>
+
+    <div class="grid kpi-grid">
+      <div class="kpi">
+        <div class="kpi-label">Receita do mês</div>
+        <div class="kpi-value">R$ 1.247K</div>
+        <div class="kpi-meta"><span class="kpi-delta up">▲ 18,2%</span> vs. abril</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Pipeline aberto</div>
+        <div class="kpi-value">R$ 3.84M</div>
+        <div class="kpi-meta"><span class="kpi-delta up">▲ 7</span> deals nas últimas 2 semanas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Margem média</div>
+        <div class="kpi-value">42,3%</div>
+        <div class="kpi-meta"><span class="kpi-delta down">▼ 2,1pp</span> vs. trimestre anterior</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">NPS pós-evento</div>
+        <div class="kpi-value">73</div>
+        <div class="kpi-meta"><span class="kpi-delta up">▲ 6</span> últimos 30 dias</div>
+      </div>
+    </div>
+
+    <div class="grid mt-18" style="grid-template-columns:2fr 1fr">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Receita realizada vs. projetada</div>
+            <div class="card-sub">Últimos 6 meses · eventos entregues + pipeline ponderado</div>
+          </div>
+          <div class="row text-sm text-mut">
+            <span class="row"><span style="width:8px;height:8px;background:var(--accent);border-radius:2px"></span> Realizada</span>
+            <span class="row"><span style="width:8px;height:8px;background:var(--blue);border-radius:2px"></span> Projetada</span>
+          </div>
+        </div>
+        <div style="height:260px"><canvas id="chartRevenue"></canvas></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Próximos eventos · 7 dias</div>
+          </div>
+          <a href="#" class="text-sm text-accent" data-route="operacional">ver todos →</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:12px;padding:10px;background:var(--bg-3);border-radius:var(--r-md);border-left:3px solid var(--accent)">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1">23<div style="font-size:10px;color:var(--text-3);font-weight:500;letter-spacing:1px">MAI</div></div>
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:13px">Bradesco · Convenção Anual</div>
+              <div class="text-sm text-mut">Riocentro · 1.200 pax · 2 dias</div>
+              <span class="pill amber mt-12">Montagem amanhã</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;padding:10px;background:var(--bg-3);border-radius:var(--r-md);border-left:3px solid var(--blue)">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1">25<div style="font-size:10px;color:var(--text-3);font-weight:500;letter-spacing:1px">MAI</div></div>
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:13px">Vale · Treinamento Executivo</div>
+              <div class="text-sm text-mut">Hotel Fasano · 80 pax</div>
+              <span class="pill blue mt-12">Planejamento OK</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;padding:10px;background:var(--bg-3);border-radius:var(--r-md);border-left:3px solid var(--green)">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1">27<div style="font-size:10px;color:var(--text-3);font-weight:500;letter-spacing:1px">MAI</div></div>
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:13px">Petrobras · Lançamento ESG</div>
+              <div class="text-sm text-mut">CCBB · 400 pax</div>
+              <span class="pill green mt-12">Confirmado</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;padding:10px;background:var(--bg-3);border-radius:var(--r-md);border-left:3px solid var(--purple)">
+            <div style="font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1">28<div style="font-size:10px;color:var(--text-3);font-weight:500;letter-spacing:1px">MAI</div></div>
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:13px">Itaú BBA · Roadshow</div>
+              <div class="text-sm text-mut">Copacabana Palace · 200 pax</div>
+              <span class="pill purple mt-12">Equipe a definir</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid mt-18" style="grid-template-columns:1fr 1fr 1fr">
+      <div class="card">
+        <div class="card-head"><div class="card-title">Funil de conversão</div></div>
+        <div style="height:200px"><canvas id="chartFunnel"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Top vendedores · mês</div></div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="row"><div class="avatar" style="background:linear-gradient(135deg,var(--accent),#b8893f);color:#1a0f00">CM</div><div style="flex:1"><div style="font-weight:600;font-size:13px">Camila Moura</div><div class="text-sm text-mut">8 deals · R$ 487K</div></div><strong class="mono text-accent">112%</strong></div>
+          <div class="row"><div class="avatar">RP</div><div style="flex:1"><div style="font-weight:600;font-size:13px">Rafael Pinheiro</div><div class="text-sm text-mut">6 deals · R$ 342K</div></div><strong class="mono">94%</strong></div>
+          <div class="row"><div class="avatar">JS</div><div style="flex:1"><div style="font-weight:600;font-size:13px">Juliana Sales</div><div class="text-sm text-mut">5 deals · R$ 268K</div></div><strong class="mono">78%</strong></div>
+          <div class="row"><div class="avatar">MV</div><div style="flex:1"><div style="font-weight:600;font-size:13px">Marcos Vinicius</div><div class="text-sm text-mut">3 deals · R$ 150K</div></div><strong class="mono text-mut">52%</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Alertas inteligentes</div><span class="pill red">3 ativos</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="padding:10px;background:var(--red-soft);border-radius:var(--r-sm);border-left:3px solid var(--red);cursor:pointer" data-route="patrimonio">
+            <div style="font-weight:600;font-size:12.5px;color:var(--red)">Conflito de patrimônio</div>
+            <div class="text-sm text-mut" style="margin-top:3px">Painel LED P2.6 alocado em 2 deals para 25/05</div>
+          </div>
+          <div style="padding:10px;background:var(--orange-soft);border-radius:var(--r-sm);border-left:3px solid var(--orange)">
+            <div style="font-weight:600;font-size:12.5px;color:var(--orange)">SLA estourado</div>
+            <div class="text-sm text-mut" style="margin-top:3px">Lead "Ambev" sem resposta há 27h (SLA 24h)</div>
+          </div>
+          <div style="padding:10px;background:var(--accent-soft);border-radius:var(--r-sm);border-left:3px solid var(--accent)">
+            <div style="font-weight:600;font-size:12.5px;color:var(--accent)">Recompra antecipada</div>
+            <div class="text-sm text-mut" style="margin-top:3px">Embraer realiza convenção em ~60 dias · histórico forte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CRM PIPELINE ===== -->
+  <section class="page" id="page-crm">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Pipeline Comercial</h1>
+        <p class="page-sub">12 deals em jogo · R$ 3.840.000 em pipeline ponderado</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Todos os vendedores ▾</button>
+        <button class="btn btn-secondary">Filtros</button>
+        <button class="btn btn-primary">+ Novo deal</button>
+      </div>
+    </div>
+    <div class="kanban" id="kanban"></div>
+  </section>
+
+  <!-- ===== DEAL DETAIL ===== -->
+  <section class="page" id="page-deal">
+    <div class="page-head">
+      <div>
+        <div class="row" style="margin-bottom:6px">
+          <span class="pill amber">Em Proposta</span>
+          <span class="text-sm text-mut">criado em 12/05 · Camila Moura</span>
+        </div>
+        <h1 class="page-title">Bradesco · Convenção Anual 2026</h1>
+        <p class="page-sub">Riocentro · 23–24 maio · 1.200 pax · valor estimado <strong class="text-accent">R$ 412.000</strong></p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Histórico</button>
+        <button class="btn btn-secondary">Compartilhar</button>
+        <button class="btn btn-primary">Avançar etapa →</button>
+      </div>
+    </div>
+
+    <div class="deal-stepper">
+      <div class="step done"><div class="step-num">✓</div><div class="step-info"><span>Etapa 1</span><strong>Lead</strong></div></div>
+      <div class="step-line"></div>
+      <div class="step done"><div class="step-num">✓</div><div class="step-info"><span>Etapa 2</span><strong>Briefing</strong></div></div>
+      <div class="step-line"></div>
+      <div class="step current"><div class="step-num">3</div><div class="step-info"><span>Etapa 3</span><strong>Proposta</strong></div></div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">4</div><div class="step-info"><span>Etapa 4</span><strong>Contrato</strong></div></div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">5</div><div class="step-info"><span>Etapa 5</span><strong>OS</strong></div></div>
+      <div class="step-line"></div>
+      <div class="step"><div class="step-num">6</div><div class="step-info"><span>Etapa 6</span><strong>Execução</strong></div></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">Resumo</div>
+      <div class="tab">Proposta</div>
+      <div class="tab">Patrimônio</div>
+      <div class="tab">Equipe</div>
+      <div class="tab">Cronograma</div>
+      <div class="tab">Financeiro</div>
+      <div class="tab">Atividade</div>
+    </div>
+
+    <div class="deal-detail-grid">
+      <div>
+        <div class="card mb-18">
+          <div class="card-head">
+            <div class="card-title">Configurador de proposta · gerado por IA</div>
+            <span class="pill green">Atualizada há 2h</span>
+          </div>
+          <table class="table">
+            <thead><tr><th>Item</th><th>Qtd</th><th>Diária</th><th>Subtotal</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Painel LED P2.6 outdoor</strong><div class="text-sm text-mut">Backdrop palco · 6×3m</div></td><td>18 mod.</td><td class="mono">R$ 1.200</td><td class="mono text-accent">R$ 43.200</td></tr>
+              <tr><td><strong>Sistema PA · L'Acoustics</strong><div class="text-sm text-mut">Cobertura 1.200 pax</div></td><td>1 sis.</td><td class="mono">R$ 18.500</td><td class="mono text-accent">R$ 37.000</td></tr>
+              <tr><td><strong>Iluminação · Moving Beam 230</strong></td><td>24 un.</td><td class="mono">R$ 280</td><td class="mono text-accent">R$ 13.440</td></tr>
+              <tr><td><strong>Mobiliário Lounge VIP</strong><div class="text-sm text-mut">12 sofás + 8 mesas</div></td><td>1 pct</td><td class="mono">R$ 8.500</td><td class="mono text-accent">R$ 17.000</td></tr>
+              <tr><td><strong>Totem LED carregador</strong></td><td>6 un.</td><td class="mono">R$ 450</td><td class="mono text-accent">R$ 5.400</td></tr>
+              <tr><td><strong>Equipe técnica · 2 dias</strong><div class="text-sm text-mut">8 técnicos + 1 coord.</div></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 38.400</td></tr>
+              <tr><td><strong>Logística · 3 caminhões</strong></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 12.500</td></tr>
+            </tbody>
+          </table>
+          <div style="display:flex;justify-content:flex-end;padding:14px 14px 0;border-top:1px solid var(--line);margin-top:6px">
+            <div style="text-align:right">
+              <div class="text-sm text-mut">Subtotal custos · R$ 166.940</div>
+              <div class="text-sm text-mut">Markup aplicado 60% · R$ 245.060</div>
+              <div style="font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--accent);margin-top:4px">Total: R$ 412.000</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Atividade recente</div></div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:var(--green);color:#0a2818">✓</div><div><div style="font-size:13px"><strong>Proposta enviada</strong> via e-mail para Rodrigo Tavares (Bradesco)</div><div class="text-sm text-mut">há 2h · por Camila Moura</div></div></div>
+            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px">CM</div><div><div style="font-size:13px"><strong>Briefing técnico</strong> aprovado pelo coord. operacional</div><div class="text-sm text-mut">ontem 18:42 · por Camila Moura</div></div></div>
+            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:var(--accent);color:#1a0f00">IA</div><div><div style="font-size:13px"><strong>Configuração sugerida</strong>: pacote replicado de convenção Bradesco 2024 com ajuste +12% pax</div><div class="text-sm text-mut">ontem 16:20 · automação</div></div></div>
+            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px">RT</div><div><div style="font-size:13px">Reunião de briefing com cliente · <strong>1h12m</strong></div><div class="text-sm text-mut">15/05 14:00 · transcrita</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card mb-18">
+          <div class="card-title" style="margin-bottom:14px">Cliente</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="avatar" style="width:48px;height:48px;font-size:16px;background:#cc092f;color:#fff">B</div>
+            <div>
+              <div style="font-weight:600">Bradesco S.A.</div>
+              <div class="text-sm text-mut">Carteira · 8 eventos · LTV R$ 2,4M</div>
+            </div>
+          </div>
+          <div style="font-size:12.5px;line-height:1.7">
+            <div><strong>Contato:</strong> Rodrigo Tavares</div>
+            <div><strong>Cargo:</strong> Head de Eventos Corp.</div>
+            <div><strong>E-mail:</strong> r.tavares@bradesco.com.br</div>
+            <div><strong>WhatsApp:</strong> (11) 9 8732-4421</div>
+          </div>
+        </div>
+
+        <div class="card mb-18">
+          <div class="card-title" style="margin-bottom:14px">Probabilidade de fechamento</div>
+          <div style="font-family:var(--font-display);font-weight:700;font-size:36px;color:var(--green);line-height:1">82%</div>
+          <div class="text-sm text-mut mt-12">Modelo preditivo baseado em: histórico cliente (alto), engajamento na proposta (alto), tempo de ciclo (médio)</div>
+          <div class="margin-progress"><div class="margin-progress-fill" style="width:82%"></div></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom:10px">Próxima ação sugerida</div>
+          <div style="background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px;border-radius:6px;font-size:13px;line-height:1.5">
+            Follow-up via WhatsApp em <strong>48h</strong> se não houver resposta. Cliente Bradesco respondeu em média em 3,2 dias nos últimos 5 deals.
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px">Agendar follow-up</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PATRIMONIO ===== -->
+  <section class="page" id="page-patrimonio">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Patrimônio</h1>
+        <p class="page-sub">2.847 itens · 2 galpões · 14 hotéis com pré-posicionamento</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Galpão Cidade Nova ▾</button>
+        <button class="btn btn-secondary">Filtros</button>
+        <button class="btn btn-primary">+ Cadastrar item</button>
+      </div>
+    </div>
+
+    <div class="alert">
+      <div class="alert-icon">!</div>
+      <div class="alert-content">
+        <div class="alert-title">Conflito de alocação detectado · ação necessária</div>
+        <div class="alert-body">
+          O <strong>Painel LED P2.6 outdoor (SKU LED-P26-018)</strong> foi reservado em dois deals para o mesmo período (25/05 - 26/05):<br>
+          → <strong>Deal #2104</strong> · Vale Treinamento Executivo · Camila Moura<br>
+          → <strong>Deal #2118</strong> · Itaú BBA Roadshow · Rafael Pinheiro<br>
+          Sistema sugere: alocar SKU LED-P26-019 (disponível e equivalente) para o Deal #2118.
+        </div>
+        <div class="alert-actions">
+          <button class="btn btn-primary" style="background:var(--red);color:#fff">Resolver conflito</button>
+          <button class="btn btn-secondary">Ver ambos deals</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid kpi-grid mb-18">
+      <div class="kpi"><div class="kpi-label">Disponível</div><div class="kpi-value" style="color:var(--green)">2.134</div><div class="kpi-meta">75% do parque</div></div>
+      <div class="kpi"><div class="kpi-label">Alocado</div><div class="kpi-value" style="color:var(--accent)">587</div><div class="kpi-meta">21% · 23 deals ativos</div></div>
+      <div class="kpi"><div class="kpi-label">Em manutenção</div><div class="kpi-value" style="color:var(--orange)">98</div><div class="kpi-meta">3,4% · 12 preventivas</div></div>
+      <div class="kpi"><div class="kpi-label">Conflitos</div><div class="kpi-value" style="color:var(--red)">3</div><div class="kpi-meta">requer atenção</div></div>
+    </div>
+
+    <div class="grid equip-grid" id="equipGrid"></div>
+  </section>
+
+  <!-- ===== OPERACIONAL ===== -->
+  <section class="page" id="page-operacional">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Operacional</h1>
+        <p class="page-sub">Cronograma integrado · montagem, execução e desmontagem dos próximos 7 dias</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Semana 21-27 mai ▾</button>
+        <button class="btn btn-primary">Nova OS</button>
+      </div>
+    </div>
+
+    <div class="alert" style="background:var(--orange-soft);border-color:var(--orange)">
+      <div class="alert-icon" style="background:var(--orange)">!</div>
+      <div class="alert-content">
+        <div class="alert-title" style="color:var(--orange)">3 OS exigem ação</div>
+        <div class="alert-body">
+          Petrobras · ESG (27/05) sem coordenador atribuído · Vale · Treinamento (25/05) com pendência logística · Itaú · Roadshow (28/05) aguardando lista de equipe.
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-18">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Cronograma da semana</div>
+          <div class="card-sub">Cada barra representa uma OS · clique para abrir</div>
+        </div>
+        <div class="row text-sm text-mut">
+          <span class="row"><span style="width:10px;height:10px;background:var(--accent);border-radius:2px"></span> Montagem</span>
+          <span class="row"><span style="width:10px;height:10px;background:var(--green);border-radius:2px"></span> Execução</span>
+          <span class="row"><span style="width:10px;height:10px;background:var(--blue);border-radius:2px"></span> Desmontagem</span>
+        </div>
+      </div>
+      <div class="gantt">
+        <div class="gantt-wrap">
+          <div class="gantt-header">
+            <div class="gantt-header-label"></div>
+            <div class="gantt-header-days">
+              <div class="gantt-day">Qua 21</div>
+              <div class="gantt-day">Qui 22</div>
+              <div class="gantt-day">Sex 23</div>
+              <div class="gantt-day weekend">Sáb 24</div>
+              <div class="gantt-day weekend">Dom 25</div>
+              <div class="gantt-day">Seg 26</div>
+              <div class="gantt-day">Ter 27</div>
+            </div>
+          </div>
+          <div class="gantt-row"><div class="gantt-label">Bradesco · Convenção</div><div class="gantt-track"><div class="gantt-bar amber" style="left:14.28%;width:14.28%">Montagem</div><div class="gantt-bar green" style="left:28.56%;width:28.56%">Execução</div><div class="gantt-bar blue" style="left:57.12%;width:7.14%">Desm.</div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Vale · Treinamento</div><div class="gantt-track"><div class="gantt-bar amber" style="left:42.84%;width:7.14%">Mont.</div><div class="gantt-bar green" style="left:49.98%;width:14.28%">Execução</div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Petrobras · ESG</div><div class="gantt-track"><div class="gantt-bar amber" style="left:71.4%;width:14.28%">Montagem</div><div class="gantt-bar green" style="left:85.68%;width:14.32%">Execução</div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Itaú BBA · Roadshow</div><div class="gantt-track"><div class="gantt-bar orange" style="left:85.68%;width:14.32%">Mont.</div></div></div>
+          <div class="gantt-row"><div class="gantt-label">Ambev · Lançamento</div><div class="gantt-track"><div class="gantt-bar purple" style="left:0;width:14.28%">Desmontagem</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card">
+        <div class="card-head"><div class="card-title">OS #2098 · Bradesco Convenção</div><span class="pill amber">Em montagem</span></div>
+        <table class="table" style="margin:-4px -14px -4px">
+          <tbody>
+            <tr><td style="color:var(--text-3)">Coordenador</td><td><strong>Bruno Cardoso</strong></td></tr>
+            <tr><td style="color:var(--text-3)">Equipe</td><td>8 técnicos + 1 coord. · <a href="#" class="text-accent text-sm">ver lista</a></td></tr>
+            <tr><td style="color:var(--text-3)">Equipamentos</td><td>47 itens · <span class="pill green">tudo conferido ✓</span></td></tr>
+            <tr><td style="color:var(--text-3)">Logística</td><td>3 caminhões · saída 22/05 06:00</td></tr>
+            <tr><td style="color:var(--text-3)">Local</td><td>Riocentro · Pavilhão 4</td></tr>
+            <tr><td style="color:var(--text-3)">Contato no local</td><td>Marcelo Souza · (21) 9 8888-4321</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">OS #2104 · Vale Treinamento</div><span class="pill orange">Pendência</span></div>
+        <table class="table" style="margin:-4px -14px -4px">
+          <tbody>
+            <tr><td style="color:var(--text-3)">Coordenador</td><td><strong>Larissa Mendes</strong></td></tr>
+            <tr><td style="color:var(--text-3)">Equipe</td><td>4 técnicos · <span class="pill orange">2 freelas a confirmar</span></td></tr>
+            <tr><td style="color:var(--text-3)">Equipamentos</td><td>18 itens · <span class="pill red">conflito LED P2.6</span></td></tr>
+            <tr><td style="color:var(--text-3)">Logística</td><td>1 caminhão · saída 24/05 14:00</td></tr>
+            <tr><td style="color:var(--text-3)">Local</td><td>Hotel Fasano · Salão Atlântico</td></tr>
+            <tr><td style="color:var(--text-3)">Contato no local</td><td>Tatiana Lima · (11) 9 7777-2233</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINANCEIRO ===== -->
+  <section class="page" id="page-financeiro">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Financeiro</h1>
+        <p class="page-sub">Margem real por evento · em tempo real conforme custos são lançados</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Maio 2026 ▾</button>
+        <button class="btn btn-secondary">Exportar DRE</button>
+      </div>
+    </div>
+
+    <div class="grid kpi-grid mb-18">
+      <div class="kpi"><div class="kpi-label">Faturamento mês</div><div class="kpi-value">R$ 1.247K</div><div class="kpi-meta"><span class="kpi-delta up">▲ 18,2%</span></div></div>
+      <div class="kpi"><div class="kpi-label">Margem bruta</div><div class="kpi-value">42,3%</div><div class="kpi-meta">R$ 527K · meta 45%</div></div>
+      <div class="kpi"><div class="kpi-label">A receber</div><div class="kpi-value">R$ 689K</div><div class="kpi-meta">7 eventos · próximos 30d</div></div>
+      <div class="kpi"><div class="kpi-label">Inadimplência</div><div class="kpi-value" style="color:var(--green)">0,8%</div><div class="kpi-meta">R$ 9,8K vencidos</div></div>
+    </div>
+
+    <div class="grid mb-18" style="grid-template-columns:1.4fr 1fr">
+      <div class="margin-card">
+        <div class="row" style="justify-content:space-between;margin-bottom:6px">
+          <div>
+            <div class="text-sm text-mut" style="text-transform:uppercase;letter-spacing:1.2px;font-weight:600">Evento em execução · margem em tempo real</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;margin-top:6px">Bradesco · Convenção Anual</div>
+          </div>
+          <span class="pill green">Saudável</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px">
+          <div>
+            <div class="text-sm text-mut">Receita contratada</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--text)">R$ 412K</div>
+          </div>
+          <div>
+            <div class="text-sm text-mut">Custos lançados</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--orange)">R$ 184K</div>
+            <div class="text-sm text-mut">de R$ 238K estimados</div>
+          </div>
+          <div>
+            <div class="text-sm text-mut">Margem projetada</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--green)">42,2%</div>
+            <div class="text-sm text-mut">R$ 174K</div>
+          </div>
+        </div>
+        <div class="margin-progress"><div class="margin-progress-fill" style="width:77%"></div></div>
+        <div class="text-sm text-mut" style="margin-top:8px">77% dos custos previstos já lançados · ainda restam logística de retorno e diárias finais</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title" style="margin-bottom:6px">Detalhamento de custos · Bradesco</div>
+        <div class="card-sub" style="margin-bottom:10px">Rastreio em tempo real conforme equipe lança</div>
+        <div class="cost-row"><span>Equipamentos (depreciação)</span><strong>R$ 38.400</strong></div>
+        <div class="cost-row"><span>Equipe técnica fixa</span><strong>R$ 28.200</strong></div>
+        <div class="cost-row"><span>Freelancers</span><strong>R$ 14.800</strong></div>
+        <div class="cost-row"><span>Logística (frete + comb.)</span><strong>R$ 18.600</strong></div>
+        <div class="cost-row"><span>Sublocação (uplighting)</span><strong>R$ 12.400</strong></div>
+        <div class="cost-row"><span>Manutenção pós-evento</span><strong>R$ 4.200</strong></div>
+        <div class="cost-row"><span>Hospedagem / diárias</span><strong>R$ 8.900</strong></div>
+        <div class="cost-row" style="font-weight:600;color:var(--accent)"><span>Custo total lançado</span><strong>R$ 125.500</strong></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <div class="card-title">Margem por evento · mês</div>
+          <div class="card-sub">Eventos ordenados por margem decrescente</div>
+        </div>
+      </div>
+      <table class="table">
+        <thead><tr><th>Evento</th><th>Cliente</th><th>Receita</th><th>Custo</th><th>Margem</th><th>%</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Lançamento ESG</strong></td><td>Petrobras</td><td class="mono">R$ 287.000</td><td class="mono">R$ 142.000</td><td class="mono text-accent">R$ 145.000</td><td class="mono" style="color:var(--green);font-weight:600">50,5%</td><td><span class="pill green">Entregue</span></td></tr>
+          <tr><td><strong>Convenção Anual</strong></td><td>Bradesco</td><td class="mono">R$ 412.000</td><td class="mono">R$ 238.000</td><td class="mono text-accent">R$ 174.000</td><td class="mono" style="color:var(--green);font-weight:600">42,2%</td><td><span class="pill amber">Em execução</span></td></tr>
+          <tr><td><strong>Treinamento Executivo</strong></td><td>Vale</td><td class="mono">R$ 98.000</td><td class="mono">R$ 58.000</td><td class="mono text-accent">R$ 40.000</td><td class="mono" style="color:var(--accent);font-weight:600">40,8%</td><td><span class="pill blue">Confirmado</span></td></tr>
+          <tr><td><strong>Roadshow Q2</strong></td><td>Itaú BBA</td><td class="mono">R$ 156.000</td><td class="mono">R$ 102.000</td><td class="mono text-accent">R$ 54.000</td><td class="mono" style="color:var(--orange);font-weight:600">34,6%</td><td><span class="pill purple">Planejamento</span></td></tr>
+          <tr><td><strong>Lançamento Produto</strong></td><td>Ambev</td><td class="mono">R$ 178.000</td><td class="mono">R$ 132.000</td><td class="mono" style="color:var(--red)">R$ 46.000</td><td class="mono" style="color:var(--red);font-weight:600">25,8%</td><td><span class="pill red">Margem baixa</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== NPS ===== -->
+  <section class="page" id="page-nps">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Experiência do Cliente</h1>
+        <p class="page-sub">NPS automático 24h após cada evento · base últimos 90 dias</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Últimos 90 dias ▾</button>
+        <button class="btn btn-secondary">Exportar</button>
+      </div>
+    </div>
+
+    <div class="grid mb-18" style="grid-template-columns:1fr 2fr">
+      <div class="card">
+        <div class="card-title" style="margin-bottom:10px;text-align:center">NPS geral</div>
+        <div class="nps-ring-wrap">
+          <div class="nps-ring">
+            <svg width="200" height="200" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="84" fill="none" stroke="var(--bg-4)" stroke-width="14"/>
+              <circle cx="100" cy="100" r="84" fill="none" stroke="var(--green)" stroke-width="14" stroke-dasharray="528" stroke-dashoffset="142" transform="rotate(-90 100 100)" stroke-linecap="round"/>
+            </svg>
+            <div class="nps-value">
+              <div class="nps-num" style="color:var(--green)">73</div>
+              <div class="nps-label">Excelente</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-around;margin-top:14px;font-size:12px">
+          <div style="text-align:center"><div style="color:var(--green);font-weight:700;font-size:18px;font-family:var(--font-display)">81%</div><div class="text-mut">Promotores</div></div>
+          <div style="text-align:center"><div style="color:var(--orange);font-weight:700;font-size:18px;font-family:var(--font-display)">11%</div><div class="text-mut">Neutros</div></div>
+          <div style="text-align:center"><div style="color:var(--red);font-weight:700;font-size:18px;font-family:var(--font-display)">8%</div><div class="text-mut">Detratores</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><div class="card-title">Evolução · 12 meses</div></div>
+        <div style="height:200px"><canvas id="chartNps"></canvas></div>
+      </div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Promotores recentes</div>
+          <span class="pill green">81%</span>
+        </div>
+        <div class="review-card">
+          <div class="review-head">
+            <div><strong>Petrobras · Lançamento ESG</strong><div class="text-sm text-mut">Entregue em 14/05</div></div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <div class="review-text">"Operação impecável. Equipe técnica chegou no horário, montagem fluida, qualidade audiovisual surpreendente. Repetiremos."</div>
+          <div class="text-sm text-mut" style="margin-top:8px">— Patrícia Andrade · Diretora de Marketing</div>
+        </div>
+        <div class="review-card">
+          <div class="review-head">
+            <div><strong>Embraer · Convenção Comercial</strong><div class="text-sm text-mut">Entregue em 08/05</div></div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <div class="review-text">"Coordenador no local foi excepcional. Resolveu uma mudança de última hora de palco em 40 minutos."</div>
+          <div class="text-sm text-mut" style="margin-top:8px">— Carlos Menezes · Head de Eventos</div>
+        </div>
+        <div class="review-card">
+          <div class="review-head">
+            <div><strong>Vale · Premiação Anual</strong><div class="text-sm text-mut">Entregue em 02/05</div></div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+          <div class="review-text">"Painel de LED com qualidade de cor que valorizou a apresentação. Receberemos elogios da diretoria por meses."</div>
+          <div class="text-sm text-mut" style="margin-top:8px">— Ana Beatriz Costa · Comunicação</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">Detratores · recuperação ativada</div>
+          <span class="pill red">2 alertas</span>
+        </div>
+        <div class="review-card" style="border-color:var(--red)">
+          <div class="review-head">
+            <div><strong>Ambev · Lançamento Produto</strong><div class="text-sm text-mut">Entregue em 11/05</div></div>
+            <div class="review-stars" style="color:var(--red)">★★★☆☆ · NPS 4</div>
+          </div>
+          <div class="review-text" style="color:var(--text)">"Equipamento atrasou 1h na montagem e impactou o cronograma. Equipe foi atenciosa mas o erro inicial pesou."</div>
+          <div class="alert-actions" style="margin-top:10px">
+            <button class="btn btn-primary" style="background:var(--red);color:#fff">Acionar Leonardo</button>
+            <button class="btn btn-secondary">Agendar call</button>
+          </div>
+        </div>
+        <div class="review-card" style="border-color:var(--orange)">
+          <div class="review-head">
+            <div><strong>BTG Pactual · Reunião Investidores</strong><div class="text-sm text-mut">Entregue em 06/05</div></div>
+            <div class="review-stars" style="color:var(--orange)">★★★☆☆ · NPS 6</div>
+          </div>
+          <div class="review-text">"Som teve microfonia em momento crítico da apresentação. Foi resolvido, mas marcou a experiência."</div>
+          <div class="alert-actions" style="margin-top:10px">
+            <button class="btn btn-secondary">Em tratativa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SOON pages ===== -->
+  <section class="page" id="page-logistica">
+    <div class="page-head"><div><h1 class="page-title">Logística</h1><p class="page-sub">Gestão de frota, rotas e cronograma de deslocamentos</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">🚛</div>
+      <div class="soon-title">Módulo em construção · Fase 2</div>
+      <div class="soon-text">Cadastro de frota (próprios + terceiros), planejamento de rotas por evento, controle de combustível e custos por viagem, manutenção preventiva e cronograma integrado galpão→evento→retorno. Previsto para o segundo entregável após validação dos módulos core.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-pessoas">
+    <div class="page-head"><div><h1 class="page-title">Pessoas</h1><p class="page-sub">Equipe fixa, freelancers, disponibilidade e custos por evento</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">👥</div>
+      <div class="soon-title">Módulo em construção · Fase 2</div>
+      <div class="soon-text">Banco de equipe e freelas com foto, função, valor de diária e disponibilidade por data. Alocação automática por OS, histórico por profissional e cadastro enviado ao cliente 24h antes do evento.</div>
+    </div>
+  </section>
+</main>
+
+<script>
+// =================== DADOS MOCK ===================
+const DEALS = [
+  { stage:'lead', client:'Localiza', event:'Convenção Vendas 2026', value:'R$ 285K', date:'15 ago', owner:'CM', sla:'ok', slaTime:'em 4h' },
+  { stage:'lead', client:'Magazine Luiza', event:'Encontro de Lideranças', value:'R$ 198K', date:'22 ago', owner:'RP', sla:'warn', slaTime:'em 1h' },
+  { stage:'lead', client:'Ambev', event:'Lançamento marca', value:'R$ 412K', date:'12 set', owner:'CM', sla:'late', slaTime:'atrasou 3h', hot:true },
+
+  { stage:'qualified', client:'Natura', event:'Roadshow Multimarcas', value:'R$ 156K', date:'05 jul', owner:'JS', sla:'ok', slaTime:'2d' },
+  { stage:'qualified', client:'Lojas Renner', event:'Convenção Franquias', value:'R$ 320K', date:'18 jul', owner:'CM', sla:'ok', slaTime:'1d', hot:true },
+
+  { stage:'proposal', client:'Bradesco', event:'Convenção Anual 2026', value:'R$ 412K', date:'23 mai', owner:'CM', sla:'ok', slaTime:'aguardando', hot:true, current:true },
+  { stage:'proposal', client:'XP Inc.', event:'Expert XP 2026', value:'R$ 680K', date:'14 jun', owner:'RP', sla:'ok', slaTime:'aguardando', hot:true },
+  { stage:'proposal', client:'BTG Pactual', event:'BTG Day Investidores', value:'R$ 220K', date:'28 jun', owner:'CM', sla:'ok', slaTime:'aguardando' },
+
+  { stage:'negotiation', client:'Petrobras', event:'Lançamento ESG', value:'R$ 287K', date:'27 mai', owner:'JS', sla:'ok', slaTime:'reunião amanhã' },
+  { stage:'negotiation', client:'Vale', event:'Premiação Anual', value:'R$ 195K', date:'08 jun', owner:'RP', sla:'ok', slaTime:'aguardando' },
+
+  { stage:'won', client:'Itaú BBA', event:'Roadshow Q2', value:'R$ 156K', date:'28 mai', owner:'RP', sla:'ok' },
+
+  { stage:'lost', client:'C&A Brasil', event:'Convenção Lojas', value:'R$ 140K', date:'—', owner:'MV', sla:'ok' },
+];
+
+const STAGES = [
+  { id:'lead', title:'Lead', dot:'var(--blue)' },
+  { id:'qualified', title:'Qualificado', dot:'var(--purple)' },
+  { id:'proposal', title:'Em Proposta', dot:'var(--accent)' },
+  { id:'negotiation', title:'Negociação', dot:'var(--orange)' },
+  { id:'won', title:'Ganho', dot:'var(--green)' },
+  { id:'lost', title:'Perdido', dot:'var(--red)' },
+];
+
+const EQUIPMENT = [
+  { icon:'📺', name:'Painel LED P2.6 outdoor', sku:'LED-P26-018', status:'conflict', statusLabel:'CONFLITO', pill:'red' },
+  { icon:'📺', name:'Painel LED P2.6 outdoor', sku:'LED-P26-019', status:'available', statusLabel:'Disponível', pill:'green' },
+  { icon:'🔊', name:"PA Line Array L'Acoustics K2", sku:'PA-LAK2-003', status:'allocated', statusLabel:'Bradesco 23/05', pill:'amber' },
+  { icon:'🎤', name:'Microfone Shure SM58 (kit 8)', sku:'MIC-SM58-K01', status:'available', statusLabel:'Disponível', pill:'green' },
+  { icon:'💡', name:'Moving Beam 230 (kit 24)', sku:'MB230-K02', status:'allocated', statusLabel:'Bradesco 23/05', pill:'amber' },
+  { icon:'🎬', name:'Projetor Laser 12K Christie', sku:'PRJ-CH12K-001', status:'maintenance', statusLabel:'Manutenção', pill:'orange' },
+  { icon:'🪑', name:'Sofá Lounge Premium Couro', sku:'MOB-SLP-022', status:'available', statusLabel:'Disponível', pill:'green' },
+  { icon:'🔌', name:'Totem LED Carregador (8 portas)', sku:'TOT-LED-08', status:'allocated', statusLabel:'Vale 25/05', pill:'amber' },
+  { icon:'📡', name:'Streaming Kit 4K (transmissão)', sku:'STR-4K-002', status:'available', statusLabel:'Disponível', pill:'green' },
+  { icon:'🎛️', name:'Mesa Digital Yamaha QL5', sku:'MIX-QL5-001', status:'available', statusLabel:'Disponível', pill:'green' },
+  { icon:'💻', name:'Notebook MacBook Pro M3 (kit 10)', sku:'NB-MBP-K01', status:'available', statusLabel:'7 disp. de 10', pill:'green' },
+  { icon:'🏛️', name:'Púlpito Multimídia Premium', sku:'PUL-MM-005', status:'allocated', statusLabel:'Petrobras 27/05', pill:'amber' },
+];
+
+// =================== KANBAN ===================
+function renderKanban(){
+  const root = document.getElementById('kanban');
+  if(!root) return;
+  root.innerHTML = STAGES.map(s => {
+    const deals = DEALS.filter(d => d.stage === s.id);
+    const total = deals.reduce((acc,d) => acc + parseFloat(d.value.replace(/[^\d]/g,'')), 0);
+    const totalFmt = total > 0 ? `R$ ${(total).toLocaleString('pt-BR')}K total` : '';
+    return `
+      <div class="kb-col">
+        <div class="kb-col-head">
+          <div class="kb-col-title"><span class="stage-dot" style="background:${s.dot}"></span>${s.title}</div>
+          <span class="kb-col-count">${deals.length}</span>
+        </div>
+        <div class="kb-col-total">${totalFmt}</div>
+        ${deals.map(d => `
+          <div class="deal-card ${d.hot?'hot':''}" data-route="deal">
+            <div class="deal-client">${d.client}</div>
+            <div class="deal-event">${d.event} · ${d.date}</div>
+            <div class="deal-meta">
+              <span class="deal-value">${d.value}</span>
+              <span class="deal-sla ${d.sla}">⏱ ${d.slaTime||''}</span>
+            </div>
+            <div class="deal-meta" style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
+              <div class="avatar" style="width:22px;height:22px;font-size:10px">${d.owner}</div>
+              ${d.current?'<span class="pill amber" style="font-size:9px">você está aqui</span>':''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+
+  // bind clicks
+  root.querySelectorAll('[data-route]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      route(el.dataset.route);
+    });
+  });
+}
+
+// =================== PATRIMÔNIO ===================
+function renderEquip(){
+  const root = document.getElementById('equipGrid');
+  if(!root) return;
+  root.innerHTML = EQUIPMENT.map(e => `
+    <div class="equip-card ${e.status==='conflict'?'conflict':''}">
+      <div class="equip-img">${e.icon}</div>
+      <div class="equip-name">${e.name}</div>
+      <div class="equip-sku">${e.sku}</div>
+      <div class="equip-meta">
+        <span class="pill ${e.pill}">${e.statusLabel}</span>
+        <span class="text-mut">⋯</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// =================== CHARTS ===================
+const chartDefaults = {
+  color:'#a8a8b3',
+  borderColor:'#24242b',
+  gridColor:'#1d1d23'
+};
+
+function chartTheme(){
+  if(window.Chart){
+    Chart.defaults.color = chartDefaults.color;
+    Chart.defaults.borderColor = chartDefaults.borderColor;
+    Chart.defaults.font.family = "'Inter Tight', sans-serif";
+  }
+}
+
+let charts = {};
+function renderCharts(){
+  if(!window.Chart) return;
+  chartTheme();
+
+  // Revenue
+  const revEl = document.getElementById('chartRevenue');
+  if(revEl && !charts.rev){
+    charts.rev = new Chart(revEl, {
+      type:'bar',
+      data:{
+        labels:['Dez','Jan','Fev','Mar','Abr','Mai'],
+        datasets:[
+          {label:'Realizada', data:[820,940,1010,1180,1055,1247], backgroundColor:'#d4a857', borderRadius:6, barThickness:24},
+          {label:'Projetada', data:[null,null,null,null,null,null,1410], backgroundColor:'rgba(94,158,255,.6)', borderRadius:6, barThickness:24}
+        ]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1d1d23', borderColor:'#2e2e36', borderWidth:1, padding:10}},
+        scales:{
+          x:{grid:{display:false}, ticks:{color:'#6b6b76'}},
+          y:{grid:{color:'#1d1d23'}, ticks:{color:'#6b6b76', callback:v => 'R$ '+v+'K'}}
+        }
+      }
+    });
+  }
+
+  // Funnel
+  const funEl = document.getElementById('chartFunnel');
+  if(funEl && !charts.fun){
+    charts.fun = new Chart(funEl, {
+      type:'bar',
+      data:{
+        labels:['Lead','Qualificado','Proposta','Negociação','Ganho'],
+        datasets:[{data:[124,68,32,18,11], backgroundColor:['#5e9eff','#a78bfa','#d4a857','#f59e3a','#3ecf8e'], borderRadius:4}]
+      },
+      options:{
+        indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1d1d23'}},
+        scales:{x:{grid:{color:'#1d1d23'}, ticks:{color:'#6b6b76'}}, y:{grid:{display:false}, ticks:{color:'#a8a8b3', font:{weight:'600'}}}}
+      }
+    });
+  }
+
+  // NPS line
+  const npsEl = document.getElementById('chartNps');
+  if(npsEl && !charts.nps){
+    charts.nps = new Chart(npsEl, {
+      type:'line',
+      data:{
+        labels:['Jun','Jul','Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai'],
+        datasets:[{
+          data:[58,61,64,62,65,67,69,68,70,72,67,73],
+          borderColor:'#3ecf8e', backgroundColor:'rgba(62,207,142,.12)',
+          tension:.35, fill:true, pointRadius:3, pointBackgroundColor:'#3ecf8e', borderWidth:2.5
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1d1d23'}},
+        scales:{
+          x:{grid:{display:false}, ticks:{color:'#6b6b76'}},
+          y:{min:0, max:100, grid:{color:'#1d1d23'}, ticks:{color:'#6b6b76'}}
+        }
+      }
+    });
+  }
+}
+
+// =================== ROUTER ===================
+const PAGE_TITLES = {
+  dashboard:'Dashboard',
+  crm:'CRM · Pipeline',
+  deal:'Deal · Bradesco Convenção',
+  patrimonio:'Patrimônio',
+  operacional:'Operacional',
+  logistica:'Logística',
+  pessoas:'Pessoas',
+  financeiro:'Financeiro',
+  nps:'Experiência · NPS'
+};
+
+function route(name){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-'+name);
+  if(target) target.classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navItem = document.querySelector(`.nav-item[data-route="${name}"]`);
+  if(navItem) navItem.classList.add('active');
+
+  document.getElementById('bcCurrent').textContent = PAGE_TITLES[name] || name;
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  setTimeout(renderCharts, 50);
+}
+
+// =================== INIT ===================
+document.querySelectorAll('[data-route]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    route(el.dataset.route);
+  });
+});
+
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    t.parentElement.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
+
+renderKanban();
+renderEquip();
+renderCharts();
+</script>
+
+</body>
+</html>
