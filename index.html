@@ -205,9 +205,58 @@
   .proposal-preview .pp-block strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:6px}
   .proposal-preview .pp-block span{font-size:15px;font-weight:600;color:var(--text)}
 
+  /* === Config de Funis (T13) === */
+  .stage-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+  .stage-row{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;display:grid;grid-template-columns:32px 1fr auto auto;gap:14px;align-items:center;transition:.15s}
+  .stage-row:hover{border-color:var(--line-2)}
+  .stage-drag{color:var(--text-3);cursor:grab;font-size:18px;line-height:1;user-select:none}
+  .stage-drag:active{cursor:grabbing}
+  .stage-info{display:flex;flex-direction:column;gap:4px;min-width:0}
+  .stage-info strong{font-size:14px;font-weight:600}
+  .stage-info span{font-size:12px;color:var(--text-3)}
+  .stage-fields{font-family:var(--font-mono);font-size:11px;color:var(--text-3);background:var(--bg-3);border:1px solid var(--line);padding:3px 9px;border-radius:6px}
+  .stage-fields strong{color:var(--accent)}
+  .stage-actions{display:flex;gap:4px}
+  .stage-detail{display:none;background:var(--bg-3);border:1px solid var(--line);border-top:none;border-radius:0 0 var(--r-md) var(--r-md);margin-top:-9px;padding:14px 16px 16px}
+  .stage-row.expanded{border-radius:var(--r-md) var(--r-md) 0 0}
+  .stage-row.expanded + .stage-detail{display:block}
+  .stage-detail .field-pill{display:inline-flex;align-items:center;gap:6px;background:var(--bg-2);border:1px solid var(--line);padding:5px 10px;border-radius:14px;font-size:12px;margin:3px}
+  .stage-detail .field-pill input[type="checkbox"]{accent-color:var(--accent)}
+
+  /* === Integrações (T15) === */
+  .integ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+  .integ-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;display:flex;flex-direction:column;gap:10px;transition:.15s}
+  .integ-card:hover{border-color:var(--line-2)}
+  .integ-head{display:flex;align-items:center;gap:10px}
+  .integ-icon{width:36px;height:36px;border-radius:var(--r-sm);background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+  .integ-name{font-weight:600;font-size:14px}
+  .integ-desc{color:var(--text-3);font-size:12.5px;line-height:1.45;flex:1}
+  .integ-foot{display:flex;justify-content:space-between;align-items:center}
+  .status-dot{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .status-dot::before{content:'';width:7px;height:7px;border-radius:50%}
+  .status-dot.connected{color:var(--green)} .status-dot.connected::before{background:var(--green)}
+  .status-dot.pending{color:var(--orange)} .status-dot.pending::before{background:var(--orange)}
+  .status-dot.disabled{color:var(--text-3)} .status-dot.disabled::before{background:var(--text-3)}
+
+  /* === Relatórios (T14) === */
+  .chart-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px}
+  .chart-card .chart-host{height:240px;margin-top:10px;position:relative}
+  .reports-grid{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+  .ranking-row{display:grid;grid-template-columns:32px 1fr auto 80px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+  .ranking-row:last-child{border-bottom:none}
+  .ranking-pos{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text-3)}
+  .ranking-pos.gold{color:#f1c648}
+  .ranking-pos.silver{color:#a8a8b3}
+  .ranking-pos.bronze{color:#cd7f32}
+  .ranking-bar{height:6px;border-radius:3px;background:var(--bg-4);overflow:hidden;width:100%;max-width:160px}
+  .ranking-bar > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:3px}
+
   /* Responsivos */
   @media (max-width:980px){
     .ficha-layout{grid-template-columns:1fr}
+    .reports-grid{grid-template-columns:1fr}
+    .stage-row{grid-template-columns:24px 1fr;gap:10px}
+    .stage-fields,.stage-actions{grid-column:span 2;justify-self:start}
     .form-grid,.form-grid.cols-3{grid-template-columns:1fr}
     .prop-item{grid-template-columns:1fr;gap:6px}
     .client-header{grid-template-columns:1fr}
@@ -1712,29 +1761,180 @@
   </section>
 
   <section class="page" id="page-relatorios">
-    <div class="page-head"><div><h1 class="page-title">Relatórios</h1><p class="page-sub">Conversão por etapa, ticket médio, ranking, forecasting</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">📈</div>
-      <div class="soon-title">Em construção · Fase 3 (P3 do mockup)</div>
-      <div class="soon-text">Dashboards de conversão por etapa, ticket médio, ranking de vendedores, origem de leads, receita prevista vs realizada. Ver T14.</div>
+    <div class="page-head">
+      <div><h1 class="page-title">Relatórios</h1><p class="page-sub">As métricas que o CRM precisa mover · ver Seção 1.5 do escopo</p></div>
+      <div class="page-actions">
+        <select style="padding:8px 12px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--text);font-size:13px">
+          <option>Últimos 30 dias</option><option>Últimos 90 dias</option><option>Este ano</option><option>2025</option>
+        </select>
+        <button class="btn btn-secondary">📥 Exportar PDF</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid" style="margin-bottom:18px">
+      <div class="kpi"><div class="kpi-label">Conversão de funil</div><div class="kpi-value">38%</div><div class="kpi-meta"><span class="kpi-delta up">+6 p.p.</span> vs trim. anterior</div></div>
+      <div class="kpi"><div class="kpi-label">Ticket médio</div><div class="kpi-value">R$ 287K</div><div class="kpi-meta"><span class="kpi-delta up">+12%</span> efeito proposta personalizada</div></div>
+      <div class="kpi"><div class="kpi-label">% Handoff redondo</div><div class="kpi-value">91%</div><div class="kpi-meta"><span class="kpi-delta up">+18 p.p.</span> Pacote de Operação</div></div>
+      <div class="kpi"><div class="kpi-label">NPS médio</div><div class="kpi-value">68</div><div class="kpi-meta"><span class="kpi-delta up">+9</span> trimestre</div></div>
+    </div>
+
+    <div class="reports-grid">
+      <div class="chart-card">
+        <div class="card-head"><div><div class="card-title">Receita prevista vs realizada</div><div class="card-sub">Forecasting com base no funil atual</div></div></div>
+        <div class="chart-host"><canvas id="chartForecast"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="card-head"><div><div class="card-title">Conversão por etapa do funil</div><div class="card-sub">Lead → Fechado · onde o funil está vazando</div></div></div>
+        <div class="chart-host"><canvas id="chartFunnel"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="card-head"><div><div class="card-title">Origem dos leads</div><div class="card-sub">Distribuição do topo do funil</div></div></div>
+        <div class="chart-host"><canvas id="chartSources"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="card-head"><div><div class="card-title">Ranking de vendedores</div><div class="card-sub">Receita fechada no período</div></div></div>
+        <div style="margin-top:12px" id="vendorRanking"></div>
+      </div>
     </div>
   </section>
 
   <section class="page" id="page-config">
-    <div class="page-head"><div><h1 class="page-title">Configuração de Funis</h1><p class="page-sub">Editor visual de etapas e travas · o funil é configurável</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">🔧</div>
-      <div class="soon-title">Em construção · Fase 3 (P3 do mockup)</div>
-      <div class="soon-text">Editor visual dos dois funis (Comercial e Entrega). Adicionar, remover, renomear etapas. Definir campos obrigatórios de cada etapa (as travas). Ver T13.</div>
+    <div class="page-head">
+      <div><h1 class="page-title">Configuração de Funis</h1><p class="page-sub">Editor visual · cada etapa tem campos obrigatórios que travam o avanço (a boa prática vira o caminho de menor resistência)</p></div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">↺ Restaurar padrão agente.lab</button>
+        <button class="btn btn-primary">💾 Salvar alterações</button>
+      </div>
+    </div>
+
+    <div class="alert" style="background:var(--blue-soft);border-color:var(--blue);color:var(--text);margin-bottom:18px">
+      <div class="alert-icon" style="background:var(--blue)">i</div>
+      <div class="alert-content">
+        <div class="alert-title" style="color:var(--blue)">Princípio configurável</div>
+        <div class="alert-body">O funil não tem número fixo de etapas. As 7 etapas comerciais e as 5 de entrega são a referência da agente.lab. Você pode acrescentar, remover, renomear etapas e ajustar os campos obrigatórios de cada uma — desde que cada etapa tenha pelo menos uma trava.</div>
+      </div>
+    </div>
+
+    <div class="tabs" id="configTabs">
+      <div class="tab active" data-config-tab="commercial">Funil Comercial · 7 etapas</div>
+      <div class="tab" data-config-tab="delivery">Funil de Entrega · 5 etapas</div>
+    </div>
+
+    <div class="step-pane active" id="config-commercial">
+      <div class="stage-list" id="commercialStages"></div>
+      <button class="btn btn-secondary" style="margin-top:12px;width:100%;justify-content:center;border-style:dashed">+ Adicionar etapa ao Funil Comercial</button>
+    </div>
+
+    <div class="step-pane" id="config-delivery">
+      <div class="stage-list" id="deliveryStages"></div>
+      <button class="btn btn-secondary" style="margin-top:12px;width:100%;justify-content:center;border-style:dashed">+ Adicionar etapa ao Funil de Entrega</button>
     </div>
   </section>
 
   <section class="page" id="page-admin">
-    <div class="page-head"><div><h1 class="page-title">Administração</h1><p class="page-sub">Usuários, papéis, acessos e integrações externas</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">⚙️</div>
-      <div class="soon-title">Em construção · Fase 3 (P3 do mockup)</div>
-      <div class="soon-text">Gestão de usuários (Vendedor, Gestor, Operação, Admin) e configuração das integrações: WhatsApp, e-mail, ClickSign, EstoqueNow, ferramenta de transcrição, Agente de Prospecção. Ver T15.</div>
+    <div class="page-head">
+      <div><h1 class="page-title">Administração</h1><p class="page-sub">Usuários, papéis, acessos e integrações externas</p></div>
+    </div>
+
+    <div class="tabs" id="adminTabs">
+      <div class="tab active" data-admin-tab="users">Usuários e papéis</div>
+      <div class="tab" data-admin-tab="integrations">Integrações</div>
+      <div class="tab" data-admin-tab="privacy">LGPD e privacidade</div>
+    </div>
+
+    <!-- Usuários -->
+    <div class="step-pane active" id="admin-users">
+      <div class="card" style="padding:0">
+        <div style="padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+          <div><strong>5 usuários ativos</strong><span class="text-sm text-mut"> · 4 papéis</span></div>
+          <button class="btn btn-primary">+ Convidar usuário</button>
+        </div>
+        <div class="table-scroll">
+          <table class="table">
+            <thead><tr><th></th><th>Nome</th><th>Papel</th><th>E-mail</th><th>Último acesso</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div class="avatar">MC</div></td><td><strong>Mariana Costa</strong></td><td><span class="pill amber">Vendedora sênior</span></td><td>mariana@supportrental.com.br</td><td>há 5 min</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">RL</div></td><td><strong>Rafael Lima</strong></td><td><span class="pill amber">Vendedor pleno</span></td><td>rafael@supportrental.com.br</td><td>há 1h</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">BS</div></td><td><strong>Beatriz Souza</strong></td><td><span class="pill" style="background:var(--blue-soft);color:var(--blue)">SDR</span></td><td>beatriz@supportrental.com.br</td><td>há 12 min</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">JP</div></td><td><strong>Joana Pires</strong></td><td><span class="pill" style="background:var(--purple-soft);color:var(--purple)">Gestora comercial</span></td><td>joana@supportrental.com.br</td><td>há 2h</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">AM</div></td><td><strong>André Mendes</strong></td><td><span class="pill" style="background:var(--green-soft);color:var(--green)">Operação</span></td><td>andre@supportrental.com.br</td><td>ontem</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">LA</div></td><td><strong>Leonardo Arruda</strong></td><td><span class="pill" style="background:var(--red-soft);color:var(--red)">Admin</span></td><td>leonardo@supportrental.com.br</td><td>agora</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integrações -->
+    <div class="step-pane" id="admin-integrations">
+      <div class="integ-grid">
+        <div class="integ-card">
+          <div class="integ-head"><div class="integ-icon">💬</div><div><div class="integ-name">WhatsApp dos vendedores</div><div class="text-sm text-mut">Provedor: Meta Cloud API</div></div></div>
+          <div class="integ-desc">Conversas dentro do CRM, com histórico vinculado ao cliente. 3 números conectados.</div>
+          <div class="integ-foot"><span class="status-dot connected">Conectado</span><button class="btn btn-secondary">Configurar</button></div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-head"><div class="integ-icon">✉️</div><div><div class="integ-name">E-mail</div><div class="text-sm text-mut">Google Workspace</div></div></div>
+          <div class="integ-desc">Envio e recebimento rastreados, vinculados ao negócio. Redação assistida pela IA.</div>
+          <div class="integ-foot"><span class="status-dot connected">Conectado</span><button class="btn btn-secondary">Configurar</button></div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-head"><div class="integ-icon">✍️</div><div><div class="integ-name">ClickSign</div><div class="text-sm text-mut">Aceite digital + contrato</div></div></div>
+          <div class="integ-desc">Aceite digital e assinatura sem sair do fluxo. Fallback: aceite pelo link da proposta web.</div>
+          <div class="integ-foot"><span class="status-dot connected">Conectado</span><button class="btn btn-secondary">Configurar</button></div>
+        </div>
+        <div class="integ-card" style="border-color:var(--orange)">
+          <div class="integ-head"><div class="integ-icon">📦</div><div><div class="integ-name">EstoqueNow</div><div class="text-sm text-mut">Verificação de disponibilidade</div></div></div>
+          <div class="integ-desc">Consultar disponibilidade na etapa 3 do funil. <strong>Ponte em aberto</strong> — definir na curadoria.</div>
+          <div class="integ-foot"><span class="status-dot pending">Pendente</span><button class="btn btn-secondary">Configurar</button></div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-head"><div class="integ-icon">🎙️</div><div><div class="integ-name">Transcrição e ata</div><div class="text-sm text-mut">Provedor: a definir</div></div></div>
+          <div class="integ-desc">Gravação, transcrição automática e ata enviada ao cliente para validação. Reduz o "não foi isso que combinamos".</div>
+          <div class="integ-foot"><span class="status-dot pending">Pendente</span><button class="btn btn-secondary">Escolher provedor</button></div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-head"><div class="integ-icon">🛰️</div><div><div class="integ-name">Agente de Prospecção</div><div class="text-sm text-mut">Fontes públicas · IA</div></div></div>
+          <div class="integ-desc">12 fontes ativas · raio: SP/RJ/MG · concorrentes monitorados: 4 · auditoria mensal.</div>
+          <div class="integ-foot"><span class="status-dot connected">Conectado</span><button class="btn btn-secondary" data-route="prospeccao">Abrir</button></div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-head"><div class="integ-icon">🏢</div><div><div class="integ-name">Enriquecimento de contatos</div><div class="text-sm text-mut">Receita WS · BrasilAPI</div></div></div>
+          <div class="integ-desc">Preenche dados de empresa a partir do CNPJ. Reduz digitação manual.</div>
+          <div class="integ-foot"><span class="status-dot connected">Conectado</span><button class="btn btn-secondary">Configurar</button></div>
+        </div>
+        <div class="integ-card">
+          <div class="integ-head"><div class="integ-icon">🧾</div><div><div class="integ-name">Emissão de NF</div><div class="text-sm text-mut">Exportação fiscal</div></div></div>
+          <div class="integ-desc">Geração de NF a partir do Pacote de Operação. Fora do escopo inicial · exporta para sistema fiscal do cliente.</div>
+          <div class="integ-foot"><span class="status-dot disabled">Desativado</span><button class="btn btn-secondary">Ativar</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LGPD -->
+    <div class="step-pane" id="admin-privacy">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">LGPD · governança e auditoria</div><div class="card-sub">Aplicação dos princípios da Seção 18 do escopo</div></div></div>
+        <table class="table" style="margin-top:6px">
+          <tbody>
+            <tr><td><strong>Base legal — execução de contrato</strong></td><td>Contatos dos clientes ativos · sem ressalva</td><td><span class="pill green">OK</span></td></tr>
+            <tr><td><strong>Base legal — interesse legítimo</strong></td><td>Radar de notícias + Agente de Prospecção · teste de proporcionalidade registrado</td><td><span class="pill green">OK</span></td></tr>
+            <tr><td><strong>Aviso de privacidade público</strong></td><td>supportrental.com.br/privacidade · última atualização 12/04/2026</td><td><span class="pill green">Publicado</span></td></tr>
+            <tr><td><strong>Retenção de inativos</strong></td><td>5 anos após o último evento · anonimização automática</td><td><span class="pill green">Configurado</span></td></tr>
+            <tr><td><strong>Plano de resposta a incidentes</strong></td><td>Notificação à ANPD em até 72h quando aplicável</td><td><span class="pill amber">Em revisão</span></td></tr>
+            <tr><td><strong>Direitos do titular (LGPD Art. 18)</strong></td><td>Atendidos pela ficha do cliente (T5) · consulta, correção, exclusão</td><td><span class="pill green">Ativo</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="card-head"><div><div class="card-title">Auditoria de IA</div><div class="card-sub">Cada sugestão da IA fica registrada — quem propôs, quem decidiu, quando</div></div></div>
+        <div class="timeline" style="margin-top:8px">
+          <div class="timeline-item"><span class="timeline-date">hoje</span><div class="timeline-text"><strong>Mariana Costa</strong> aceitou 7 de 9 itens sugeridos pela IA · Convenção Servier 2026</div><span class="ai-chip sm">v3.2</span></div>
+          <div class="timeline-item"><span class="timeline-date">ontem</span><div class="timeline-text"><strong>Beatriz Souza</strong> descartou 2 leads do Agente · motivo: fora do perfil</div><span class="ai-chip sm">v3.2</span></div>
+          <div class="timeline-item"><span class="timeline-date">19/05</span><div class="timeline-text"><strong>André Mendes</strong> ajustou o cronograma de montagem em 3 etapas (LED antes de iluminação)</div><span class="ai-chip sm">v3.2</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1974,6 +2174,24 @@ const AI_SUGGESTED_ITEMS = [
   { name:'Operador AV (diária 12h)',      sku:'MO-AV-OP',     base:980,   qty:3, days:2, reason:'janela de montagem 12h + dia do evento · 3 operadores' },
 ];
 
+// ===== Etapas configuráveis (T13) =====
+const COMMERCIAL_STAGES_CFG = [
+  { name:'Lead recebido', desc:'Porta de entrada do funil · WhatsApp, indicação, site, RD, Agente IA', fields:['Canal de origem','Nome do contato','Empresa/cliente','Telefone ou e-mail','Responsável (vendedor)'] },
+  { name:'Qualificação (briefing)', desc:'Briefing estruturado do evento', fields:['Data do evento','Local e cidade','Tipo de evento','Nº de participantes','Horário do evento','Janela de montagem','Orçamento estimado'] },
+  { name:'Verificação de disponibilidade', desc:'Frota e equipe técnica para a data', fields:['Status (Disponível/Parcial/Conflito)','Itens em conflito','Disponibilidade da equipe','Observação de viabilidade'] },
+  { name:'Visita técnica', desc:'Inspeção do local · pode ser dispensada por histórico', fields:['Data da visita','Responsável','Condições do espaço','Fotos/croqui','Restrições'] },
+  { name:'Proposta enviada', desc:'Proposta personalizada (não orçamento) entregue ao cliente', fields:['Itens do pacote','Valor da proposta','Validade','Condição de pagamento','Escopo de serviço','Data de envio'] },
+  { name:'Negociação', desc:'Ajustes finais · toda exceção precisa ficar escrita', fields:['Motivo do desconto','Exceções concedidas','Data prevista de decisão','Concorrentes na disputa'] },
+  { name:'Fechado — Handoff', desc:'Trava final · só atravessa para Entrega com Pacote de Operação completo', fields:['Pacote de Operação completo','Confirmação de pagamento/sinal','Dados de faturamento (NF)'] },
+];
+const DELIVERY_STAGES_CFG = [
+  { name:'Pré-produção', desc:'Onboarding do cliente + preparação interna', fields:['Onboarding do cliente realizado','Equipe confirmada','Checklist de equipamentos','Logística de transporte','Contato do local','Cronograma de montagem validado'] },
+  { name:'Montagem', desc:'Transporte, montagem e passagem técnica', fields:['Saída do equipamento','Chegada ao local','Montagem concluída','Passagem técnica','Registro de ocorrências'] },
+  { name:'Evento em andamento', desc:'Operação durante o evento · ocorrências em tempo real', fields:['Status de operação','Registro de ocorrências','Confirmação de equipe presente'] },
+  { name:'Desmontagem e devolução', desc:'Retorno e vistoria de avarias', fields:['Confirmação de desmontagem','Devolução de itens','Vistoria de avarias','Registro de danos'] },
+  { name:'Pós-evento', desc:'Avaliação · faturamento · próximo evento previsto', fields:['Faturamento final','Avaliação do cliente','Data prevista do próximo evento','Antecedência de produção','Data calculada de recontato'] },
+];
+
 // =================== RENDERERS ===================
 function renderClientsList(filter=''){
   const tbody = document.querySelector('#clientsTable tbody');
@@ -2062,6 +2280,46 @@ function updateInboxCount(){
   const cnt = document.querySelectorAll('#inboxList .lead-card').length;
   const el = document.getElementById('inboxCount');
   if(el) el.textContent = `${cnt} lead${cnt===1?'':'s'} aguardando`;
+}
+
+function renderStageEditor(rootId, stages){
+  const root = document.getElementById(rootId);
+  if(!root) return;
+  root.innerHTML = stages.map((s,idx) => `
+    <div class="stage-row" data-stage-idx="${idx}">
+      <span class="stage-drag" title="Arrastar">⠿</span>
+      <div class="stage-info">
+        <strong>${idx+1}. ${s.name}</strong>
+        <span>${s.desc}</span>
+      </div>
+      <span class="stage-fields"><strong>${s.fields.length}</strong> campos obrigatórios</span>
+      <div class="stage-actions">
+        <button class="btn btn-ghost" data-stage-toggle="${idx}">Editar campos</button>
+        <button class="btn btn-ghost" style="color:var(--red)" data-stage-remove="${idx}">Remover</button>
+      </div>
+    </div>
+    <div class="stage-detail">
+      <div class="text-sm text-mut" style="margin-bottom:8px">Campos obrigatórios desta etapa (travas):</div>
+      <div>
+        ${s.fields.map(f => `<label class="field-pill"><input type="checkbox" checked> ${f}</label>`).join('')}
+        <label class="field-pill" style="border-style:dashed;cursor:pointer">+ Adicionar campo</label>
+      </div>
+    </div>
+  `).join('');
+  root.querySelectorAll('[data-stage-toggle]').forEach(b => b.addEventListener('click', e => {
+    const row = e.target.closest('.stage-row');
+    row.classList.toggle('expanded');
+  }));
+  root.querySelectorAll('[data-stage-remove]').forEach(b => b.addEventListener('click', e => {
+    const idx = +e.target.dataset.stageRemove;
+    if(stages.length <= 2){
+      showLockToast({title:'Não dá para remover', sub:'Cada funil precisa ter no mínimo 2 etapas.', action:'OK', kind:'info'});
+      return;
+    }
+    stages.splice(idx, 1);
+    renderStageEditor(rootId, stages);
+    showLockToast({title:'Etapa removida', sub:'Lembre-se de salvar as alterações.', action:'OK', kind:'info'});
+  }));
 }
 
 function renderPriceTable(){
@@ -2190,6 +2448,84 @@ document.addEventListener('click', e => {
   document.querySelectorAll('[id^="ficha-"]').forEach(p => p.classList.remove('active'));
   document.getElementById('ficha-' + t.dataset.tab)?.classList.add('active');
 });
+
+// Tabs do Config de Funis (T13)
+document.addEventListener('click', e => {
+  const t = e.target.closest('#configTabs .tab');
+  if(!t) return;
+  document.querySelectorAll('#configTabs .tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('#config-commercial, #config-delivery').forEach(p => p.classList.remove('active'));
+  document.getElementById('config-' + t.dataset.configTab)?.classList.add('active');
+});
+
+// Tabs da Administração (T15)
+document.addEventListener('click', e => {
+  const t = e.target.closest('#adminTabs .tab');
+  if(!t) return;
+  document.querySelectorAll('#adminTabs .tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('#admin-users, #admin-integrations, #admin-privacy').forEach(p => p.classList.remove('active'));
+  document.getElementById('admin-' + t.dataset.adminTab)?.classList.add('active');
+});
+
+// =================== RELATÓRIOS (T14) ===================
+let _reportsRendered = false;
+function renderReports(){
+  if(_reportsRendered) return;
+  if(!document.getElementById('chartForecast')) return;
+  _reportsRendered = true;
+
+  // Receita prevista vs realizada
+  new Chart(document.getElementById('chartForecast'), {
+    type:'line',
+    data:{
+      labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+      datasets:[
+        { label:'Realizada', data:[420,380,510,495,610,null,null,null,null,null,null,null], borderColor:'#3ecf8e', backgroundColor:'rgba(62,207,142,.15)', tension:.35, fill:true, pointRadius:3, borderWidth:2.5 },
+        { label:'Prevista', data:[400,400,500,500,600,640,720,680,820,920,860,940], borderColor:'#d4a857', backgroundColor:'rgba(212,168,87,.05)', tension:.35, fill:false, borderDash:[5,5], pointRadius:2, borderWidth:2 }
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#a8a8b3'}},tooltip:{backgroundColor:'#1d1d23'}},scales:{x:{grid:{display:false},ticks:{color:'#6b6b76'}},y:{grid:{color:'#1d1d23'},ticks:{color:'#6b6b76',callback:v=>'R$ '+v+'K'}}}}
+  });
+
+  // Conversão por etapa
+  new Chart(document.getElementById('chartFunnel'), {
+    type:'bar',
+    data:{
+      labels:['Lead','Qualificado','Disponibilidade','Visita técnica','Proposta','Negociação','Fechado'],
+      datasets:[{ data:[100,72,68,64,54,42,38], backgroundColor:['#5e9eff','#a78bfa','#5e9eff','#a78bfa','#d4a857','#f59e3a','#3ecf8e'], borderRadius:6 }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1d23',callbacks:{label:c=>c.parsed.x+'%'}}},scales:{x:{grid:{color:'#1d1d23'},ticks:{color:'#6b6b76',callback:v=>v+'%'},max:100},y:{grid:{display:false},ticks:{color:'#a8a8b3'}}}}
+  });
+
+  // Origem dos leads
+  new Chart(document.getElementById('chartSources'), {
+    type:'doughnut',
+    data:{
+      labels:['Agente de Prospecção (IA)','WhatsApp','Indicação','Site/formulário','RD Station','Cold call'],
+      datasets:[{ data:[38,22,18,11,7,4], backgroundColor:['#5e9eff','#3ecf8e','#d4a857','#a78bfa','#f59e3a','#6b6b76'], borderColor:'#0a0a0b', borderWidth:2 }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#a8a8b3',boxWidth:10,padding:8,font:{size:11}}},tooltip:{backgroundColor:'#1d1d23',callbacks:{label:c=>c.label+': '+c.parsed+'%'}}}}
+  });
+
+  // Ranking de vendedores
+  const ranking = [
+    { name:'Mariana Costa', amount:'R$ 1.86M', pct:100, badge:'gold' },
+    { name:'Rafael Lima',   amount:'R$ 1.21M', pct:65,  badge:'silver' },
+    { name:'Beatriz Souza', amount:'R$ 820K',  pct:44,  badge:'bronze' },
+    { name:'Joana Pires',   amount:'R$ 410K',  pct:22 },
+  ];
+  const rk = document.getElementById('vendorRanking');
+  if(rk) rk.innerHTML = ranking.map((v,i) => `
+    <div class="ranking-row">
+      <span class="ranking-pos ${v.badge||''}">${i+1}º</span>
+      <div><strong>${v.name}</strong></div>
+      <div class="ranking-bar"><div style="width:${v.pct}%"></div></div>
+      <span style="text-align:right;font-weight:600;color:var(--accent)">${v.amount}</span>
+    </div>
+  `).join('');
+}
 
 // Busca da lista de clientes
 document.addEventListener('input', e => {
@@ -2334,6 +2670,7 @@ function route(name){
   window.scrollTo({top:0, behavior:'smooth'});
 
   setTimeout(renderCharts, 50);
+  if(name === 'relatorios') setTimeout(renderReports, 80);
 }
 
 // =================== INIT ===================
@@ -2375,6 +2712,8 @@ renderClientsList();
 renderProspects();
 renderInbox();
 renderPriceTable();
+renderStageEditor('commercialStages', COMMERCIAL_STAGES_CFG);
+renderStageEditor('deliveryStages', DELIVERY_STAGES_CFG);
 renderCharts();
 
 // =================== TOAST DA TRAVA DO FUNIL (Seção 2.1) ===================
