@@ -253,6 +253,48 @@
     .login-feats{grid-template-columns:1fr}
   }
 
+  /* === Overlay "Gerando proposta com IA" === */
+  .ai-overlay{position:fixed;inset:0;background:rgba(8,8,12,.85);backdrop-filter:blur(8px);z-index:350;display:none;align-items:center;justify-content:center;padding:20px}
+  .ai-overlay.open{display:flex;animation:fadeIn .25s ease}
+  .ai-overlay-box{max-width:560px;width:100%;text-align:center;padding:40px;background:linear-gradient(180deg,var(--bg-2),var(--bg-3));border:1px solid var(--line-2);border-radius:var(--r-lg);box-shadow:0 32px 80px rgba(0,0,0,.6);position:relative;overflow:hidden}
+  .ai-overlay-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(94,158,255,.15),transparent 30%);animation:spin 4s linear infinite;pointer-events:none}
+  .ai-overlay-box > *{position:relative;z-index:1}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ai-sparkle{font-size:54px;line-height:1;margin-bottom:14px;animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.85}}
+  .ai-title{font-family:var(--font-display);font-size:24px;font-weight:700;margin-bottom:6px;letter-spacing:-.3px}
+  .ai-sub{color:var(--text-2);font-size:13.5px;margin-bottom:24px}
+  .ai-steps{text-align:left;display:flex;flex-direction:column;gap:8px;max-width:380px;margin:0 auto;font-family:var(--font-mono);font-size:12.5px}
+  .ai-step{display:flex;align-items:center;gap:10px;color:var(--text-3);opacity:.5;transition:.3s}
+  .ai-step.active{opacity:1;color:var(--blue)}
+  .ai-step.done{opacity:1;color:var(--green)}
+  .ai-step::before{content:'○';width:14px;display:inline-block;text-align:center}
+  .ai-step.active::before{content:'◐';animation:spin 1s linear infinite}
+  .ai-step.done::before{content:'●';color:var(--green)}
+  .ai-progress{height:3px;background:var(--bg-4);border-radius:2px;margin-top:24px;overflow:hidden}
+  .ai-progress > div{height:100%;background:linear-gradient(90deg,var(--blue),#a78bfa);width:0;transition:width .35s ease}
+
+  /* === Aceite digital (ClickSign) === */
+  .signing-shell{max-width:620px;margin:0 auto}
+  .signing-doc{background:#fff;color:#1a1a1a;padding:48px;border-radius:var(--r-lg);box-shadow:0 24px 64px rgba(0,0,0,.45);font-family:'Inter Tight',sans-serif;line-height:1.65;font-size:14px;position:relative;overflow:hidden}
+  .signing-doc::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#003a70,#d4a857)}
+  .signing-doc h1{font-family:var(--font-display);font-size:24px;font-weight:800;letter-spacing:-.5px;color:#0a0a0b;margin-bottom:6px}
+  .signing-doc h2{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:#6b6b76;margin:24px 0 8px;font-weight:700}
+  .signing-doc p{margin-bottom:10px;color:#3a3a45}
+  .signing-doc .doc-meta{font-size:12px;color:#6b6b76;border-bottom:1px solid #eee;padding-bottom:18px;margin-bottom:24px}
+  .signing-doc table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+  .signing-doc table td{padding:7px 0;border-bottom:1px solid #eee}
+  .signing-doc table td:last-child{text-align:right;font-weight:600;color:#0a0a0b}
+  .signing-doc .doc-total{font-family:var(--font-display);font-size:22px;font-weight:800;color:#003a70;text-align:right;margin-top:14px}
+  .signing-sig{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .signing-sig .sig-block{font-size:11.5px;color:#6b6b76}
+  .signing-sig .sig-line{border-bottom:1px solid #3a3a45;height:40px;margin-bottom:6px;display:flex;align-items:flex-end;font-family:'Brush Script MT',cursive;font-size:22px;color:#003a70;padding-bottom:2px}
+  .signing-sig .sig-line.unsigned{color:transparent}
+  .signing-actions{display:flex;justify-content:center;gap:8px;margin-top:24px}
+  .signing-status{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+  .signing-status-ic{width:36px;height:36px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:16px}
+  .signing-status.signed .signing-status-ic{background:var(--green-soft);color:var(--green)}
+
   /* === Busca global (⌘K) === */
   .search-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:400;display:none;align-items:flex-start;justify-content:center;padding-top:14vh}
   .search-backdrop.open{display:flex;animation:fadeIn .15s ease}
@@ -829,6 +871,10 @@
       Lead Inbox
       <span class="badge">5</span>
     </a>
+    <a href="#" class="nav-item" data-route="assinatura">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15c1 1 2 1 3 0s2-1 3 0"/></svg>
+      Aceite digital
+    </a>
   </div>
 
   <div class="nav-group">
@@ -1164,88 +1210,209 @@
       <div class="step"><div class="step-num">6</div><div class="step-info"><span>Etapa 6</span><strong>Execução</strong></div></div>
     </div>
 
-    <div class="tabs">
-      <div class="tab active">Resumo</div>
-      <div class="tab">Proposta</div>
-      <div class="tab">Patrimônio</div>
-      <div class="tab">Equipe</div>
-      <div class="tab">Cronograma</div>
-      <div class="tab">Financeiro</div>
-      <div class="tab">Atividade</div>
+    <div class="tabs" id="dealTabs">
+      <div class="tab active" data-deal-tab="resumo">Resumo</div>
+      <div class="tab" data-deal-tab="proposta">Proposta</div>
+      <div class="tab" data-deal-tab="patrimonio">Disponibilidade</div>
+      <div class="tab" data-deal-tab="equipe">Equipe</div>
+      <div class="tab" data-deal-tab="cronograma">Cronograma</div>
+      <div class="tab" data-deal-tab="financeiro">Financeiro</div>
+      <div class="tab" data-deal-tab="atividade">Atividade</div>
     </div>
 
-    <div class="deal-detail-grid">
-      <div>
-        <div class="card mb-18">
-          <div class="card-head">
-            <div class="card-title">Configurador de proposta · gerado por IA</div>
-            <span class="pill green">Atualizada há 2h</span>
+    <!-- ===== Aba Resumo ===== -->
+    <div class="step-pane active" id="deal-resumo">
+      <div class="deal-detail-grid">
+        <div>
+          <div class="card mb-18">
+            <div class="card-head">
+              <div><div class="card-title">Configurador de proposta · gerado pela IA</div><div class="card-sub">Tabela-mestre V12 vigente · desconto contratual 12% Servier aplicado</div></div>
+              <span class="pill green">Atualizada há 2h</span>
+            </div>
+            <div class="table-scroll">
+              <table class="table">
+                <thead><tr><th>Item</th><th>Qtd</th><th>Diária</th><th>Subtotal</th></tr></thead>
+                <tbody>
+                  <tr><td><strong>Painel LED P3.9</strong><div class="text-sm text-mut">5×4m (20m²) · backdrop palco</div></td><td>80 mod.</td><td class="mono">R$ 480</td><td class="mono text-accent">R$ 38.400</td></tr>
+                  <tr><td><strong>PA Line Array L'Acoustics K2</strong><div class="text-sm text-mut">Cobertura 280 pax</div></td><td>1</td><td class="mono">R$ 8.400</td><td class="mono text-accent">R$ 8.400</td></tr>
+                  <tr><td><strong>Moving Beam 230 (kit 24)</strong></td><td>1</td><td class="mono">R$ 2.880</td><td class="mono text-accent">R$ 2.880</td></tr>
+                  <tr><td><strong>Mesa Yamaha 32ch + 4 lapelas</strong></td><td>1</td><td class="mono">R$ 1.860</td><td class="mono text-accent">R$ 1.860</td></tr>
+                  <tr><td><strong>Palco modular 8×4m</strong></td><td>1</td><td class="mono">R$ 3.200</td><td class="mono text-accent">R$ 3.200</td></tr>
+                  <tr><td><strong>Streaming Kit 4K</strong></td><td>1</td><td class="mono">R$ 2.100</td><td class="mono text-accent">R$ 2.100</td></tr>
+                  <tr><td><strong>Operadores AV (12h × 2 dias)</strong></td><td>3</td><td class="mono">R$ 980</td><td class="mono text-accent">R$ 5.880</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="display:flex;justify-content:flex-end;padding:14px 14px 0;border-top:1px solid var(--line);margin-top:6px">
+              <div style="text-align:right">
+                <div class="text-sm text-mut">Subtotal tabela · R$ 376.880</div>
+                <div class="text-sm" style="color:var(--green)">Desconto contratual 12% · — R$ 45.226</div>
+                <div style="font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--accent);margin-top:4px">Total: R$ 287.400</div>
+              </div>
+            </div>
           </div>
-          <div class="table-scroll">
-            <table class="table">
-              <thead><tr><th>Item</th><th>Qtd</th><th>Diária</th><th>Subtotal</th></tr></thead>
-              <tbody>
-                <tr><td><strong>Painel LED P2.6 outdoor</strong><div class="text-sm text-mut">Backdrop palco · 6×3m</div></td><td>18 mod.</td><td class="mono">R$ 1.200</td><td class="mono text-accent">R$ 43.200</td></tr>
-                <tr><td><strong>Sistema PA · L'Acoustics</strong><div class="text-sm text-mut">Cobertura 1.200 pax</div></td><td>1 sis.</td><td class="mono">R$ 18.500</td><td class="mono text-accent">R$ 37.000</td></tr>
-                <tr><td><strong>Iluminação · Moving Beam 230</strong></td><td>24 un.</td><td class="mono">R$ 280</td><td class="mono text-accent">R$ 13.440</td></tr>
-                <tr><td><strong>Mobiliário Lounge VIP</strong><div class="text-sm text-mut">12 sofás + 8 mesas</div></td><td>1 pct</td><td class="mono">R$ 8.500</td><td class="mono text-accent">R$ 17.000</td></tr>
-                <tr><td><strong>Totem LED carregador</strong></td><td>6 un.</td><td class="mono">R$ 450</td><td class="mono text-accent">R$ 5.400</td></tr>
-                <tr><td><strong>Equipe técnica · 2 dias</strong><div class="text-sm text-mut">8 técnicos + 1 coord.</div></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 38.400</td></tr>
-                <tr><td><strong>Logística · 3 caminhões</strong></td><td>—</td><td class="mono">—</td><td class="mono text-accent">R$ 12.500</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div style="display:flex;justify-content:flex-end;padding:14px 14px 0;border-top:1px solid var(--line);margin-top:6px">
-            <div style="text-align:right">
-              <div class="text-sm text-mut">Subtotal custos · R$ 166.940</div>
-              <div class="text-sm text-mut">Markup aplicado 60% · R$ 245.060</div>
-              <div style="font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--accent);margin-top:4px">Total: R$ 412.000</div>
+
+          <div class="card">
+            <div class="card-head"><div class="card-title">Atividade recente</div></div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:var(--green);color:#0a2818">✓</div><div><div style="font-size:13px"><strong>Proposta enviada</strong> via WhatsApp para Carlos Andrade (Servier)</div><div class="text-sm text-mut">há 2h · por Mariana Costa</div></div></div>
+              <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px">MC</div><div><div style="font-size:13px"><strong>Briefing técnico</strong> validado · 280 pax · streaming 4K confirmado</div><div class="text-sm text-mut">ontem 18:42 · por Mariana Costa</div></div></div>
+              <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:var(--blue);color:#fff">✦</div><div><div style="font-size:13px"><strong>Sugestão da IA aplicada</strong> · 9 itens com base no modelo "Convenção Servier 2025"</div><div class="text-sm text-mut">ontem 16:20 · automação</div></div></div>
+              <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px">CA</div><div><div style="font-size:13px">Reunião de briefing · <strong>1h12m</strong> · ata enviada para validação</div><div class="text-sm text-mut">15/05 14:00 · transcrita pela ferramenta de ata</div></div></div>
             </div>
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-head"><div class="card-title">Atividade recente</div></div>
-          <div style="display:flex;flex-direction:column;gap:14px">
-            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:var(--green);color:#0a2818">✓</div><div><div style="font-size:13px"><strong>Proposta enviada</strong> via e-mail para Rodrigo Tavares (Bradesco)</div><div class="text-sm text-mut">há 2h · por Camila Moura</div></div></div>
-            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px">CM</div><div><div style="font-size:13px"><strong>Briefing técnico</strong> aprovado pelo coord. operacional</div><div class="text-sm text-mut">ontem 18:42 · por Camila Moura</div></div></div>
-            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px;background:var(--accent);color:#1a0f00">IA</div><div><div style="font-size:13px"><strong>Configuração sugerida</strong>: pacote replicado de convenção Bradesco 2024 com ajuste +12% pax</div><div class="text-sm text-mut">ontem 16:20 · automação</div></div></div>
-            <div class="row"><div class="avatar" style="width:28px;height:28px;font-size:11px">RT</div><div><div style="font-size:13px">Reunião de briefing com cliente · <strong>1h12m</strong></div><div class="text-sm text-mut">15/05 14:00 · transcrita</div></div></div>
+        <div>
+          <div class="card mb-18">
+            <div class="card-title" style="margin-bottom:14px">Cliente</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;cursor:pointer" data-route="ficha">
+              <div class="avatar" style="width:48px;height:48px;font-size:16px;background:#003a70;color:#fff">S</div>
+              <div>
+                <div style="font-weight:600">Servier do Brasil</div>
+                <div class="text-sm text-mut">Carteira · 14 eventos · LTV R$ 4,0M</div>
+              </div>
+            </div>
+            <div style="font-size:12.5px;line-height:1.7">
+              <div><strong>Contato:</strong> Carlos Andrade 🎂</div>
+              <div><strong>Cargo:</strong> Diretor de Marketing</div>
+              <div><strong>E-mail:</strong> candrade@servier.com.br</div>
+              <div><strong>WhatsApp:</strong> (11) 9 9844-2210</div>
+            </div>
+            <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:12px" data-route="ficha">Abrir ficha completa →</button>
+          </div>
+
+          <div class="card mb-18">
+            <div class="card-title" style="margin-bottom:14px">Probabilidade de fechamento</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:36px;color:var(--green);line-height:1">82%</div>
+            <div class="text-sm text-mut mt-12">Cliente recorrente (alto) · engajamento na proposta (alto) · 4 eventos similares fechados nos últimos 24 meses</div>
+            <div class="margin-progress" style="height:6px;background:var(--bg-4);border-radius:3px;margin-top:14px;overflow:hidden"><div style="width:82%;height:100%;background:linear-gradient(90deg,var(--green),#5fdfa3)"></div></div>
+          </div>
+
+          <div class="card">
+            <div class="card-title" style="margin-bottom:10px">Próxima ação sugerida <span class="ai-chip sm" style="margin-left:6px">IA</span></div>
+            <div style="background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px;border-radius:6px;font-size:13px;line-height:1.5">
+              Follow-up via WhatsApp em <strong>48h</strong> se não houver resposta. Servier respondeu em média em 1,8 dias nos últimos 5 negócios.
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px">Agendar follow-up</button>
           </div>
         </div>
       </div>
+    </div>
 
-      <div>
-        <div class="card mb-18">
-          <div class="card-title" style="margin-bottom:14px">Cliente</div>
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
-            <div class="avatar" style="width:48px;height:48px;font-size:16px;background:#cc092f;color:#fff">B</div>
-            <div>
-              <div style="font-weight:600">Bradesco S.A.</div>
-              <div class="text-sm text-mut">Carteira · 8 eventos · LTV R$ 2,4M</div>
-            </div>
-          </div>
-          <div style="font-size:12.5px;line-height:1.7">
-            <div><strong>Contato:</strong> Rodrigo Tavares</div>
-            <div><strong>Cargo:</strong> Head de Eventos Corp.</div>
-            <div><strong>E-mail:</strong> r.tavares@bradesco.com.br</div>
-            <div><strong>WhatsApp:</strong> (11) 9 8732-4421</div>
+    <!-- ===== Aba Proposta ===== -->
+    <div class="step-pane" id="deal-proposta">
+      <div class="card">
+        <div class="card-head">
+          <div><div class="card-title">Proposta enviada · versão 1</div><div class="card-sub">Link público criado em 22/05 14:18 · aberto pelo cliente 3 vezes</div></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-secondary">📊 Ver analytics</button>
+            <button class="btn btn-secondary" data-route="proposta">Editar proposta</button>
           </div>
         </div>
-
-        <div class="card mb-18">
-          <div class="card-title" style="margin-bottom:14px">Probabilidade de fechamento</div>
-          <div style="font-family:var(--font-display);font-weight:700;font-size:36px;color:var(--green);line-height:1">82%</div>
-          <div class="text-sm text-mut mt-12">Modelo preditivo baseado em: histórico cliente (alto), engajamento na proposta (alto), tempo de ciclo (médio)</div>
-          <div class="margin-progress"><div class="margin-progress-fill" style="width:82%"></div></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px">
+          <div class="kpi"><div class="kpi-label">Aberturas</div><div class="kpi-value" style="font-size:24px">3</div><div class="kpi-meta">última: ontem 09:32</div></div>
+          <div class="kpi"><div class="kpi-label">Tempo médio</div><div class="kpi-value" style="font-size:24px">4m 12s</div><div class="kpi-meta">leitura completa</div></div>
+          <div class="kpi"><div class="kpi-label">Compartilhamentos</div><div class="kpi-value" style="font-size:24px">2</div><div class="kpi-meta">para Procurement</div></div>
+          <div class="kpi" style="border-color:var(--green)"><div class="kpi-label">Status do aceite</div><div class="kpi-value" style="font-size:18px;color:var(--green)">aguardando</div><div class="kpi-meta">via ClickSign</div></div>
         </div>
-
-        <div class="card">
-          <div class="card-title" style="margin-bottom:10px">Próxima ação sugerida</div>
-          <div style="background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px;border-radius:6px;font-size:13px;line-height:1.5">
-            Follow-up via WhatsApp em <strong>48h</strong> se não houver resposta. Cliente Bradesco respondeu em média em 3,2 dias nos últimos 5 deals.
+        <div class="proposal-preview" style="margin-top:14px">
+          <div class="pp-eyebrow">Preview · Proposta Premium · Servier</div>
+          <div class="pp-title">Convenção Servier 2026</div>
+          <div class="pp-sub">Uma convenção que merece ser lembrada. Construímos a partir do que o seu evento exige — não a partir de uma lista de itens.</div>
+          <div class="pp-block">
+            <div><strong>O evento</strong><span>280 participantes · Out/2026 · SP</span></div>
+            <div><strong>O escopo</strong><span>9 itens · som, vídeo, palco, equipe</span></div>
+            <div><strong>O investimento</strong><span>R$ 287.400</span></div>
           </div>
-          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px">Agendar follow-up</button>
+          <div style="display:flex;gap:8px;justify-content:center">
+            <button class="btn btn-primary">🔗 Copiar link público</button>
+            <button class="btn btn-secondary">📄 Baixar PDF backup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Aba Disponibilidade ===== -->
+    <div class="step-pane" id="deal-patrimonio">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Verificação de disponibilidade · 18–19 out 2026</div><div class="card-sub">Etapa 3 do funil · trava liberada · sem conflitos</div></div><span class="pill green">Disponível ✓</span></div>
+        <table class="table" style="margin-top:6px">
+          <thead><tr><th>Item</th><th>Quantidade</th><th>Status para a data</th><th>Origem</th></tr></thead>
+          <tbody>
+            <tr><td>Painel LED P3.9 (módulo)</td><td>80</td><td><span class="pill green">Disponível · 124 livres no estoque</span></td><td>Galpão próprio</td></tr>
+            <tr><td>PA L'Acoustics K2</td><td>1</td><td><span class="pill green">Disponível</span></td><td>Galpão próprio</td></tr>
+            <tr><td>Moving Beam 230 (kit 24)</td><td>1</td><td><span class="pill green">Disponível</span></td><td>Galpão próprio</td></tr>
+            <tr><td>Mesa Yamaha 32ch</td><td>1</td><td><span class="pill amber">Sublocação prevista</span></td><td>Parceiro Sound Tech</td></tr>
+            <tr><td>Streaming Kit 4K</td><td>1</td><td><span class="pill green">Disponível</span></td><td>Galpão próprio</td></tr>
+            <tr><td>Equipe técnica (3 op.)</td><td>3</td><td><span class="pill green">Equipe própria escalada</span></td><td>André + 2 técnicos</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== Aba Equipe ===== -->
+    <div class="step-pane" id="deal-equipe">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Equipe alocada · pré-confirmada</div><div class="card-sub">Equipe escalada na pré-produção · confirmação 7 dias antes do evento</div></div></div>
+        <table class="table" style="margin-top:6px">
+          <thead><tr><th></th><th>Profissional</th><th>Função</th><th>Diária</th><th>Disponibilidade</th></tr></thead>
+          <tbody>
+            <tr><td><div class="avatar">AM</div></td><td><strong>André Mendes</strong></td><td>Coordenador técnico</td><td>R$ 1.400</td><td><span class="pill green">Confirmado</span></td></tr>
+            <tr><td><div class="avatar">CL</div></td><td>Carla Linhares</td><td>Operadora de som</td><td>R$ 980</td><td><span class="pill green">Confirmado</span></td></tr>
+            <tr><td><div class="avatar">DR</div></td><td>Diego Rocha</td><td>Operador de LED</td><td>R$ 980</td><td><span class="pill amber">A confirmar (freela)</span></td></tr>
+            <tr><td><div class="avatar">PV</div></td><td>Paula Vieira</td><td>Operadora de luz</td><td>R$ 980</td><td><span class="pill green">Confirmada</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ===== Aba Cronograma ===== -->
+    <div class="step-pane" id="deal-cronograma">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Cronograma do evento</div><div class="card-sub">Detalhamento minuto a minuto fornecido pelo cliente</div></div><span class="ai-chip">refinado pela IA</span></div>
+        <div class="schedule" style="margin-top:14px;border:none;padding:0;background:transparent">
+          <div class="schedule-row"><span class="schedule-time">07h</span><div class="schedule-icon">🛠️</div><div class="schedule-task"><strong>Montagem inicia</strong><span>Janela 12h liberada pelo Centro Fecomercio</span></div><div class="schedule-team">Equipe completa</div></div>
+          <div class="schedule-row"><span class="schedule-time">17h</span><div class="schedule-icon">✓</div><div class="schedule-task"><strong>Passagem técnica + ensaio</strong><span>Cliente presente</span></div><div class="schedule-team">André + Carlos (cliente)</div></div>
+          <div class="schedule-row"><span class="schedule-time">18h</span><div class="schedule-icon">🎤</div><div class="schedule-task"><strong>Abertura da convenção</strong><span>Pronunciamento do presidente Servier Brasil</span></div><div class="schedule-team">—</div></div>
+          <div class="schedule-row"><span class="schedule-time">19h</span><div class="schedule-icon">🎬</div><div class="schedule-task"><strong>Painel principal · talk-show</strong><span>4 palestrantes · streaming 4K para regional LATAM</span></div><div class="schedule-team">—</div></div>
+          <div class="schedule-row"><span class="schedule-time">22h</span><div class="schedule-icon">🍷</div><div class="schedule-task"><strong>Cocktail de encerramento</strong><span>Iluminação cênica em wash · som ambiente</span></div><div class="schedule-team">—</div></div>
+          <div class="schedule-row"><span class="schedule-time">23h</span><div class="schedule-icon">📦</div><div class="schedule-task"><strong>Desmontagem inicia</strong><span>Janela de 4h · saída até 03h</span></div><div class="schedule-team">Equipe completa</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Aba Financeiro ===== -->
+    <div class="step-pane" id="deal-financeiro">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Margem deste negócio</div><div class="card-sub">Cálculo a partir da tabela-mestre · custo e markup explícitos</div></div></div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px">
+          <div class="kpi"><div class="kpi-label">Receita</div><div class="kpi-value">R$ 287K</div></div>
+          <div class="kpi"><div class="kpi-label">Custo direto</div><div class="kpi-value">R$ 142K</div></div>
+          <div class="kpi" style="border-color:var(--green)"><div class="kpi-label">Margem bruta</div><div class="kpi-value" style="color:var(--green)">R$ 145K</div><div class="kpi-meta">50,5%</div></div>
+          <div class="kpi"><div class="kpi-label">Pagamento</div><div class="kpi-value" style="font-size:18px">50% sinal · 50% 30ddl</div></div>
+        </div>
+        <div style="margin-top:14px;padding:14px;background:var(--bg-3);border-radius:var(--r-md)">
+          <strong>Cronograma de cobrança previsto:</strong>
+          <ul style="margin:10px 0 0 18px;font-size:13px;color:var(--text-2);line-height:1.8">
+            <li>Sinal de R$ 143.700 · vencimento no aceite (ClickSign)</li>
+            <li>Saldo de R$ 143.700 · vencimento 18/11/2026 (30 dias após o evento)</li>
+            <li>NF emitida na data do evento · CNPJ Servier 02.571.354/0001-65</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Aba Atividade ===== -->
+    <div class="step-pane" id="deal-atividade">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Timeline completa</div><div class="card-sub">Cada interação registrada · histórico viaja com o cliente</div></div></div>
+        <div class="timeline" style="margin-top:8px">
+          <div class="timeline-item"><span class="timeline-date">22/05 14:18</span><div class="timeline-text"><strong>Proposta enviada</strong> via WhatsApp · link público criado</div><span class="timeline-value">+ envio</span></div>
+          <div class="timeline-item"><span class="timeline-date">22/05 11:32</span><div class="timeline-text"><strong>Proposta gerada pela IA</strong> com base no modelo Servier 2025</div><span class="ai-chip sm">IA</span></div>
+          <div class="timeline-item"><span class="timeline-date">21/05 18:42</span><div class="timeline-text">Mariana Costa validou o briefing técnico · 280 pax · streaming 4K</div><span class="timeline-value">briefing</span></div>
+          <div class="timeline-item"><span class="timeline-date">15/05 14:00</span><div class="timeline-text">Reunião com Carlos Andrade · 1h12m · <strong>ata enviada</strong></div><span class="timeline-value">reunião</span></div>
+          <div class="timeline-item"><span class="timeline-date">10/05 09:14</span><div class="timeline-text">Negócio criado a partir do Lead Inbox · indicação direta</div><span class="timeline-value">criação</span></div>
         </div>
       </div>
     </div>
@@ -1804,6 +1971,75 @@
     <div class="lead-list" id="inboxList"></div>
   </section>
 
+  <section class="page" id="page-assinatura">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Aceite digital</h1>
+        <p class="page-sub">Servier · Convenção Anual 2026 · contrato gerado a partir do Pacote de Operação · envio via ClickSign</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary" data-route="deal">← voltar ao negócio</button>
+      </div>
+    </div>
+
+    <div class="signing-status" id="signingStatus">
+      <div class="signing-status-ic">⏳</div>
+      <div style="flex:1">
+        <strong>Aguardando aceite do cliente</strong>
+        <div class="text-sm text-mut">Enviado para <strong>candrade@servier.com.br</strong> · 22/05 14:18 · visualizado 3 vezes</div>
+      </div>
+      <button class="btn btn-secondary" id="signingReshare">Reenviar link</button>
+    </div>
+
+    <div class="signing-shell">
+      <div class="signing-doc">
+        <h1>Contrato de Locação de Equipamentos</h1>
+        <div class="doc-meta">Contrato Nº 2026/0089 · gerado em 22/05/2026 · ClickSign #c8d7e2a4</div>
+
+        <p><strong>Locadora:</strong> Support Rental Locações Eventos Ltda · CNPJ 14.823.711/0001-04</p>
+        <p><strong>Locatária:</strong> Servier do Brasil Ltda · CNPJ 02.571.354/0001-65 · representada por Carlos Andrade, Diretor de Marketing</p>
+
+        <h2>Objeto</h2>
+        <p>Locação de equipamentos audiovisuais e serviços técnicos para a <strong>Convenção Servier 2026</strong>, a ser realizada no Centro Fecomercio (São Paulo/SP), nos dias 18 e 19 de outubro de 2026, para um público estimado de 280 participantes.</p>
+
+        <h2>Escopo (resumo)</h2>
+        <table>
+          <tr><td>Painel LED P3.9 · 80 módulos · 20m²</td><td>R$ 38.400</td></tr>
+          <tr><td>PA Line Array L'Acoustics K2 + mesa Yamaha 32ch</td><td>R$ 10.260</td></tr>
+          <tr><td>Iluminação cênica · Moving Beam + Par LED</td><td>R$ 3.820</td></tr>
+          <tr><td>Palco modular 8×4m + truss Q30 6m</td><td>R$ 3.660</td></tr>
+          <tr><td>Streaming Kit 4K · gravação backup</td><td>R$ 2.100</td></tr>
+          <tr><td>3 operadores AV (12h × 2 dias)</td><td>R$ 5.880</td></tr>
+          <tr><td colspan="2" style="padding-top:14px;border-top:2px solid #1a1a1a;font-weight:700">Demais itens da Proposta Premium · ver anexo</td></tr>
+        </table>
+        <div class="doc-total">Total · R$ 287.400,00</div>
+
+        <h2>Condições de pagamento</h2>
+        <p>50% (R$ 143.700) como sinal, vencimento no aceite digital. 50% (R$ 143.700) em 30 dias após a entrega, conforme NF emitida na data do evento.</p>
+
+        <h2>Exceções acordadas</h2>
+        <p>Conforme registrado no Pacote de Operação, ficam ratificadas: (i) carro reserva de painel LED sem custo adicional; (ii) operador AV bônus na manhã do evento como cortesia.</p>
+
+        <div class="signing-sig">
+          <div class="sig-block">
+            <div class="sig-line">Leonardo Arruda</div>
+            <strong>Support Rental</strong><br>Diretor Comercial · assinado em 22/05/2026 14:14
+          </div>
+          <div class="sig-block">
+            <div class="sig-line unsigned" id="signClientLine">Carlos Andrade</div>
+            <strong id="signClientStatus">Servier · pendente</strong><br>Carlos Andrade · Diretor de Marketing
+          </div>
+        </div>
+      </div>
+
+      <div class="signing-actions">
+        <button class="btn btn-secondary">📄 Baixar PDF</button>
+        <button class="btn btn-secondary">🔗 Copiar link público</button>
+        <button class="btn btn-primary" id="signNow">✦ Simular aceite do cliente</button>
+      </div>
+    </div>
+  </section>
+
   <section class="page" id="page-entrega">
     <div class="page-head">
       <div>
@@ -2244,6 +2480,24 @@
     </div>
   </section>
 </main>
+
+<!-- ===== Overlay IA gerando proposta ===== -->
+<div class="ai-overlay" id="aiOverlay" role="dialog" aria-live="polite">
+  <div class="ai-overlay-box">
+    <div class="ai-sparkle">✦</div>
+    <div class="ai-title" id="aiOverlayTitle">A IA está gerando sua proposta</div>
+    <div class="ai-sub" id="aiOverlaySub">Vou analisar o briefing e dimensionar o pacote técnico…</div>
+    <div class="ai-steps" id="aiOverlaySteps">
+      <div class="ai-step" data-ai-step="0">Lendo briefing · Servier · 280 pax · streaming 4K</div>
+      <div class="ai-step" data-ai-step="1">Comparando com modelo "Convenção Servier 2025"</div>
+      <div class="ai-step" data-ai-step="2">Dimensionando som, vídeo e iluminação para a sala</div>
+      <div class="ai-step" data-ai-step="3">Consultando tabela-mestre V12 · aplicando desconto 12%</div>
+      <div class="ai-step" data-ai-step="4">Sugerindo equipe técnica para a janela de 12h</div>
+      <div class="ai-step" data-ai-step="5">Validando margem · escrevendo justificativas</div>
+    </div>
+    <div class="ai-progress"><div id="aiOverlayBar"></div></div>
+  </div>
+</div>
 
 <!-- ===== Busca global (⌘K) ===== -->
 <div class="search-backdrop" id="searchBackdrop">
@@ -2793,7 +3047,41 @@ function renderPriceStep(){
   }));
 }
 
+// Animação overlay "IA gerando proposta"
+let _aiOverlaySeen = false;
+function playAIOverlay(onDone){
+  const ov = document.getElementById('aiOverlay');
+  const bar = document.getElementById('aiOverlayBar');
+  const steps = document.querySelectorAll('#aiOverlaySteps .ai-step');
+  ov.classList.add('open');
+  steps.forEach(s => s.classList.remove('active','done'));
+  bar.style.width = '0%';
+  const total = steps.length;
+  let i = 0;
+  function nextStep(){
+    if(i > 0) steps[i-1].classList.add('done');
+    if(i < total){
+      steps[i].classList.add('active');
+      bar.style.width = ((i+1) / total * 100) + '%';
+      i++;
+      setTimeout(nextStep, 480);
+    } else {
+      setTimeout(() => {
+        ov.classList.remove('open');
+        if(onDone) onDone();
+      }, 380);
+    }
+  }
+  setTimeout(nextStep, 200);
+}
+
 function gotoPropStep(n){
+  // primeira entrada no passo 2 dispara animação da IA
+  if(n === 2 && !_aiOverlaySeen){
+    _aiOverlaySeen = true;
+    playAIOverlay(() => gotoPropStep(2));
+    return;
+  }
   PROP_STATE.step = n;
   document.querySelectorAll('#propStepper .step').forEach(s => {
     const sn = +s.dataset.step;
@@ -2806,6 +3094,14 @@ function gotoPropStep(n){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
+// "Refazer com a IA" também dispara o overlay
+document.addEventListener('click', e => {
+  if(e.target.textContent && e.target.textContent.includes('Refazer com a IA')){
+    _aiOverlaySeen = false;
+    playAIOverlay(() => { _aiOverlaySeen = true; renderPropItems(); });
+  }
+});
+
 document.addEventListener('click', e => {
   const next = e.target.closest('[data-prop-next]');
   if(next){ e.preventDefault(); gotoPropStep(+next.dataset.propNext); return; }
@@ -2817,7 +3113,7 @@ document.addEventListener('click', e => {
     showLockToast({title:'Aprovação solicitada', sub:'A gestora comercial recebeu a justificativa. Você será notificado.', action:'OK', target:'proposta', kind:'info'});
   }
   if(e.target.closest('#btnGenProposal')){
-    showLockToast({title:'Proposta gerada e enviada!', sub:'Link público criado · WhatsApp e e-mail disparados ao cliente.', action:'Voltar ao negócio', target:'deal', kind:'success'});
+    showLockToast({title:'Proposta gerada e enviada!', sub:'Link público criado · WhatsApp e e-mail disparados ao cliente. Próximo passo: aceite digital.', action:'Abrir aceite ClickSign', target:'assinatura', kind:'success'});
   }
 });
 
@@ -2839,6 +3135,16 @@ document.addEventListener('click', e => {
   t.classList.add('active');
   document.querySelectorAll('#config-commercial, #config-delivery').forEach(p => p.classList.remove('active'));
   document.getElementById('config-' + t.dataset.configTab)?.classList.add('active');
+});
+
+// Tabs do Detalhe do Negócio (T4)
+document.addEventListener('click', e => {
+  const t = e.target.closest('#dealTabs .tab');
+  if(!t) return;
+  document.querySelectorAll('#dealTabs .tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('[id^="deal-"]').forEach(p => { if(p.classList.contains('step-pane')) p.classList.remove('active'); });
+  document.getElementById('deal-' + t.dataset.dealTab)?.classList.add('active');
 });
 
 // Tabs da Administração (T15)
@@ -3024,6 +3330,7 @@ const PAGE_TITLES = {
   proposta:'Gerador de Proposta',
   prospeccao:'Agente de Prospecção',
   leadinbox:'Lead Inbox',
+  assinatura:'Aceite digital · ClickSign',
   entrega:'Funil de Entrega',
   operacional:'Pacote de Operação',
   clientes:'Clientes',
@@ -3122,6 +3429,25 @@ document.getElementById('loginForm')?.addEventListener('submit', e => {
 });
 document.querySelectorAll('[data-demo-user]').forEach(b => b.addEventListener('click', () => enterApp(b.dataset.demoUser)));
 
+// ===== Aceite digital (simulação) =====
+document.addEventListener('click', e => {
+  const b = e.target.closest('#signNow');
+  if(!b) return;
+  const line = document.getElementById('signClientLine');
+  const status = document.getElementById('signClientStatus');
+  const card = document.getElementById('signingStatus');
+  if(line.classList.contains('unsigned')){
+    line.classList.remove('unsigned');
+    status.textContent = 'Servier · assinado · ' + new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    card.classList.add('signed');
+    card.querySelector('.signing-status-ic').textContent = '✓';
+    card.querySelector('strong').textContent = 'Aceite confirmado · contrato vigente';
+    b.textContent = '✓ Cliente assinou';
+    b.disabled = true;
+    setTimeout(() => showLockToast({title:'Aceite confirmado · contrato vigente', sub:'Comercial e operação notificados · Pacote de Operação liberado para o Funil de Entrega.', action:'Abrir Funil de Entrega', target:'entrega', kind:'success'}), 600);
+  }
+});
+
 // Quick actions da Ficha do Cliente
 const QUICK = {
   call:     { title:'Ligando para Carlos Andrade…', sub:'Integração com VoIP · chamada registrada na timeline ao desligar.', kind:'info' },
@@ -3146,6 +3472,7 @@ const SEARCH_PAGES = [
   { kind:'tela', label:'Clientes',                   desc:'Carteira de 10 clientes',           route:'clientes',   ic:'🏢' },
   { kind:'tela', label:'Ficha do Cliente',           desc:'Servier do Brasil',                 route:'ficha',      ic:'📇' },
   { kind:'tela', label:'Tabela-mestre de Preços',    desc:'V12 · IPCA 4,62%',                  route:'tabela',     ic:'📊' },
+  { kind:'tela', label:'Aceite digital · ClickSign', desc:'Contrato Servier · aguardando aceite', route:'assinatura', ic:'✍️' },
   { kind:'tela', label:'Pacote de Operação',         desc:'Vivo · Lançamento',                 route:'operacional',ic:'📦' },
   { kind:'tela', label:'Relatórios',                 desc:'KPIs e dashboards',                 route:'relatorios', ic:'📈' },
   { kind:'tela', label:'Configuração de Funis',      desc:'Editor de etapas e travas',         route:'config',     ic:'🔧' },
