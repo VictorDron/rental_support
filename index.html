@@ -274,6 +274,39 @@
   .ai-progress{height:3px;background:var(--bg-4);border-radius:2px;margin-top:24px;overflow:hidden}
   .ai-progress > div{height:100%;background:linear-gradient(90deg,var(--blue),#a78bfa);width:0;transition:width .35s ease}
 
+  /* === Onboarding do cliente (T-cliente) === */
+  .onb-hero{background:radial-gradient(ellipse at top right,rgba(212,168,87,.18),transparent 60%),linear-gradient(180deg,var(--bg-2),var(--bg-3));border:1px solid var(--line);border-radius:var(--r-lg);padding:36px;margin-bottom:18px;position:relative;overflow:hidden}
+  .onb-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--green))}
+  .onb-eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+  .onb-headline{font-family:var(--font-display);font-size:34px;font-weight:800;line-height:1.05;letter-spacing:-.8px;margin-bottom:10px}
+  .onb-sub{color:var(--text-2);font-size:14.5px;line-height:1.6;max-width:680px;margin-bottom:18px}
+  .onb-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .onb-quick > div{padding:14px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:var(--r-md)}
+  .onb-quick strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:4px}
+  .onb-quick span{font-size:15px;font-weight:600;color:var(--text)}
+
+  .journey{position:relative;padding-left:32px}
+  .journey::before{content:'';position:absolute;left:14px;top:14px;bottom:14px;width:2px;background:linear-gradient(180deg,var(--blue),var(--accent),var(--green))}
+  .journey-step{position:relative;padding:16px 0 16px 12px;margin-bottom:6px}
+  .journey-step::before{content:'';position:absolute;left:-23px;top:22px;width:18px;height:18px;border-radius:50%;background:var(--bg-2);border:3px solid var(--blue)}
+  .journey-step.current::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px rgba(212,168,87,.25)}
+  .journey-step.done::before{background:var(--green);border-color:var(--green)}
+  .journey-step.done::before{content:'✓';color:#053b25;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;line-height:0}
+  .journey-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+  .journey-when{font-family:var(--font-mono);font-size:11px;color:var(--text-3);background:var(--bg-3);padding:2px 8px;border-radius:6px}
+  .journey-title{font-size:15px;font-weight:600;color:var(--text)}
+  .journey-desc{color:var(--text-2);font-size:13px;line-height:1.55;margin-bottom:6px}
+  .journey-card{margin-top:8px;padding:10px 12px;background:var(--bg-3);border-radius:var(--r-sm);font-size:12.5px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+  .journey-card strong{color:var(--text)}
+
+  .onb-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-top:18px}
+  @media (max-width:980px){
+    .onb-hero{padding:24px}
+    .onb-headline{font-size:24px}
+    .onb-quick{grid-template-columns:repeat(2,1fr)}
+    .onb-grid{grid-template-columns:1fr}
+  }
+
   /* === Aceite digital (ClickSign) === */
   .signing-shell{max-width:620px;margin:0 auto}
   .signing-doc{background:#fff;color:#1a1a1a;padding:48px;border-radius:var(--r-lg);box-shadow:0 24px 64px rgba(0,0,0,.45);font-family:'Inter Tight',sans-serif;line-height:1.65;font-size:14px;position:relative;overflow:hidden}
@@ -883,6 +916,10 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
       Eventos em execução
     </a>
+    <a href="#" class="nav-item" data-route="onboarding">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      Onboarding do cliente
+    </a>
     <a href="#" class="nav-item" data-route="operacional">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       Pacote de Operação
@@ -1422,12 +1459,12 @@
   <section class="page" id="page-patrimonio">
     <div class="page-head">
       <div>
-        <h1 class="page-title">Patrimônio</h1>
-        <p class="page-sub">2.847 itens · 2 galpões · 14 hotéis com pré-posicionamento</p>
+        <h1 class="page-title">Patrimônio e disponibilidade</h1>
+        <p class="page-sub">2.847 itens · catálogo conecta com a Tabela-mestre · alimenta a etapa 3 do funil (Verificação de disponibilidade)</p>
       </div>
       <div class="page-actions">
-        <button class="btn btn-secondary">Galpão Cidade Nova ▾</button>
-        <button class="btn btn-secondary">Filtros</button>
+        <input placeholder="Buscar por SKU, nome, categoria…" style="padding:8px 12px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--text);font-size:13px;width:240px">
+        <button class="btn btn-secondary" data-route="tabela">Tabela-mestre →</button>
         <button class="btn btn-primary">+ Cadastrar item</button>
       </div>
     </div>
@@ -1435,25 +1472,33 @@
     <div class="alert">
       <div class="alert-icon">!</div>
       <div class="alert-content">
-        <div class="alert-title">Conflito de alocação detectado · ação necessária</div>
+        <div class="alert-title">Conflito de disponibilidade · trava da etapa 3 ativa</div>
         <div class="alert-body">
-          O <strong>Painel LED P2.6 outdoor (SKU LED-P26-018)</strong> foi reservado em dois deals para o mesmo período (25/05 - 26/05):<br>
-          → <strong>Deal #2104</strong> · Vale Treinamento Executivo · Camila Moura<br>
-          → <strong>Deal #2118</strong> · Itaú BBA Roadshow · Rafael Pinheiro<br>
-          Sistema sugere: alocar SKU LED-P26-019 (disponível e equivalente) para o Deal #2118.
+          O <strong>Painel LED P2.6 outdoor (SKU LED-P26-018)</strong> foi reservado em dois negócios para a mesma data (14/06):<br>
+          → <strong>Vivo · Lançamento de Produto</strong> · Funil de Entrega (em montagem) · Mariana Costa<br>
+          → <strong>iFood · Convenção Interna</strong> · Funil Comercial (etapa 3) · Beatriz Souza<br>
+          Sistema sugere: alocar SKU LED-P26-019 (equivalente, disponível) para a iFood. O CRM bloqueia o avanço da iFood enquanto o conflito persistir.
         </div>
         <div class="alert-actions">
-          <button class="btn btn-primary" style="background:var(--red);color:#fff">Resolver conflito</button>
-          <button class="btn btn-secondary">Ver ambos deals</button>
+          <button class="btn btn-primary" style="background:var(--red);color:#fff">Resolver com sugestão da IA</button>
+          <button class="btn btn-secondary" data-route="crm">Abrir Funil Comercial</button>
         </div>
       </div>
     </div>
 
     <div class="grid kpi-grid mb-18">
-      <div class="kpi"><div class="kpi-label">Disponível</div><div class="kpi-value" style="color:var(--green)">2.134</div><div class="kpi-meta">75% do parque</div></div>
-      <div class="kpi"><div class="kpi-label">Alocado</div><div class="kpi-value" style="color:var(--accent)">587</div><div class="kpi-meta">21% · 23 deals ativos</div></div>
+      <div class="kpi"><div class="kpi-label">Disponíveis</div><div class="kpi-value" style="color:var(--green)">2.134</div><div class="kpi-meta">75% do parque</div></div>
+      <div class="kpi"><div class="kpi-label">Alocados em negócios</div><div class="kpi-value" style="color:var(--accent)">587</div><div class="kpi-meta">21% · 23 negócios ativos</div></div>
       <div class="kpi"><div class="kpi-label">Em manutenção</div><div class="kpi-value" style="color:var(--orange)">98</div><div class="kpi-meta">3,4% · 12 preventivas</div></div>
-      <div class="kpi"><div class="kpi-label">Conflitos</div><div class="kpi-value" style="color:var(--red)">3</div><div class="kpi-meta">requer atenção</div></div>
+      <div class="kpi" style="border-color:var(--red)"><div class="kpi-label">Conflitos · trava ativa</div><div class="kpi-value" style="color:var(--red)">3</div><div class="kpi-meta">bloqueando 3 negócios</div></div>
+    </div>
+
+    <div class="alert" style="background:var(--blue-soft);border-color:var(--blue);color:var(--text);margin-bottom:18px">
+      <div class="alert-icon" style="background:var(--blue)">i</div>
+      <div class="alert-content">
+        <div class="alert-title" style="color:var(--blue)">Como o módulo de patrimônio conversa com o funil</div>
+        <div class="alert-body">Cada item carrega o status para a data do evento que está sendo cotado. Na etapa 3 do Funil Comercial (Verificação de disponibilidade), o sistema cruza os itens da proposta com este catálogo · sem disponibilidade confirmada, o negócio não avança. A integração com o EstoqueNow é ponto de curadoria da Seção 12 do escopo.</div>
+      </div>
     </div>
 
     <div class="grid equip-grid" id="equipGrid"></div>
@@ -1623,77 +1668,127 @@
       <div class="margin-card">
         <div class="row" style="justify-content:space-between;margin-bottom:6px">
           <div>
-            <div class="text-sm text-mut" style="text-transform:uppercase;letter-spacing:1.2px;font-weight:600">Evento em execução · margem em tempo real</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;margin-top:6px">Bradesco · Convenção Anual</div>
+            <div class="text-sm text-mut" style="text-transform:uppercase;letter-spacing:1.2px;font-weight:600">Evento em montagem · margem em tempo real</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;margin-top:6px">Vivo · Lançamento de Produto</div>
           </div>
           <span class="pill green">Saudável</span>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:18px">
           <div>
             <div class="text-sm text-mut">Receita contratada</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--text)">R$ 412K</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--text)">R$ 287K</div>
           </div>
           <div>
             <div class="text-sm text-mut">Custos lançados</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--orange)">R$ 184K</div>
-            <div class="text-sm text-mut">de R$ 238K estimados</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--orange)">R$ 98K</div>
+            <div class="text-sm text-mut">de R$ 142K estimados</div>
           </div>
           <div>
             <div class="text-sm text-mut">Margem projetada</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--green)">42,2%</div>
-            <div class="text-sm text-mut">R$ 174K</div>
+            <div style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--green)">50,5%</div>
+            <div class="text-sm text-mut">R$ 145K</div>
           </div>
         </div>
-        <div class="margin-progress"><div class="margin-progress-fill" style="width:77%"></div></div>
-        <div class="text-sm text-mut" style="margin-top:8px">77% dos custos previstos já lançados · ainda restam logística de retorno e diárias finais</div>
+        <div class="margin-progress"><div class="margin-progress-fill" style="width:69%"></div></div>
+        <div class="text-sm text-mut" style="margin-top:8px">69% dos custos previstos já lançados · ainda restam logística de retorno e diárias finais</div>
       </div>
 
       <div class="card">
-        <div class="card-title" style="margin-bottom:6px">Detalhamento de custos · Bradesco</div>
-        <div class="card-sub" style="margin-bottom:10px">Rastreio em tempo real conforme equipe lança</div>
-        <div class="cost-row"><span>Equipamentos (depreciação)</span><strong>R$ 38.400</strong></div>
-        <div class="cost-row"><span>Equipe técnica fixa</span><strong>R$ 28.200</strong></div>
-        <div class="cost-row"><span>Freelancers</span><strong>R$ 14.800</strong></div>
-        <div class="cost-row"><span>Logística (frete + comb.)</span><strong>R$ 18.600</strong></div>
-        <div class="cost-row"><span>Sublocação (uplighting)</span><strong>R$ 12.400</strong></div>
-        <div class="cost-row"><span>Manutenção pós-evento</span><strong>R$ 4.200</strong></div>
-        <div class="cost-row"><span>Hospedagem / diárias</span><strong>R$ 8.900</strong></div>
-        <div class="cost-row" style="font-weight:600;color:var(--accent)"><span>Custo total lançado</span><strong>R$ 125.500</strong></div>
+        <div class="card-title" style="margin-bottom:6px">Cronograma de cobrança · todos os eventos abertos</div>
+        <div class="card-sub" style="margin-bottom:10px">Sinal vence no aceite ClickSign · saldo em 30 ddl após o evento</div>
+        <div class="cost-row" style="background:var(--green-soft);border-radius:6px;padding:8px 10px;margin-bottom:6px"><span style="color:var(--text)"><strong>Vivo</strong> · sinal recebido</span><strong style="color:var(--green)">+ R$ 143.700</strong></div>
+        <div class="cost-row"><span><strong>Servier</strong> · aguardando ClickSign</span><strong style="color:var(--accent)">R$ 143.700</strong></div>
+        <div class="cost-row"><span><strong>Loft Imóveis</strong> · sinal vence em 5d</span><strong>R$ 71.000</strong></div>
+        <div class="cost-row"><span><strong>Albert Einstein</strong> · saldo em 30 ddl</span><strong>R$ 122.500</strong></div>
+        <div class="cost-row"><span><strong>Banco Plural</strong> · saldo em 12 ddl</span><strong>R$ 99.000</strong></div>
+        <div class="cost-row" style="font-weight:600;color:var(--accent);margin-top:6px"><span>Total a receber</span><strong>R$ 436.200</strong></div>
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-head">
-        <div>
-          <div class="card-title">Margem por evento · mês</div>
-          <div class="card-sub">Eventos ordenados por margem decrescente</div>
+    <div class="grid" style="grid-template-columns:1.4fr 1fr;gap:18px">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Margem por evento · mês</div>
+            <div class="card-sub">Eventos ordenados por margem decrescente · alimentado pelo Pacote de Operação</div>
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table class="table">
+            <thead><tr><th>Evento</th><th>Cliente</th><th>Receita</th><th>Custo</th><th>Margem</th><th>%</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Workshop ESG</strong></td><td>Petrobras</td><td class="mono">R$ 287.000</td><td class="mono">R$ 142.000</td><td class="mono text-accent">R$ 145.000</td><td class="mono" style="color:var(--green);font-weight:600">50,5%</td><td><span class="pill" style="background:var(--orange-soft);color:var(--orange)">Desmontagem</span></td></tr>
+              <tr><td><strong>Lançamento Produto</strong></td><td>Vivo</td><td class="mono">R$ 287.000</td><td class="mono">R$ 142.000</td><td class="mono text-accent">R$ 145.000</td><td class="mono" style="color:var(--green);font-weight:600">50,5%</td><td><span class="pill amber">Em montagem</span></td></tr>
+              <tr><td><strong>Simpósio Anual</strong></td><td>Hospital Albert</td><td class="mono">R$ 245.000</td><td class="mono">R$ 138.000</td><td class="mono text-accent">R$ 107.000</td><td class="mono" style="color:var(--green);font-weight:600">43,7%</td><td><span class="pill blue">Pré-produção</span></td></tr>
+              <tr><td><strong>Workshop Vendas</strong></td><td>Loft Imóveis</td><td class="mono">R$ 142.000</td><td class="mono">R$ 84.000</td><td class="mono text-accent">R$ 58.000</td><td class="mono" style="color:var(--accent);font-weight:600">40,8%</td><td><span class="pill purple">Qualificação</span></td></tr>
+              <tr><td><strong>Convenção</strong></td><td>Banco Plural</td><td class="mono">R$ 198.000</td><td class="mono">R$ 132.000</td><td class="mono" style="color:var(--red)">R$ 66.000</td><td class="mono" style="color:var(--red);font-weight:600">33,3%</td><td><span class="pill" style="background:var(--red-soft);color:var(--red)">Margem baixa · exceção</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="table-scroll">
-        <table class="table">
-          <thead><tr><th>Evento</th><th>Cliente</th><th>Receita</th><th>Custo</th><th>Margem</th><th>%</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Lançamento ESG</strong></td><td>Petrobras</td><td class="mono">R$ 287.000</td><td class="mono">R$ 142.000</td><td class="mono text-accent">R$ 145.000</td><td class="mono" style="color:var(--green);font-weight:600">50,5%</td><td><span class="pill green">Entregue</span></td></tr>
-            <tr><td><strong>Convenção Anual</strong></td><td>Bradesco</td><td class="mono">R$ 412.000</td><td class="mono">R$ 238.000</td><td class="mono text-accent">R$ 174.000</td><td class="mono" style="color:var(--green);font-weight:600">42,2%</td><td><span class="pill amber">Em execução</span></td></tr>
-            <tr><td><strong>Treinamento Executivo</strong></td><td>Vale</td><td class="mono">R$ 98.000</td><td class="mono">R$ 58.000</td><td class="mono text-accent">R$ 40.000</td><td class="mono" style="color:var(--accent);font-weight:600">40,8%</td><td><span class="pill blue">Confirmado</span></td></tr>
-            <tr><td><strong>Roadshow Q2</strong></td><td>Itaú BBA</td><td class="mono">R$ 156.000</td><td class="mono">R$ 102.000</td><td class="mono text-accent">R$ 54.000</td><td class="mono" style="color:var(--orange);font-weight:600">34,6%</td><td><span class="pill purple">Planejamento</span></td></tr>
-            <tr><td><strong>Lançamento Produto</strong></td><td>Ambev</td><td class="mono">R$ 178.000</td><td class="mono">R$ 132.000</td><td class="mono" style="color:var(--red)">R$ 46.000</td><td class="mono" style="color:var(--red);font-weight:600">25,8%</td><td><span class="pill red">Margem baixa</span></td></tr>
-          </tbody>
-        </table>
+
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Notas fiscais</div><div class="card-sub">Disparadas a partir do Pacote de Operação</div></div></div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <div style="display:flex;justify-content:space-between;padding:10px;background:var(--green-soft);border-left:3px solid var(--green);border-radius:var(--r-sm)">
+            <div><strong>NF 2026/0312</strong> · Petrobras<br><span class="text-sm text-mut">Emitida 17/05 · R$ 287.000</span></div>
+            <span class="pill green">paga</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px;background:var(--bg-3);border-radius:var(--r-sm)">
+            <div><strong>NF 2026/0318</strong> · Vivo<br><span class="text-sm text-mut">A emitir em 14/06 (dia do evento)</span></div>
+            <span class="pill amber">agendada</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px;background:var(--bg-3);border-radius:var(--r-sm)">
+            <div><strong>NF 2026/0319</strong> · Servier<br><span class="text-sm text-mut">A emitir em 18/10/2026</span></div>
+            <span class="pill amber">agendada</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:10px;background:var(--red-soft);border-left:3px solid var(--red);border-radius:var(--r-sm)">
+            <div><strong>NF 2026/0299</strong> · Banco Plural<br><span class="text-sm text-mut">Saldo vencido há 12 dias · R$ 99.000</span></div>
+            <span class="pill" style="background:var(--red);color:#fff">cobrar</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== NPS ===== -->
+  <!-- ===== NPS / Pós-evento ===== -->
   <section class="page" id="page-nps">
     <div class="page-head">
       <div>
-        <h1 class="page-title">Experiência do Cliente</h1>
-        <p class="page-sub">NPS automático 24h após cada evento · base últimos 90 dias</p>
+        <h1 class="page-title">Pós-evento e Experiência</h1>
+        <p class="page-sub">Combate à recompra silenciosa · NPS + janela de recontato calculada + recompra antecipada via Agente de Prospecção</p>
       </div>
       <div class="page-actions">
         <button class="btn btn-secondary">Últimos 90 dias ▾</button>
         <button class="btn btn-secondary">Exportar</button>
+      </div>
+    </div>
+
+    <!-- Pós-evento · ciclo de recontato (Seção 3.12 do escopo) -->
+    <div class="card" style="margin-bottom:18px;border-left:3px solid var(--accent)">
+      <div class="card-head">
+        <div><div class="card-title">Janela de recontato · esta semana</div><div class="card-sub">Data calculada = data do próximo evento − antecedência de produção informada no pós-evento · ciclo dispara automaticamente</div></div>
+        <span class="ai-chip">monitorado pelo Agente IA</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px">
+        <div style="padding:14px;background:var(--bg-3);border-radius:var(--r-md);border-left:3px solid var(--accent)">
+          <div class="text-sm text-mut" style="text-transform:uppercase;letter-spacing:1px;font-weight:600">Hoje</div>
+          <div style="font-weight:600;font-size:14px;margin-top:6px">Petrobras · Workshop ESG anual</div>
+          <div class="text-sm text-mut" style="margin-top:4px">Próximo evento previsto: Set/2026 · antecedência: 3 meses</div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:10px">Disparar contato</button>
+        </div>
+        <div style="padding:14px;background:var(--bg-3);border-radius:var(--r-md);border-left:3px solid var(--blue)">
+          <div class="text-sm text-mut" style="text-transform:uppercase;letter-spacing:1px;font-weight:600">Em 4 dias</div>
+          <div style="font-weight:600;font-size:14px;margin-top:6px">Hospital Albert · Simpósio Anual</div>
+          <div class="text-sm text-mut" style="margin-top:4px">Próximo: Nov/2026 · antecedência: 6 meses</div>
+          <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:10px">Agendar contato</button>
+        </div>
+        <div style="padding:14px;background:var(--bg-3);border-radius:var(--r-md);border-left:3px solid var(--green)">
+          <div class="text-sm text-mut" style="text-transform:uppercase;letter-spacing:1px;font-weight:600">Recompra antecipada</div>
+          <div style="font-weight:600;font-size:14px;margin-top:6px">Magalu · convenção anual</div>
+          <div class="text-sm text-mut" style="margin-top:4px">Agente IA detectou sinal · 2 meses antes da janela</div>
+          <button class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:10px" data-route="prospeccao">Ver no Agente IA</button>
+        </div>
       </div>
     </div>
 
@@ -2037,6 +2132,105 @@
         <button class="btn btn-secondary">🔗 Copiar link público</button>
         <button class="btn btn-primary" id="signNow">✦ Simular aceite do cliente</button>
       </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-onboarding">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Onboarding do cliente</h1>
+        <p class="page-sub">Boas-vindas a Servier · cada cliente vê o que vai acontecer da pré-produção ao pós-evento · transforma ansiedade em tranquilidade</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">📋 Versão para cliente</button>
+        <button class="btn btn-secondary">✉️ Enviar por e-mail</button>
+        <button class="btn btn-primary">✓ Marcar como realizado</button>
+      </div>
+    </div>
+
+    <div class="onb-hero">
+      <div class="onb-eyebrow">Servier · Convenção Anual 2026</div>
+      <h2 class="onb-headline">Olá Carlos. <span style="color:var(--accent)">Você está em boas mãos.</span></h2>
+      <p class="onb-sub">A partir de agora, a Support Rental cuida do seu evento de ponta a ponta. Você vai saber exatamente o que esperar, quando e quem falar com você em cada momento. Sem surpresas, sem ansiedade — só um evento bem feito.</p>
+      <div class="onb-quick">
+        <div><strong>Evento</strong><span>18–19 out 2026</span></div>
+        <div><strong>Local</strong><span>Centro Fecomercio · SP</span></div>
+        <div><strong>Sua coordenadora</strong><span>Mariana Costa</span></div>
+        <div><strong>Operação no local</strong><span>André Mendes</span></div>
+      </div>
+    </div>
+
+    <div class="onb-grid">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Sua jornada conosco</div><div class="card-sub">5 marcos do contrato ao pós-evento · cada um com data e responsável</div></div></div>
+        <div class="journey" style="margin-top:14px">
+          <div class="journey-step done">
+            <div class="journey-head"><span class="journey-when">22/05 · hoje</span><span class="journey-title">Aceite e onboarding</span></div>
+            <div class="journey-desc">Contrato assinado via ClickSign. Esta página é o nosso "olá, bem-vindo". Aqui você vê o resumo do que vai acontecer.</div>
+            <div class="journey-card"><span>📞 <strong>Mariana Costa</strong> · sua coordenadora</span><a href="#" data-route="ficha" style="color:var(--accent)">Ver ficha</a></div>
+          </div>
+          <div class="journey-step current">
+            <div class="journey-head"><span class="journey-when">Set–Out · 30 dias antes</span><span class="journey-title">Pré-produção</span></div>
+            <div class="journey-desc">Confirmamos o cronograma final, alinhamos com o local, definimos a equipe técnica. Você recebe um briefing detalhado 15 dias antes.</div>
+            <div class="journey-card"><span>📋 Confirmação de equipe · checklist de equipamentos · cronograma de montagem (gerado pela IA, validado pela equipe)</span><span class="ai-chip sm">IA</span></div>
+          </div>
+          <div class="journey-step">
+            <div class="journey-head"><span class="journey-when">17 out · véspera</span><span class="journey-title">Montagem</span></div>
+            <div class="journey-desc">Chegamos às 06h para montar. Você pode acompanhar — palco, LED, som, iluminação e passagem técnica. Tudo pronto até as 17h.</div>
+            <div class="journey-card"><span>🛠️ <strong>André Mendes</strong> coordena a operação no local · 3 técnicos próprios + 1 freelancer</span><a href="#" data-route="operacional" style="color:var(--accent)">Ver cronograma</a></div>
+          </div>
+          <div class="journey-step">
+            <div class="journey-head"><span class="journey-when">18–19 out · evento</span><span class="journey-title">Operação durante o evento</span></div>
+            <div class="journey-desc">Equipe técnica acompanha o evento todo. Qualquer ocorrência fica registrada e tratada na hora. Você tem o telefone direto da operação.</div>
+            <div class="journey-card"><span>🎬 Streaming 4K + gravação backup · operadores de som, luz e LED no local</span><span class="pill" style="background:var(--green-soft);color:var(--green)">cobertura 24h</span></div>
+          </div>
+          <div class="journey-step">
+            <div class="journey-head"><span class="journey-when">23 out · pós-evento</span><span class="journey-title">Avaliação e próximos passos</span></div>
+            <div class="journey-desc">Mariana te procura para uma conversa de fechamento. Você dá sua avaliação, conta como foi e a gente já marca a janela do próximo evento.</div>
+            <div class="journey-card"><span>⏰ Recontato calculado · próximo evento previsto Out/2027 · ciclo dispara em Jul/2027 (3 meses antes)</span><a href="#" style="color:var(--accent)">Ver agenda</a></div>
+          </div>
+        </div>
+      </div>
+
+      <aside style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Quem cuida de você</div></div>
+          <div style="display:flex;flex-direction:column;gap:12px;margin-top:10px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm)">
+              <div class="avatar" style="width:36px;height:36px;font-size:13px">MC</div>
+              <div style="flex:1"><strong style="display:block;font-size:13.5px">Mariana Costa</strong><span class="text-sm text-mut">Coordenadora · comercial e onboarding</span></div>
+              <button class="btn btn-ghost">💬</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm)">
+              <div class="avatar" style="width:36px;height:36px;font-size:13px">AM</div>
+              <div style="flex:1"><strong style="display:block;font-size:13.5px">André Mendes</strong><span class="text-sm text-mut">Operação no dia do evento</span></div>
+              <button class="btn btn-ghost">💬</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm)">
+              <div class="avatar" style="width:36px;height:36px;font-size:13px">JP</div>
+              <div style="flex:1"><strong style="display:block;font-size:13.5px">Joana Pires</strong><span class="text-sm text-mut">Gestora · escalação em emergências</span></div>
+              <button class="btn btn-ghost">💬</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Documentos do evento</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;font-size:13px">
+            <a href="#" style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);color:var(--text)"><span>📄 Contrato assinado · ClickSign</span><span class="text-mut">22/05</span></a>
+            <a href="#" style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);color:var(--text)"><span>📝 Proposta Premium · v1</span><span class="text-mut">22/05</span></a>
+            <a href="#" style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);color:var(--text)"><span>🗒️ Ata da reunião de briefing</span><span class="text-mut">15/05</span></a>
+            <a href="#" style="display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);color:var(--text)"><span>📋 Briefing técnico validado</span><span class="text-mut">21/05</span></a>
+          </div>
+        </div>
+
+        <div class="card" style="background:var(--accent-soft);border-color:var(--accent)">
+          <div class="card-title" style="color:var(--accent);margin-bottom:8px">Um número direto</div>
+          <p class="text-sm" style="margin-bottom:10px">Em caso de qualquer dúvida ou imprevisto durante a montagem ou o evento, ligue ou mande WhatsApp para a coordenação direto:</p>
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--accent)">(11) 9 9844-2210</div>
+          <div class="text-sm text-mut">Mariana Costa · disponível 24h durante o evento</div>
+        </div>
+      </aside>
     </div>
   </section>
 
@@ -3332,6 +3526,7 @@ const PAGE_TITLES = {
   leadinbox:'Lead Inbox',
   assinatura:'Aceite digital · ClickSign',
   entrega:'Funil de Entrega',
+  onboarding:'Onboarding do cliente',
   operacional:'Pacote de Operação',
   clientes:'Clientes',
   ficha:'Ficha do Cliente',
@@ -3339,7 +3534,7 @@ const PAGE_TITLES = {
   patrimonio:'Patrimônio',
   relatorios:'Relatórios',
   financeiro:'Financeiro',
-  nps:'Experiência · NPS',
+  nps:'Pós-evento e Experiência',
   config:'Configuração de Funis',
   admin:'Administração',
   logistica:'Logística',
@@ -3444,7 +3639,7 @@ document.addEventListener('click', e => {
     card.querySelector('strong').textContent = 'Aceite confirmado · contrato vigente';
     b.textContent = '✓ Cliente assinou';
     b.disabled = true;
-    setTimeout(() => showLockToast({title:'Aceite confirmado · contrato vigente', sub:'Comercial e operação notificados · Pacote de Operação liberado para o Funil de Entrega.', action:'Abrir Funil de Entrega', target:'entrega', kind:'success'}), 600);
+    setTimeout(() => showLockToast({title:'Aceite confirmado · contrato vigente', sub:'Comercial e operação notificados. Onboarding do cliente disparado automaticamente.', action:'Abrir onboarding do cliente', target:'onboarding', kind:'success'}), 600);
   }
 });
 
@@ -3466,6 +3661,7 @@ const SEARCH_PAGES = [
   { kind:'tela', label:'Dashboard',                  desc:'Pendências, indicadores e alertas', route:'dashboard',  ic:'🏠' },
   { kind:'tela', label:'Funil Comercial',            desc:'Pipeline de 7 etapas',              route:'crm',        ic:'🎯' },
   { kind:'tela', label:'Funil de Entrega',           desc:'Eventos em execução',               route:'entrega',    ic:'🎬' },
+  { kind:'tela', label:'Onboarding do cliente',       desc:'Boas-vindas pós-aceite',           route:'onboarding', ic:'👋' },
   { kind:'tela', label:'Gerador de Proposta',        desc:'Proposta personalizada com IA',     route:'proposta',   ic:'✨' },
   { kind:'tela', label:'Agente de Prospecção',       desc:'Leads encontrados pela IA',         route:'prospeccao', ic:'🛰️' },
   { kind:'tela', label:'Lead Inbox',                 desc:'Triagem de leads novos',            route:'leadinbox',  ic:'📥' },
