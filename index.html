@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Support Rental · OS Operacional</title>
+<title>Support Rental · agente.crm</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -50,6 +50,34 @@
   .nav-item .badge{margin-left:auto;background:var(--accent-soft);color:var(--accent);padding:1px 7px;border-radius:10px;font-size:10px;font-weight:600}
   .nav-item .badge.red{background:var(--red-soft);color:var(--red)}
   .nav-item .badge.soon{background:var(--bg-4);color:var(--text-3)}
+  .nav-item .badge.ai{background:var(--blue-soft);color:var(--blue);letter-spacing:.4px;font-weight:700}
+
+  /* === Chip "Sugerido pela IA" (padrão visual da Seção 2.1 do mockup) === */
+  .ai-chip{display:inline-flex;align-items:center;gap:5px;background:var(--blue-soft);color:var(--blue);padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:600;letter-spacing:.3px;border:1px solid rgba(94,158,255,.25)}
+  .ai-chip::before{content:'✦';font-size:10px;line-height:1}
+  .ai-chip.sm{font-size:9.5px;padding:1px 6px}
+  .ai-field{border:1px dashed rgba(94,158,255,.45) !important;background:rgba(94,158,255,.04) !important;position:relative}
+  .ai-field::after{content:'✦ IA';position:absolute;top:6px;right:8px;font-size:9px;font-weight:700;color:var(--blue);letter-spacing:.4px;opacity:.8}
+
+  /* === Toast de bloqueio da trava (padrão Seção 2.1) === */
+  .toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120%);z-index:200;background:var(--bg-3);border:1px solid var(--red);border-left:4px solid var(--red);border-radius:var(--r-md);padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 12px 36px rgba(0,0,0,.5);transition:transform .3s cubic-bezier(.2,.8,.2,1);max-width:560px}
+  .toast-wrap.visible{transform:translateX(-50%) translateY(0)}
+  .toast-icon{width:28px;height:28px;border-radius:50%;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:700}
+  .toast-body{display:flex;flex-direction:column;gap:2px}
+  .toast-title{font-size:13px;font-weight:600;color:var(--text)}
+  .toast-sub{font-size:11.5px;color:var(--text-2)}
+  .toast-action{margin-left:8px;padding:6px 12px;background:var(--bg-4);color:var(--text);border:1px solid var(--line-2);border-radius:var(--r-sm);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap}
+  .toast-action:hover{background:var(--accent);color:#1a0f00;border-color:var(--accent)}
+
+  /* === Animação de "balanço" no card travado === */
+  @keyframes shake-locked{
+    0%,100%{transform:translateX(0)}
+    20%{transform:translateX(-6px)}
+    40%{transform:translateX(6px)}
+    60%{transform:translateX(-4px)}
+    80%{transform:translateX(4px)}
+  }
+  .shake-locked{animation:shake-locked .4s ease-in-out}
   .sidebar-foot{margin-top:auto;padding:14px 8px 0;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
   .avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3a3a45,#22222a);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;color:var(--text)}
   .sidebar-foot-info{display:flex;flex-direction:column;line-height:1.2;flex:1;min-width:0}
@@ -392,38 +420,101 @@
   <div class="brand">
     <div style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">
       <img src="assets/logo.png" alt="Support Rental" class="brand-logo">
-      <span class="brand-sub">OS Operacional</span>
+      <span class="brand-sub">agente.crm</span>
     </div>
   </div>
 
   <div class="nav-group">
-    <div class="nav-group-title">Operação</div>
+    <div class="nav-group-title">Início</div>
     <a href="#" class="nav-item active" data-route="dashboard">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
       Dashboard
     </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Funil Comercial</div>
     <a href="#" class="nav-item" data-route="crm">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v6H3zM3 13h12v8H3zM18 13h3v8h-3z"/></svg>
-      CRM · Pipeline
+      Pipeline
       <span class="badge">12</span>
     </a>
     <a href="#" class="nav-item" data-route="deal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      Deal · Bradesco
+      Negócio · Servier
+    </a>
+    <a href="#" class="nav-item" data-route="proposta">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Gerador de Proposta
+      <span class="badge ai">IA</span>
+    </a>
+    <a href="#" class="nav-item" data-route="prospeccao">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M11 7v4l3 2"/></svg>
+      Agente de Prospecção
+      <span class="badge ai">IA</span>
+    </a>
+    <a href="#" class="nav-item" data-route="leadinbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+      Lead Inbox
+      <span class="badge">5</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Funil de Entrega</div>
+    <a href="#" class="nav-item" data-route="entrega">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
+      Eventos em execução
     </a>
     <a href="#" class="nav-item" data-route="operacional">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      Operacional
+      Pacote de Operação
       <span class="badge red">3</span>
     </a>
   </div>
 
   <div class="nav-group">
-    <div class="nav-group-title">Recursos</div>
+    <div class="nav-group-title">Cadastros</div>
+    <a href="#" class="nav-item" data-route="clientes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Clientes
+    </a>
+    <a href="#" class="nav-item" data-route="tabela">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+      Tabela-mestre de Preços
+    </a>
     <a href="#" class="nav-item" data-route="patrimonio">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
       Patrimônio
       <span class="badge red">!</span>
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Análise</div>
+    <a href="#" class="nav-item" data-route="relatorios">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Relatórios
+    </a>
+    <a href="#" class="nav-item" data-route="financeiro">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Financeiro
+    </a>
+    <a href="#" class="nav-item" data-route="nps">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Experiência · NPS
+    </a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Sistema</div>
+    <a href="#" class="nav-item" data-route="config">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v6H3zM3 13h12v8H3zM18 13h3v8h-3z"/><line x1="6" y1="6" x2="18" y2="6"/></svg>
+      Configuração de Funis
+    </a>
+    <a href="#" class="nav-item" data-route="admin">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Administração
     </a>
     <a href="#" class="nav-item" data-route="logistica">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7zM5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>
@@ -434,18 +525,6 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Pessoas
       <span class="badge soon">soon</span>
-    </a>
-  </div>
-
-  <div class="nav-group">
-    <div class="nav-group-title">Financeiro & Cliente</div>
-    <a href="#" class="nav-item" data-route="financeiro">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Financeiro
-    </a>
-    <a href="#" class="nav-item" data-route="nps">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      Experiência · NPS
     </a>
   </div>
 
@@ -1064,6 +1143,97 @@
     </div>
   </section>
 
+  <!-- ===== Novas páginas do escopo CRM (P1/P2/P3) ===== -->
+  <section class="page" id="page-proposta">
+    <div class="page-head"><div><h1 class="page-title">Gerador de Proposta</h1><p class="page-sub">Não é orçamento — é uma proposta que entende o briefing do cliente</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">✨</div>
+      <div class="soon-title">Em construção · Fase 1 (P1 do mockup)</div>
+      <div class="soon-text">Fluxo em 4 passos: tipo e contexto do evento → sugestão da IA → preços (com alerta de margem) → escolha entre Simples/Premium + preview da proposta web. Ver T6 em <code>instrucao_mockup_agente_crm.md</code>.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-prospeccao">
+    <div class="page-head"><div><h1 class="page-title">Agente de Prospecção <span class="ai-chip" style="vertical-align:middle">IA</span></h1><p class="page-sub">Varredura contínua de eventos e empresas-alvo · enquanto o funil registra, o agente caça</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">🛰️</div>
+      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
+      <div class="soon-text">Painel de leads encontrados pela IA, com pontuação, fonte original e gancho de abordagem. Status da varredura, campanhas sob demanda, raio geográfico configurável. Ver T9.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-leadinbox">
+    <div class="page-head"><div><h1 class="page-title">Lead Inbox</h1><p class="page-sub">Triagem de leads novos antes de virar negócio no Funil Comercial</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">📥</div>
+      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
+      <div class="soon-text">Lista de leads de origem diversa (WhatsApp, e-mail, indicação, Agente de Prospecção). Para cada um: origem, contexto, contato. Ações: qualificar (vira card no T3) ou descartar. Ver T10.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-entrega">
+    <div class="page-head"><div><h1 class="page-title">Funil de Entrega</h1><p class="page-sub">Kanban da execução · Pré-produção → Montagem → Em andamento → Desmontagem → Pós-evento</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">🎬</div>
+      <div class="soon-title">Em construção · Fase 1 (P1 do mockup)</div>
+      <div class="soon-text">Quadro Kanban com identidade visual distinta do Funil Comercial. Cards trazem data, local, equipe escalada, cronograma de montagem gerado por IA. Ver T7.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-clientes">
+    <div class="page-head"><div><h1 class="page-title">Clientes</h1><p class="page-sub">Carteira completa · ticket médio, recorrência, esfriamento</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">🏢</div>
+      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
+      <div class="soon-text">Listagem com colunas: cliente, cidade, último evento, ticket médio, vendedor, status (ativo/esfriando). Busca em tempo real, filtros, link direto para a Ficha do Cliente. Ver T8.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-ficha">
+    <div class="page-head"><div><h1 class="page-title">Ficha do Cliente</h1><p class="page-sub">Tela central · cadastro + histórico de locação + inteligência</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">📇</div>
+      <div class="soon-title">Em construção · Fase 1 (P1 do mockup)</div>
+      <div class="soon-text">Abas: Dados cadastrais · Histórico de locação (eventos, equipamentos, preços) · Inteligência (ticket médio, sazonalidade, radar de notícias, alerta de esfriamento) · Desconto contratual. Painel lateral com próximo evento e data de recontato. Ver T5.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-tabela">
+    <div class="page-head"><div><h1 class="page-title">Tabela-mestre de Preços</h1><p class="page-sub">Fonte oficial · reajuste periódico · histórico de versões</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">📊</div>
+      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
+      <div class="soon-text">Catálogo de equipamentos com preço-base por item, versão vigente (ex.: V12 — reajustada em 01/01/2026 — IPCA 4,62%), botão de reajuste e histórico de versões. Ver T11.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-relatorios">
+    <div class="page-head"><div><h1 class="page-title">Relatórios</h1><p class="page-sub">Conversão por etapa, ticket médio, ranking, forecasting</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">📈</div>
+      <div class="soon-title">Em construção · Fase 3 (P3 do mockup)</div>
+      <div class="soon-text">Dashboards de conversão por etapa, ticket médio, ranking de vendedores, origem de leads, receita prevista vs realizada. Ver T14.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-config">
+    <div class="page-head"><div><h1 class="page-title">Configuração de Funis</h1><p class="page-sub">Editor visual de etapas e travas · o funil é configurável</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">🔧</div>
+      <div class="soon-title">Em construção · Fase 3 (P3 do mockup)</div>
+      <div class="soon-text">Editor visual dos dois funis (Comercial e Entrega). Adicionar, remover, renomear etapas. Definir campos obrigatórios de cada etapa (as travas). Ver T13.</div>
+    </div>
+  </section>
+
+  <section class="page" id="page-admin">
+    <div class="page-head"><div><h1 class="page-title">Administração</h1><p class="page-sub">Usuários, papéis, acessos e integrações externas</p></div></div>
+    <div class="soon-card">
+      <div class="soon-icon">⚙️</div>
+      <div class="soon-title">Em construção · Fase 3 (P3 do mockup)</div>
+      <div class="soon-text">Gestão de usuários (Vendedor, Gestor, Operação, Admin) e configuração das integrações: WhatsApp, e-mail, ClickSign, EstoqueNow, ferramenta de transcrição, Agente de Prospecção. Ver T15.</div>
+    </div>
+  </section>
+
   <!-- ===== SOON pages ===== -->
   <section class="page" id="page-logistica">
     <div class="page-head"><div><h1 class="page-title">Logística</h1><p class="page-sub">Gestão de frota, rotas e cronograma de deslocamentos</p></div></div>
@@ -1083,6 +1253,16 @@
     </div>
   </section>
 </main>
+
+<!-- ===== Toast de bloqueio da trava do funil ===== -->
+<div class="toast-wrap" id="lockToast" role="alert" aria-live="assertive">
+  <div class="toast-icon">🔒</div>
+  <div class="toast-body">
+    <span class="toast-title" id="lockToastTitle">Não dá para avançar</span>
+    <span class="toast-sub" id="lockToastSub">Faltam campos obrigatórios desta etapa.</span>
+  </div>
+  <button class="toast-action" id="lockToastAction">Abrir negócio</button>
+</div>
 
 <script>
 // =================== DADOS MOCK ===================
@@ -1277,14 +1457,24 @@ function renderCharts(){
 // =================== ROUTER ===================
 const PAGE_TITLES = {
   dashboard:'Dashboard',
-  crm:'CRM · Pipeline',
-  deal:'Deal · Bradesco Convenção',
+  crm:'Funil Comercial · Pipeline',
+  deal:'Negócio · Convenção Servier 2026',
+  proposta:'Gerador de Proposta',
+  prospeccao:'Agente de Prospecção',
+  leadinbox:'Lead Inbox',
+  entrega:'Funil de Entrega',
+  operacional:'Pacote de Operação',
+  clientes:'Clientes',
+  ficha:'Ficha do Cliente',
+  tabela:'Tabela-mestre de Preços',
   patrimonio:'Patrimônio',
-  operacional:'Operacional',
-  logistica:'Logística',
-  pessoas:'Pessoas',
+  relatorios:'Relatórios',
   financeiro:'Financeiro',
-  nps:'Experiência · NPS'
+  nps:'Experiência · NPS',
+  config:'Configuração de Funis',
+  admin:'Administração',
+  logistica:'Logística',
+  pessoas:'Pessoas'
 };
 
 function route(name){
@@ -1337,6 +1527,44 @@ window.addEventListener('resize', () => { if(window.innerWidth > 820) closeNav()
 renderKanban();
 renderEquip();
 renderCharts();
+
+// =================== TOAST DA TRAVA DO FUNIL (Seção 2.1) ===================
+const lockToast = document.getElementById('lockToast');
+const lockToastTitle = document.getElementById('lockToastTitle');
+const lockToastSub = document.getElementById('lockToastSub');
+const lockToastAction = document.getElementById('lockToastAction');
+let _lockToastTimer = null;
+let _lockToastTarget = null;
+function showLockToast({title, sub, action, target}={}){
+  if(title) lockToastTitle.textContent = title;
+  if(sub) lockToastSub.textContent = sub;
+  if(action) lockToastAction.textContent = action;
+  _lockToastTarget = target || null;
+  lockToast.classList.add('visible');
+  clearTimeout(_lockToastTimer);
+  _lockToastTimer = setTimeout(() => lockToast.classList.remove('visible'), 5200);
+}
+lockToastAction?.addEventListener('click', () => {
+  lockToast.classList.remove('visible');
+  if(_lockToastTarget) route(_lockToastTarget);
+});
+
+// Quando o usuário tenta clicar em "Avançar etapa" travado, dispara o toast.
+// Cobre o botão do detalhe do negócio (data-action="advance-locked").
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-action="advance-locked"]');
+  if(!btn) return;
+  e.preventDefault();
+  const card = btn.closest('[data-deal-id]');
+  if(card) card.classList.add('shake-locked');
+  setTimeout(() => card && card.classList.remove('shake-locked'), 400);
+  showLockToast({
+    title: 'Não dá para avançar',
+    sub: btn.dataset.lockReason || 'Faltam 3 campos obrigatórios desta etapa.',
+    action: 'Ver campos pendentes',
+    target: btn.dataset.target || 'deal'
+  });
+});
 </script>
 
 </body>
