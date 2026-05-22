@@ -27,6 +27,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
   body{display:flex;min-height:100vh}
+  body.app-locked{overflow:hidden}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
   input,select,textarea{font-family:inherit}
   a{color:inherit;text-decoration:none}
@@ -204,6 +205,60 @@
   .proposal-preview .pp-block > div{background:rgba(255,255,255,.03);border:1px solid var(--line);padding:14px;border-radius:var(--r-md)}
   .proposal-preview .pp-block strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:6px}
   .proposal-preview .pp-block span{font-size:15px;font-weight:600;color:var(--text)}
+
+  /* === Login (T1) === */
+  .login-shell{display:flex;min-height:100vh;width:100%;background:linear-gradient(135deg,#0a0a0b,#16161a);position:fixed;inset:0;z-index:500;overflow:auto}
+  .login-shell.hidden{display:none}
+  .app-locked .sidebar,.app-locked .main,.app-locked .toast-wrap,.app-locked .modal-backdrop{display:none !important}
+  body.locked{overflow:hidden}
+  .login-left{flex:1;padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;border-right:1px solid var(--line)}
+  .login-left::before{content:'';position:absolute;top:-30%;right:-20%;width:120%;height:120%;background:radial-gradient(circle,rgba(212,168,87,.12) 0%,transparent 50%);pointer-events:none}
+  .login-left > *{position:relative;z-index:1}
+  .login-brand{display:flex;align-items:center;gap:12px}
+  .login-brand img{height:38px}
+  .login-brand .b-sub{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent);font-weight:600;border-left:1px solid var(--line);padding-left:10px}
+  .login-hero{margin-top:auto}
+  .login-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px}
+  .login-headline{font-family:var(--font-display);font-size:48px;font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:18px}
+  .login-headline span{color:var(--accent)}
+  .login-sub{font-size:15px;color:var(--text-2);max-width:480px;line-height:1.6;margin-bottom:32px}
+  .login-feats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:480px}
+  .login-feat{display:flex;gap:10px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:var(--r-md)}
+  .login-feat-ic{width:30px;height:30px;border-radius:var(--r-sm);background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .login-feat-txt strong{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+  .login-feat-txt span{font-size:11.5px;color:var(--text-3);line-height:1.4}
+  .login-foot{font-size:11px;color:var(--text-3);margin-top:32px}
+
+  .login-right{width:440px;padding:48px;display:flex;flex-direction:column;justify-content:center;background:var(--bg-2)}
+  .login-form-head{margin-bottom:32px}
+  .login-form-head h2{font-family:var(--font-display);font-size:26px;font-weight:700;margin-bottom:8px}
+  .login-form-head p{color:var(--text-3);font-size:13.5px}
+  .login-form .field{margin-bottom:14px}
+  .login-form input{padding:12px 14px;font-size:14px}
+  .login-row{display:flex;justify-content:space-between;align-items:center;margin:18px 0;font-size:12.5px}
+  .login-row label{display:flex;align-items:center;gap:7px;color:var(--text-2);cursor:pointer}
+  .login-row a{color:var(--accent)}
+  .login-btn{width:100%;padding:13px;font-size:14px;font-weight:600;justify-content:center;margin-top:8px}
+  .login-or{display:flex;align-items:center;gap:10px;margin:22px 0;color:var(--text-3);font-size:11.5px;text-transform:uppercase;letter-spacing:1px}
+  .login-or::before,.login-or::after{content:'';flex:1;height:1px;background:var(--line)}
+  .login-quick{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+  .login-quick-btn{padding:11px 14px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);display:flex;align-items:center;gap:10px;font-size:13px;cursor:pointer;color:var(--text-2);transition:.15s;width:100%;text-align:left}
+  .login-quick-btn:hover{border-color:var(--accent);color:var(--text)}
+  .login-quick-btn .qa{width:28px;height:28px;border-radius:50%;font-size:11px;font-weight:600}
+  @media (max-width:900px){
+    .login-left{padding:32px 24px}
+    .login-right{width:100%;padding:32px 24px}
+    .login-shell{flex-direction:column}
+    .login-headline{font-size:34px}
+    .login-feats{grid-template-columns:1fr}
+  }
+
+  /* === Drag and drop kanban === */
+  .deal-card{user-select:none}
+  .deal-card.dragging{opacity:.4;transform:rotate(-2deg) scale(.97)}
+  .kb-col.drop-target{background:rgba(212,168,87,.04);outline:2px dashed var(--accent);outline-offset:-4px}
+  .kanban.delivery .kb-col.drop-target{outline-color:var(--green);background:rgba(62,207,142,.05)}
+  .kb-col.drop-blocked{outline-color:var(--red) !important;background:rgba(239,77,91,.04) !important}
 
   /* === Config de Funis (T13) === */
   .stage-list{display:flex;flex-direction:column;gap:8px;margin-top:14px}
@@ -602,9 +657,60 @@
   }
 </style>
 </head>
-<body>
+<body class="app-locked">
 
 <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<!-- ===== TELA DE LOGIN (T1) ===== -->
+<div class="login-shell" id="loginShell">
+  <div class="login-left">
+    <div class="login-brand">
+      <img src="assets/logo.png" alt="Support Rental">
+      <span class="b-sub">agente.crm</span>
+    </div>
+    <div class="login-hero">
+      <div class="login-eyebrow">O CRM que entende locação de eventos</div>
+      <h1 class="login-headline">Não vende uma vez.<br><span>Cuida do evento inteiro.</span></h1>
+      <p class="login-sub">Dois funis conectados — Comercial e Entrega — com o Pacote de Operação garantindo que cada negócio chegue redondo na operação. Sem retrabalho, sem "não foi isso que combinamos".</p>
+      <div class="login-feats">
+        <div class="login-feat"><div class="login-feat-ic">🎯</div><div class="login-feat-txt"><strong>Funil que ensina</strong><span>Travas de campo guiam o vendedor pela boa prática</span></div></div>
+        <div class="login-feat"><div class="login-feat-ic">✨</div><div class="login-feat-txt"><strong>Proposta personalizada</strong><span>Não orçamento — uma página que constrói valor</span></div></div>
+        <div class="login-feat"><div class="login-feat-ic">🛰️</div><div class="login-feat-txt"><strong>Agente de Prospecção</strong><span>IA encontra leads antes do telefone tocar</span></div></div>
+        <div class="login-feat"><div class="login-feat-ic">📦</div><div class="login-feat-txt"><strong>Pacote de Operação</strong><span>Handoff redondo do comercial para operação</span></div></div>
+      </div>
+    </div>
+    <div class="login-foot">© Support Rental · agente.crm by agente.lab · 2026</div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-form-head">
+      <h2>Bem-vindo de volta</h2>
+      <p>Entre para acessar seu CRM</p>
+    </div>
+    <form class="login-form" id="loginForm">
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" placeholder="seu@supportrental.com.br" value="leonardo@supportrental.com.br" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" placeholder="••••••••" value="demo2026" autocomplete="current-password">
+      </div>
+      <div class="login-row">
+        <label><input type="checkbox" checked> Manter conectado</label>
+        <a href="#" onclick="return false">Esqueci a senha</a>
+      </div>
+      <button type="submit" class="btn btn-primary login-btn">Entrar →</button>
+    </form>
+
+    <div class="login-or">ou entre como demo</div>
+    <div class="login-quick">
+      <button class="login-quick-btn" data-demo-user="LA"><div class="avatar qa">LA</div><div><strong style="display:block">Leonardo Arruda</strong><span class="text-mut" style="font-size:11px">Diretor Comercial · Admin</span></div></button>
+      <button class="login-quick-btn" data-demo-user="MC"><div class="avatar qa">MC</div><div><strong style="display:block">Mariana Costa</strong><span class="text-mut" style="font-size:11px">Vendedora sênior</span></div></button>
+      <button class="login-quick-btn" data-demo-user="AM"><div class="avatar qa">AM</div><div><strong style="display:block">André Mendes</strong><span class="text-mut" style="font-size:11px">Operação</span></div></button>
+    </div>
+  </div>
+</div>
 
 <aside class="sidebar" id="sidebar">
   <div class="brand">
@@ -756,12 +862,39 @@
   <section class="page active" id="page-dashboard">
     <div class="page-head">
       <div>
-        <h1 class="page-title">Bom dia, Leonardo.</h1>
-        <p class="page-sub">Quarta-feira, 21 de maio · 4 eventos em execução, 7 em montagem</p>
+        <h1 class="page-title">Bom dia.</h1>
+        <p class="page-sub">Quarta-feira, 22 de maio · <strong>5 pendências hoje</strong> · 4 eventos em execução · 2 leads novos do <a href="#" data-route="prospeccao" style="color:var(--accent)">Agente de Prospecção</a></p>
       </div>
       <div class="page-actions">
         <button class="btn btn-secondary">Maio 2026 ▾</button>
         <button class="btn btn-secondary">Exportar</button>
+      </div>
+    </div>
+
+    <!-- Faixa de pendências do dia -->
+    <div class="card" style="margin-bottom:18px;border-left:3px solid var(--accent)">
+      <div class="card-head"><div><div class="card-title">Minhas pendências · o que você precisa fazer hoje</div><div class="card-sub">As travas de campo do funil sinalizam onde os negócios não avançam</div></div><span class="pill amber">5 pendências</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:6px">
+        <a href="#" data-route="deal" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--red);text-decoration:none">
+          <div style="font-size:18px">🔒</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:12.5px">Servier · Convenção 2026</div><div class="text-sm text-mut">3 campos pendentes para avançar para Negociação</div></div>
+        </a>
+        <a href="#" data-route="leadinbox" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--blue);text-decoration:none">
+          <div style="font-size:18px">📥</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:12.5px">2 leads aguardando triagem</div><div class="text-sm text-mut">Sirio-Libanês e Magalu · vindos do Agente IA</div></div>
+        </a>
+        <a href="#" data-route="ficha" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--purple);text-decoration:none">
+          <div style="font-size:18px">🎂</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:12.5px">Aniversário · Carlos Andrade</div><div class="text-sm text-mut">Decisor da Servier · enviar mensagem</div></div>
+        </a>
+        <a href="#" data-route="entrega" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--orange);text-decoration:none">
+          <div style="font-size:18px">⏰</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:12.5px">Vivo · montagem amanhã</div><div class="text-sm text-mut">Confirmar equipe (4 técnicos · 12h de janela)</div></div>
+        </a>
+        <a href="#" data-route="crm" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--green);text-decoration:none">
+          <div style="font-size:18px">📞</div>
+          <div style="flex:1"><div style="font-weight:600;font-size:12.5px">Follow-up · Banco Plural</div><div class="text-sm text-mut">Cliente esfriando · 5 meses sem contato</div></div>
+        </a>
       </div>
     </div>
 
@@ -865,16 +998,16 @@
         <div class="card-head"><div class="card-title">Alertas inteligentes</div><span class="pill red">3 ativos</span></div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <div style="padding:10px;background:var(--red-soft);border-radius:var(--r-sm);border-left:3px solid var(--red);cursor:pointer" data-route="patrimonio">
-            <div style="font-weight:600;font-size:12.5px;color:var(--red)">Conflito de patrimônio</div>
-            <div class="text-sm text-mut" style="margin-top:3px">Painel LED P2.6 alocado em 2 deals para 25/05</div>
+            <div style="font-weight:600;font-size:12.5px;color:var(--red)">Conflito de disponibilidade</div>
+            <div class="text-sm text-mut" style="margin-top:3px">Painel LED P2.6 alocado em 2 eventos para 14/06 · trava da etapa 3 ativa</div>
           </div>
           <div style="padding:10px;background:var(--orange-soft);border-radius:var(--r-sm);border-left:3px solid var(--orange)">
             <div style="font-weight:600;font-size:12.5px;color:var(--orange)">SLA estourado</div>
             <div class="text-sm text-mut" style="margin-top:3px">Lead "Ambev" sem resposta há 27h (SLA 24h)</div>
           </div>
-          <div style="padding:10px;background:var(--accent-soft);border-radius:var(--r-sm);border-left:3px solid var(--accent)">
+          <div style="padding:10px;background:var(--accent-soft);border-radius:var(--r-sm);border-left:3px solid var(--accent);cursor:pointer" data-route="prospeccao">
             <div style="font-weight:600;font-size:12.5px;color:var(--accent)">Recompra antecipada</div>
-            <div class="text-sm text-mut" style="margin-top:3px">Embraer realiza convenção em ~60 dias · histórico forte</div>
+            <div class="text-sm text-mut" style="margin-top:3px">Magalu pode realizar convenção em ~60 dias · cliente perdido em 2024 — Agente IA sinalizou</div>
           </div>
         </div>
       </div>
@@ -885,34 +1018,61 @@
   <section class="page" id="page-crm">
     <div class="page-head">
       <div>
-        <h1 class="page-title">Pipeline Comercial</h1>
-        <p class="page-sub">12 deals em jogo · R$ 3.840.000 em pipeline ponderado</p>
+        <h1 class="page-title">Funil Comercial</h1>
+        <p class="page-sub">12 negócios em jogo · R$ 3.840.000 em pipeline ponderado · arraste os cards entre as colunas</p>
       </div>
       <div class="page-actions">
-        <button class="btn btn-secondary">Todos os vendedores ▾</button>
-        <button class="btn btn-secondary">Filtros</button>
-        <button class="btn btn-primary">+ Novo deal</button>
+        <div class="funnel-switch">
+          <a href="#" class="active" data-route="crm">Funil Comercial</a>
+          <a href="#" data-route="entrega">Funil de Entrega</a>
+        </div>
+        <select style="padding:8px 12px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--text);font-size:13px">
+          <option>Pipeline: Eventos</option>
+          <option>Pipeline: Indicações</option>
+          <option>Pipeline: Cold call</option>
+        </select>
+        <button class="btn btn-primary">+ Novo negócio</button>
       </div>
     </div>
+
+    <div class="funnel-banner commercial">
+      <div class="funnel-icon">🎯</div>
+      <div><strong>Funil Comercial</strong> — território do vendedor · cards travados (🔒) têm campos obrigatórios pendentes · arraste para avançar de etapa.</div>
+    </div>
+
     <div class="kanban" id="kanban"></div>
   </section>
 
   <!-- ===== DEAL DETAIL ===== -->
   <section class="page" id="page-deal">
-    <div class="page-head">
+    <div class="page-head" data-deal-id="servier-conv-2026">
       <div>
         <div class="row" style="margin-bottom:6px">
           <span class="pill amber">Em Proposta</span>
-          <span class="text-sm text-mut">criado em 12/05 · Camila Moura</span>
+          <span class="text-sm text-mut">criado em 12/05 · Mariana Costa</span>
         </div>
-        <h1 class="page-title">Bradesco · Convenção Anual 2026</h1>
-        <p class="page-sub">Riocentro · 23–24 maio · 1.200 pax · valor estimado <strong class="text-accent">R$ 412.000</strong></p>
+        <h1 class="page-title">Servier · Convenção Anual 2026</h1>
+        <p class="page-sub">Centro Fecomercio · 18–19 out · 280 pax · valor estimado <strong class="text-accent">R$ 412.000</strong></p>
       </div>
       <div class="page-actions">
         <button class="btn btn-secondary">Histórico</button>
         <button class="btn btn-secondary">Compartilhar</button>
-        <button class="btn btn-primary">Avançar etapa →</button>
+        <button class="btn btn-primary" data-action="advance-locked" data-lock-reason="Faltam 3 campos obrigatórios da etapa Proposta: validade, condição de pagamento e escopo de frete/montagem." data-target="deal">Avançar etapa →</button>
       </div>
+    </div>
+
+    <!-- Faixa de pendência (padrão Seção 2.1 do mockup) -->
+    <div class="alert" style="background:rgba(245,158,58,.08);border-color:var(--orange);color:var(--text);margin-bottom:18px">
+      <div class="alert-icon" style="background:var(--orange);color:#fff">3</div>
+      <div class="alert-content">
+        <div class="alert-title" style="color:var(--orange)">Faltam 3 campos para avançar para Negociação</div>
+        <div class="alert-body" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+          <a href="#" class="field-pill" style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Validade da proposta</a>
+          <a href="#" class="field-pill" style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Condição de pagamento</a>
+          <a href="#" class="field-pill" style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Escopo de frete/montagem</a>
+        </div>
+      </div>
+      <button class="btn btn-primary" data-route="proposta" style="background:var(--orange);color:#1a0f00">Abrir proposta</button>
     </div>
 
     <div class="deal-stepper">
@@ -2034,46 +2194,124 @@ const EQUIPMENT = [
 ];
 
 // =================== KANBAN ===================
+// Marca alguns deals com pendências (trava) — para a demo do "funil que ensina"
+const DEAL_LOCKS = {
+  'Ambev|Lançamento marca':           'Faltam Data do evento e Janela de montagem na qualificação.',
+  'Magazine Luiza|Encontro de Lideranças': 'Falta orçamento estimado do cliente.',
+  'XP Inc.|Expert XP 2026':           'Falta validade da proposta.',
+};
+function dealKey(d){ return d.client + '|' + d.event; }
+function dealHasLock(d){ return Boolean(DEAL_LOCKS[dealKey(d)]); }
+
 function renderKanban(){
   const root = document.getElementById('kanban');
   if(!root) return;
-  root.innerHTML = STAGES.map(s => {
+  root.innerHTML = STAGES.map((s,si) => {
     const deals = DEALS.filter(d => d.stage === s.id);
     const total = deals.reduce((acc,d) => acc + parseFloat(d.value.replace(/[^\d]/g,'')), 0);
     const totalFmt = total > 0 ? `R$ ${(total).toLocaleString('pt-BR')}K total` : '';
     return `
-      <div class="kb-col">
+      <div class="kb-col" data-stage="${s.id}" data-stage-index="${si}">
         <div class="kb-col-head">
           <div class="kb-col-title"><span class="stage-dot" style="background:${s.dot}"></span>${s.title}</div>
           <span class="kb-col-count">${deals.length}</span>
         </div>
         <div class="kb-col-total">${totalFmt}</div>
-        ${deals.map(d => `
-          <div class="deal-card ${d.hot?'hot':''}" data-route="deal">
-            <div class="deal-client">${d.client}</div>
+        ${deals.map((d,di) => {
+          const locked = dealHasLock(d);
+          return `
+          <div class="deal-card ${d.hot?'hot':''}" draggable="true" data-deal-key="${dealKey(d)}" data-locked="${locked?'1':'0'}">
+            <div class="deal-client">${d.client} ${locked?'<span style="color:var(--red);margin-left:4px" title="campos pendentes">🔒</span>':''}</div>
             <div class="deal-event">${d.event} · ${d.date}</div>
             <div class="deal-meta">
               <span class="deal-value">${d.value}</span>
               <span class="deal-sla ${d.sla}">⏱ ${d.slaTime||''}</span>
             </div>
-            <div class="deal-meta" style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px">
+            <div class="deal-meta" style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px;justify-content:space-between">
               <div class="avatar" style="width:22px;height:22px;font-size:10px">${d.owner}</div>
-              ${d.current?'<span class="pill amber" style="font-size:9px">você está aqui</span>':''}
+              ${locked ? `<span class="pill" style="background:var(--red-soft);color:var(--red);font-size:9px">3/5 campos</span>` : (d.current?'<span class="pill amber" style="font-size:9px">você está aqui</span>':'')}
             </div>
           </div>
-        `).join('')}
+        `;}).join('')}
       </div>
     `;
   }).join('');
 
-  // bind clicks
-  root.querySelectorAll('[data-route]').forEach(el => {
+  // click leva ao detail
+  root.querySelectorAll('.deal-card').forEach(el => {
     el.addEventListener('click', e => {
+      if(el.classList.contains('dragging')) return;
       e.preventDefault();
-      route(el.dataset.route);
+      route('deal');
+    });
+  });
+
+  attachDnD(root, STAGES, DEALS, {
+    lockCheck: d => dealHasLock(d),
+    lockReason: d => DEAL_LOCKS[dealKey(d)],
+    afterMove: rerenderPipeline,
+  });
+}
+
+// Drag & drop genérico para os Kanbans. Move o data entre stages e re-renderiza.
+function attachDnD(root, stages, dataset, opts={}){
+  let dragged = null;
+  let draggedKey = null;
+  root.querySelectorAll('.deal-card').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      dragged = card;
+      draggedKey = card.dataset.dealKey;
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', draggedKey);
+    });
+    card.addEventListener('dragend', () => {
+      card.classList.remove('dragging');
+      root.querySelectorAll('.kb-col').forEach(c => c.classList.remove('drop-target','drop-blocked'));
+      dragged = null;
+    });
+  });
+  root.querySelectorAll('.kb-col').forEach(col => {
+    col.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      col.classList.add('drop-target');
+    });
+    col.addEventListener('dragleave', () => col.classList.remove('drop-target','drop-blocked'));
+    col.addEventListener('drop', e => {
+      e.preventDefault();
+      const key = e.dataTransfer.getData('text/plain') || draggedKey;
+      if(!key) return;
+      const targetStage = col.dataset.stage;
+      const idx = dataset.findIndex(d => dealKey(d) === key);
+      if(idx < 0) return;
+      const d = dataset[idx];
+      if(d.stage === targetStage) return;
+      // Detecta avanço entre etapas: se source < target e o deal tem lock, bloqueia
+      const currentIndex = stages.findIndex(s => s.id === d.stage);
+      const targetIndex = stages.findIndex(s => s.id === targetStage);
+      const isAdvance = targetIndex > currentIndex;
+      if(isAdvance && opts.lockCheck && opts.lockCheck(d)){
+        col.classList.add('drop-blocked');
+        const card = root.querySelector(`[data-deal-key="${CSS.escape(key)}"]`);
+        if(card){ card.classList.add('shake-locked'); setTimeout(() => card.classList.remove('shake-locked'),400); }
+        showLockToast({
+          title:'Não dá para avançar',
+          sub: opts.lockReason ? opts.lockReason(d) : 'Faltam campos obrigatórios desta etapa.',
+          action:'Abrir negócio',
+          target:'deal'
+        });
+        return;
+      }
+      dataset[idx] = {...d, stage:targetStage};
+      opts.afterMove ? opts.afterMove() : null;
     });
   });
 }
+
+// re-renderiza pipeline após drop
+function rerenderPipeline(){ renderKanban(); }
+function rerenderDelivery(){ renderDeliveryKanban(); }
 
 // =================== FUNIL DE ENTREGA (T7) ===================
 function renderDeliveryKanban(){
@@ -2082,13 +2320,13 @@ function renderDeliveryKanban(){
   root.innerHTML = DELIVERY_STAGES.map(s => {
     const evs = DELIVERIES.filter(d => d.stage === s.id);
     return `
-      <div class="kb-col">
+      <div class="kb-col" data-stage="${s.id}">
         <div class="kb-col-head">
           <div class="kb-col-title"><span class="stage-dot" style="background:${s.dot}"></span>${s.title}</div>
           <span class="kb-col-count">${evs.length}</span>
         </div>
         ${evs.map(d => `
-          <div class="deal-card ${d.hot?'hot':''}" data-route="operacional">
+          <div class="deal-card ${d.hot?'hot':''}" draggable="true" data-deal-key="${dealKey(d)}">
             <div class="deal-client">${d.client}</div>
             <div class="deal-event">${d.event} · ${d.date} · ${d.city}</div>
             <div class="deal-meta" style="margin-top:8px">
@@ -2105,9 +2343,14 @@ function renderDeliveryKanban(){
       </div>
     `;
   }).join('');
-  root.querySelectorAll('[data-route]').forEach(el => {
-    el.addEventListener('click', e => { e.preventDefault(); route(el.dataset.route); });
+  root.querySelectorAll('.deal-card').forEach(el => {
+    el.addEventListener('click', e => {
+      if(el.classList.contains('dragging')) return;
+      e.preventDefault();
+      route('operacional');
+    });
   });
+  attachDnD(root, DELIVERY_STAGES, DELIVERIES, { afterMove: rerenderDelivery });
 }
 
 // =================== DADOS T8 / T9 / T10 / T11 ===================
@@ -2715,6 +2958,30 @@ renderPriceTable();
 renderStageEditor('commercialStages', COMMERCIAL_STAGES_CFG);
 renderStageEditor('deliveryStages', DELIVERY_STAGES_CFG);
 renderCharts();
+
+// =================== LOGIN (T1) ===================
+const LOGIN_USERS = {
+  LA: { name:'Leonardo Arruda', role:'Diretor Comercial' },
+  MC: { name:'Mariana Costa',  role:'Vendedora sênior' },
+  AM: { name:'André Mendes',   role:'Operação' },
+};
+function enterApp(initials){
+  const u = LOGIN_USERS[initials] || LOGIN_USERS.LA;
+  const av = document.querySelector('.sidebar-foot .avatar');
+  const info = document.querySelector('.sidebar-foot-info');
+  if(av) av.textContent = initials;
+  if(info){
+    info.querySelector('strong').textContent = u.name;
+    info.querySelector('span').textContent = u.role;
+  }
+  document.getElementById('loginShell').classList.add('hidden');
+  document.body.classList.remove('app-locked');
+}
+document.getElementById('loginForm')?.addEventListener('submit', e => {
+  e.preventDefault();
+  enterApp('LA');
+});
+document.querySelectorAll('[data-demo-user]').forEach(b => b.addEventListener('click', () => enterApp(b.dataset.demoUser)));
 
 // =================== TOAST DA TRAVA DO FUNIL (Seção 2.1) ===================
 const lockToast = document.getElementById('lockToast');
