@@ -78,6 +78,147 @@
     80%{transform:translateX(4px)}
   }
   .shake-locked{animation:shake-locked .4s ease-in-out}
+
+  /* === Toast success variant === */
+  .toast-wrap.success{border-color:var(--green);border-left-color:var(--green)}
+  .toast-wrap.success .toast-icon{background:var(--green-soft);color:var(--green)}
+  .toast-wrap.info{border-color:var(--blue);border-left-color:var(--blue)}
+  .toast-wrap.info .toast-icon{background:var(--blue-soft);color:var(--blue)}
+
+  /* === Funil de Entrega (T7) - identidade visual distinta === */
+  .funnel-banner{display:flex;align-items:center;gap:14px;padding:10px 14px;border-radius:var(--r-md);margin-bottom:18px;font-size:13px;border:1px solid var(--line)}
+  .funnel-banner.commercial{background:rgba(212,168,87,.08);border-color:rgba(212,168,87,.3);color:var(--accent-2)}
+  .funnel-banner.delivery{background:rgba(62,207,142,.08);border-color:rgba(62,207,142,.3);color:var(--green)}
+  .funnel-banner strong{color:var(--text)}
+  .funnel-banner .funnel-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);font-size:15px}
+  .funnel-banner-sep{flex:1;text-align:right;color:var(--text-3);font-size:12px}
+  .funnel-switch{display:inline-flex;gap:6px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);padding:3px}
+  .funnel-switch a{padding:5px 12px;font-size:12px;font-weight:500;color:var(--text-2);border-radius:4px;transition:.15s}
+  .funnel-switch a:hover{color:var(--text)}
+  .funnel-switch a.active{background:var(--accent);color:#1a0f00;font-weight:600}
+  .funnel-switch a.active.delivery-active{background:var(--green);color:#053b25}
+
+  .kanban.delivery .kb-col{border-top:3px solid var(--green)}
+  .kanban.delivery .kb-col-title .stage-dot{background:var(--green) !important}
+  .kanban.delivery .deal-card:hover{border-color:var(--green)}
+
+  /* === Stepper (T6 Gerador de Proposta) === */
+  .stepper{display:flex;gap:0;margin-bottom:24px;padding:0;align-items:stretch;border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--bg-2)}
+  .step{flex:1;padding:14px 16px;display:flex;align-items:center;gap:10px;border-right:1px solid var(--line);position:relative;cursor:pointer;transition:.15s}
+  .step:last-child{border-right:none}
+  .step:hover{background:var(--bg-3)}
+  .step.active{background:rgba(212,168,87,.08)}
+  .step.done{color:var(--text-2)}
+  .step-num{width:24px;height:24px;border-radius:50%;background:var(--bg-4);color:var(--text-3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;border:1px solid var(--line-2)}
+  .step.active .step-num{background:var(--accent);color:#1a0f00;border-color:var(--accent)}
+  .step.done .step-num{background:var(--green-soft);color:var(--green);border-color:var(--green)}
+  .step.done .step-num::before{content:'✓';font-weight:900}
+  .step.done .step-num span{display:none}
+  .step-label{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+  .step-label strong{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .step-label span{font-size:11px;color:var(--text-3)}
+  .step-pane{display:none;animation:fadeIn .25s ease}
+  .step-pane.active{display:block}
+
+  /* === Form fields (compartilhado por T6/T5) === */
+  .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px}
+  .form-grid.cols-3{grid-template-columns:repeat(3,1fr)}
+  .field{display:flex;flex-direction:column;gap:6px}
+  .field label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);font-weight:600}
+  .field input,.field select,.field textarea{padding:10px 12px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--text);font-size:13.5px;transition:.15s}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);background:var(--bg-4)}
+  .field textarea{resize:vertical;min-height:64px;font-family:inherit}
+  .field.pending input,.field.pending select,.field.pending textarea{border-color:var(--red);background:rgba(239,77,91,.06)}
+  .field .field-hint{font-size:11px;color:var(--text-3)}
+  .field.pending .field-hint{color:var(--red)}
+
+  /* === Itens da proposta === */
+  .prop-items{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;background:var(--bg-2);margin-bottom:14px}
+  .prop-item{display:grid;grid-template-columns:1fr 90px 110px 110px 32px;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .prop-item:last-child{border-bottom:none}
+  .prop-item-name{display:flex;flex-direction:column;gap:3px}
+  .prop-item-name strong{font-size:13.5px;font-weight:600}
+  .prop-item-name span{font-size:11px;color:var(--text-3)}
+  .prop-item input[type="number"]{width:100%;padding:6px 8px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--text);font-size:13px;text-align:right}
+  .prop-item .price-final{text-align:right;font-weight:600;font-size:13.5px;color:var(--text)}
+  .prop-item .price-final.warn{color:var(--red)}
+  .prop-item .remove-btn{width:28px;height:28px;border-radius:50%;background:transparent;color:var(--text-3);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:.15s}
+  .prop-item .remove-btn:hover{background:var(--red-soft);color:var(--red)}
+  .prop-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  .prop-summary .kpi-value{font-size:24px;margin-top:6px}
+
+  /* === Modal de margem === */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-backdrop.open{display:flex;animation:fadeIn .2s ease}
+  .modal{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);width:100%;max-width:520px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .modal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .modal-icon{width:36px;height:36px;border-radius:50%;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
+  .modal-title{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-.3px}
+  .modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+
+  /* === Lead cards (T9 / T10) === */
+  .lead-list{display:flex;flex-direction:column;gap:10px}
+  .lead-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;transition:.15s}
+  .lead-card:hover{border-color:var(--line-2)}
+  .lead-card.scored::before{content:attr(data-score);position:absolute;top:14px;right:14px;font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:2px 8px;border-radius:8px}
+  .lead-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .lead-title{font-size:14px;font-weight:600;color:var(--text)}
+  .lead-meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--text-3);font-size:12px;margin:6px 0}
+  .lead-meta span{display:flex;align-items:center;gap:4px}
+  .lead-body{color:var(--text-2);font-size:13px;line-height:1.5;margin-top:6px}
+  .lead-body em{color:var(--blue);font-style:normal;font-weight:500}
+  .lead-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;min-width:130px}
+  .lead-score{font-family:var(--font-display);font-size:26px;font-weight:700;letter-spacing:-.5px}
+  .lead-score.high{color:var(--green)}
+  .lead-score.mid{color:var(--accent)}
+  .lead-score.low{color:var(--text-3)}
+  .lead-source{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px}
+
+  /* === Cliente ficha (T5) === */
+  .client-header{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:start;margin-bottom:18px;padding:18px 20px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg)}
+  .client-name{font-family:var(--font-display);font-size:24px;font-weight:700;letter-spacing:-.3px}
+  .client-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .client-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+  .ficha-layout{display:grid;grid-template-columns:1fr 320px;gap:18px}
+  .ficha-side{display:flex;flex-direction:column;gap:14px}
+  .timeline{display:flex;flex-direction:column;gap:8px}
+  .timeline-item{display:grid;grid-template-columns:60px 1fr auto;gap:12px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);align-items:center}
+  .timeline-date{font-family:var(--font-mono);font-size:11px;color:var(--text-3)}
+  .timeline-text{font-size:13px}
+  .timeline-text strong{color:var(--text)}
+  .timeline-value{font-weight:600;font-size:13px;color:var(--accent)}
+
+  /* === Tabela-mestre (T11) === */
+  .price-bar{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-md);margin-bottom:16px;flex-wrap:wrap}
+  .price-version{font-family:var(--font-mono);font-size:12px;background:var(--bg-3);border:1px solid var(--line);padding:4px 10px;border-radius:6px;color:var(--text-2)}
+  .price-version strong{color:var(--accent)}
+
+  /* === Proposta preview === */
+  .proposal-preview{background:linear-gradient(135deg,#0c0c10,#16161a);border:1px solid var(--line);border-radius:var(--r-lg);padding:36px;text-align:center;position:relative;overflow:hidden}
+  .proposal-preview::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(212,168,87,.15) 0%,transparent 50%);pointer-events:none}
+  .proposal-preview > *{position:relative;z-index:1}
+  .proposal-preview .pp-eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:600}
+  .proposal-preview .pp-title{font-family:var(--font-display);font-size:34px;font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:8px}
+  .proposal-preview .pp-sub{color:var(--text-2);font-size:14px;max-width:520px;margin:0 auto 28px}
+  .proposal-preview .pp-block{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left;margin-bottom:20px}
+  .proposal-preview .pp-block > div{background:rgba(255,255,255,.03);border:1px solid var(--line);padding:14px;border-radius:var(--r-md)}
+  .proposal-preview .pp-block strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:6px}
+  .proposal-preview .pp-block span{font-size:15px;font-weight:600;color:var(--text)}
+
+  /* Responsivos */
+  @media (max-width:980px){
+    .ficha-layout{grid-template-columns:1fr}
+    .form-grid,.form-grid.cols-3{grid-template-columns:1fr}
+    .prop-item{grid-template-columns:1fr;gap:6px}
+    .client-header{grid-template-columns:1fr}
+    .client-stats{grid-template-columns:repeat(2,1fr)}
+    .lead-card{grid-template-columns:1fr}
+    .lead-actions{flex-direction:row;align-items:center;flex-wrap:wrap}
+    .stepper{flex-direction:column}
+    .step{border-right:none;border-bottom:1px solid var(--line)}
+    .prop-summary{grid-template-columns:1fr}
+    .proposal-preview .pp-block{grid-template-columns:1fr}
+  }
   .sidebar-foot{margin-top:auto;padding:14px 8px 0;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px}
   .avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3a3a45,#22222a);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;color:var(--text)}
   .sidebar-foot-info{display:flex;flex-direction:column;line-height:1.2;flex:1;min-width:0}
@@ -1145,65 +1286,428 @@
 
   <!-- ===== Novas páginas do escopo CRM (P1/P2/P3) ===== -->
   <section class="page" id="page-proposta">
-    <div class="page-head"><div><h1 class="page-title">Gerador de Proposta</h1><p class="page-sub">Não é orçamento — é uma proposta que entende o briefing do cliente</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">✨</div>
-      <div class="soon-title">Em construção · Fase 1 (P1 do mockup)</div>
-      <div class="soon-text">Fluxo em 4 passos: tipo e contexto do evento → sugestão da IA → preços (com alerta de margem) → escolha entre Simples/Premium + preview da proposta web. Ver T6 em <code>instrucao_mockup_agente_crm.md</code>.</div>
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Gerador de Proposta <span class="ai-chip" style="vertical-align:middle">IA</span></h1>
+        <p class="page-sub">Negócio: <strong style="color:var(--text)">Convenção Servier 2026</strong> · cliente com desconto contratual de 12%</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary" data-route="deal">← voltar ao negócio</button>
+      </div>
+    </div>
+
+    <div class="stepper" id="propStepper">
+      <div class="step active" data-step="1"><div class="step-num"><span>1</span></div><div class="step-label"><strong>Contexto do evento</strong><span>IA faz perguntas</span></div></div>
+      <div class="step" data-step="2"><div class="step-num"><span>2</span></div><div class="step-label"><strong>Sugestão da IA</strong><span>itens recomendados</span></div></div>
+      <div class="step" data-step="3"><div class="step-num"><span>3</span></div><div class="step-label"><strong>Preços</strong><span>desconto e margem</span></div></div>
+      <div class="step" data-step="4"><div class="step-num"><span>4</span></div><div class="step-label"><strong>Nível e geração</strong><span>Simples ou Premium</span></div></div>
+    </div>
+
+    <!-- ===== Passo 1 ===== -->
+    <div class="step-pane active" data-pane="1">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Contexto do evento</div><div class="card-sub">A IA precisa dessas respostas para dimensionar o pacote</div></div><span class="ai-chip">perguntas geradas pela IA</span></div>
+        <div class="form-grid">
+          <div class="field"><label>Tipo do evento</label><select><option>Convenção corporativa</option><option>Lançamento de produto</option><option>Feira</option><option>Congresso</option><option>Show</option><option>Casamento</option></select></div>
+          <div class="field"><label>Modelo de referência</label><select><option>Convenção Servier 2025 (recomendado pela IA)</option><option>Convenção genérica corporativa</option><option>Sem modelo</option></select></div>
+          <div class="field"><label>Nº de participantes</label><input type="number" value="280"></div>
+          <div class="field"><label>Dimensões da sala (m²)</label><input type="number" value="640"></div>
+          <div class="field"><label>Pé-direito (m)</label><input type="number" value="6" step=".1"></div>
+          <div class="field"><label>Layout da plateia</label><select><option>Auditório</option><option>Mesas redondas</option><option>Em U</option><option>Misto</option></select></div>
+          <div class="field"><label>Formato da apresentação</label><select><option>Palestrante em pé + púlpito</option><option>Talk show (cadeiras no palco)</option><option>Mesa de debate</option><option>Múltiplos palestrantes</option></select></div>
+          <div class="field"><label>Configuração do palco</label><select><option>Palco modular 8×4m + cenografia</option><option>Palco simples 6×3m</option><option>Sem palco · piso</option></select></div>
+          <div class="field"><label>Transmissão necessária?</label><select><option>Sim · streaming 4K + gravação</option><option>Sim · streaming HD</option><option>Não</option></select></div>
+          <div class="field"><label>Janela de montagem (h)</label><input type="number" value="12"></div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px">
+          <button class="btn btn-primary" data-prop-next="2">Continuar →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Passo 2 ===== -->
+    <div class="step-pane" data-pane="2">
+      <div class="card">
+        <div class="card-head">
+          <div><div class="card-title">Sugestão da IA · 9 itens</div><div class="card-sub">Baseado no contexto e no modelo "Convenção Servier 2025" · você pode adicionar, remover ou ajustar</div></div>
+          <button class="btn btn-secondary">✦ Refazer com a IA</button>
+        </div>
+        <div class="prop-items" id="propItems"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+          <button class="btn btn-ghost">+ Adicionar item manualmente</button>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-secondary" data-prop-next="1">← Voltar</button>
+            <button class="btn btn-primary" data-prop-next="3">Continuar para preços →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Passo 3 ===== -->
+    <div class="step-pane" data-pane="3">
+      <div class="card">
+        <div class="card-head"><div><div class="card-title">Preços por item</div><div class="card-sub">Tabela-mestre V12 vigente · desconto contratual 12% aplicado · alerta abaixo do piso</div></div></div>
+        <div class="prop-items" id="propPriceItems"></div>
+        <div class="prop-summary">
+          <div class="kpi"><div class="kpi-label">Subtotal tabela</div><div class="kpi-value" id="sumTable">R$ 0</div></div>
+          <div class="kpi"><div class="kpi-label">Desconto contratual (12%)</div><div class="kpi-value" id="sumDiscount" style="color:var(--green)">— R$ 0</div></div>
+          <div class="kpi" style="border-color:var(--accent)"><div class="kpi-label">Total da proposta</div><div class="kpi-value" id="sumTotal" style="color:var(--accent)">R$ 0</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:14px">
+          <button class="btn btn-secondary" data-prop-next="2">← Voltar</button>
+          <button class="btn btn-primary" data-prop-next="4">Continuar →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Passo 4 ===== -->
+    <div class="step-pane" data-pane="4">
+      <div class="form-grid">
+        <div class="card" style="cursor:pointer;border:2px solid var(--line)" data-prop-level="simples">
+          <div class="card-head"><div class="card-title">Proposta Simples</div></div>
+          <p class="text-sm text-mut">Versão enxuta: capa, escopo, equipe, investimento e aceite. Rápida de gerar. Para tickets menores ou recorrentes.</p>
+          <div style="margin-top:14px;font-size:11px;color:var(--text-3)"><strong style="color:var(--text)">Inclui:</strong> capa · resumo · escopo · valor · aceite</div>
+        </div>
+        <div class="card" style="cursor:pointer;border:2px solid var(--accent);background:rgba(212,168,87,.04)" data-prop-level="premium">
+          <div class="card-head"><div class="card-title">Proposta Premium <span class="pill amber" style="margin-left:6px">recomendado</span></div></div>
+          <p class="text-sm text-mut">Versão completa: carta, entendimento do briefing, diferenciais, equipe detalhada, cronograma e investimento.</p>
+          <div style="margin-top:14px;font-size:11px;color:var(--text-3)"><strong style="color:var(--text)">Inclui:</strong> capa · carta · briefing · escopo detalhado · equipe · cronograma · valor · aceite digital</div>
+        </div>
+      </div>
+
+      <div class="proposal-preview" style="margin-top:14px">
+        <div class="pp-eyebrow">Preview · Proposta Premium · Servier</div>
+        <div class="pp-title">Convenção Servier 2026</div>
+        <div class="pp-sub">Uma convenção que merece ser lembrada. Construímos a partir do que o seu evento exige — não a partir de uma lista de itens.</div>
+        <div class="pp-block">
+          <div><strong>O evento</strong><span>280 participantes · Out/2026 · SP</span></div>
+          <div><strong>O escopo</strong><span>9 itens · som, vídeo, palco, equipe</span></div>
+          <div><strong>O investimento</strong><span id="ppTotal">R$ 287.000</span></div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
+          <button class="btn btn-primary">🔗 Gerar link da proposta web</button>
+          <button class="btn btn-secondary">📄 Gerar PDF backup</button>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:14px">
+        <button class="btn btn-secondary" data-prop-next="3">← Voltar</button>
+        <button class="btn btn-primary" id="btnGenProposal">✓ Gerar proposta e enviar ao cliente</button>
+      </div>
     </div>
   </section>
 
-  <section class="page" id="page-prospeccao">
-    <div class="page-head"><div><h1 class="page-title">Agente de Prospecção <span class="ai-chip" style="vertical-align:middle">IA</span></h1><p class="page-sub">Varredura contínua de eventos e empresas-alvo · enquanto o funil registra, o agente caça</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">🛰️</div>
-      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
-      <div class="soon-text">Painel de leads encontrados pela IA, com pontuação, fonte original e gancho de abordagem. Status da varredura, campanhas sob demanda, raio geográfico configurável. Ver T9.</div>
+  <!-- Modal de margem -->
+  <div class="modal-backdrop" id="marginModal">
+    <div class="modal">
+      <div class="modal-head">
+        <div class="modal-icon">!</div>
+        <div>
+          <div class="modal-title">Concessão abaixo do piso</div>
+          <div class="text-sm text-mut">Aprovação do gestor necessária</div>
+        </div>
+      </div>
+      <p class="text-sm">O preço lançado ficou <strong style="color:var(--red)" id="marginItemPrice">—</strong> abaixo do preço final do cliente para <strong id="marginItemName">—</strong>. Toda concessão fora da política exige justificativa e aprovação.</p>
+      <div class="form-grid" style="margin-top:14px">
+        <div class="field" style="grid-column:span 2"><label>Justificativa</label><textarea placeholder="Ex.: cliente histórico, evento de altíssimo perfil, prejuízo aceito para garantir recompra..."></textarea></div>
+        <div class="field"><label>Gestor aprovador</label><select><option>Joana Pires · Gestora comercial</option><option>Thalles Aguiar · Diretor</option></select></div>
+        <div class="field"><label>Nível de exceção</label><select><option>Permanente (registra no histórico)</option><option>Pontual (só neste negócio)</option></select></div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-secondary" data-modal-close>Cancelar</button>
+        <button class="btn btn-primary" data-modal-confirm>Solicitar aprovação</button>
+      </div>
     </div>
+  </div>
+
+  <section class="page" id="page-prospeccao">
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Agente de Prospecção <span class="ai-chip" style="vertical-align:middle">IA</span></h1>
+        <p class="page-sub">Varredura contínua · monitora notícias, carteira própria e concorrentes</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Configurar fontes</button>
+        <button class="btn btn-primary">🚀 Disparar campanha</button>
+      </div>
+    </div>
+
+    <div class="kpi-grid" style="margin-bottom:18px">
+      <div class="kpi"><div class="kpi-label">Status</div><div class="kpi-value" style="font-size:22px;color:var(--green)">● Ativo</div><div class="kpi-meta">varredura contínua</div></div>
+      <div class="kpi"><div class="kpi-label">Última varredura</div><div class="kpi-value" style="font-size:22px">há 12 min</div><div class="kpi-meta">próxima em 18 min</div></div>
+      <div class="kpi"><div class="kpi-label">Leads encontrados (7d)</div><div class="kpi-value">47</div><div class="kpi-meta"><span class="kpi-delta up">+9</span> vs sem. anterior</div></div>
+      <div class="kpi"><div class="kpi-label">Conversão estimada</div><div class="kpi-value">23%</div><div class="kpi-meta">leads → negócio fechado</div></div>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active">Eventos anunciados</div>
+      <div class="tab">Empresas-alvo</div>
+      <div class="tab">Carteira própria</div>
+      <div class="tab">Concorrentes</div>
+    </div>
+
+    <div class="lead-list" id="prospectList"></div>
   </section>
 
   <section class="page" id="page-leadinbox">
-    <div class="page-head"><div><h1 class="page-title">Lead Inbox</h1><p class="page-sub">Triagem de leads novos antes de virar negócio no Funil Comercial</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">📥</div>
-      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
-      <div class="soon-text">Lista de leads de origem diversa (WhatsApp, e-mail, indicação, Agente de Prospecção). Para cada um: origem, contexto, contato. Ações: qualificar (vira card no T3) ou descartar. Ver T10.</div>
+    <div class="page-head">
+      <div><h1 class="page-title">Lead Inbox</h1><p class="page-sub">Triagem · qualificar vira card no Funil Comercial</p></div>
+      <div class="page-actions">
+        <span class="text-sm text-mut" id="inboxCount">5 leads aguardando</span>
+      </div>
     </div>
+
+    <div class="alert" style="background:var(--blue-soft);border-color:var(--blue);color:var(--text)">
+      <div class="alert-icon" style="background:var(--blue)">i</div>
+      <div class="alert-content">
+        <div class="alert-title" style="color:var(--blue)">A pessoa decide, a IA propõe</div>
+        <div class="alert-body">Todo lead chega aqui antes de virar negócio. O Agente de Prospecção acelera o topo do funil; o vendedor decide o que entra.</div>
+      </div>
+    </div>
+
+    <div class="lead-list" id="inboxList"></div>
   </section>
 
   <section class="page" id="page-entrega">
-    <div class="page-head"><div><h1 class="page-title">Funil de Entrega</h1><p class="page-sub">Kanban da execução · Pré-produção → Montagem → Em andamento → Desmontagem → Pós-evento</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">🎬</div>
-      <div class="soon-title">Em construção · Fase 1 (P1 do mockup)</div>
-      <div class="soon-text">Quadro Kanban com identidade visual distinta do Funil Comercial. Cards trazem data, local, equipe escalada, cronograma de montagem gerado por IA. Ver T7.</div>
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Funil de Entrega</h1>
+        <p class="page-sub">Execução do evento · da pré-produção ao pós-evento · território da operação</p>
+      </div>
+      <div class="page-actions">
+        <div class="funnel-switch">
+          <a href="#" data-route="crm">Funil Comercial</a>
+          <a href="#" class="active delivery-active" data-route="entrega">Funil de Entrega</a>
+        </div>
+      </div>
     </div>
+
+    <div class="funnel-banner delivery">
+      <div class="funnel-icon">🎬</div>
+      <div><strong>Funil de Entrega</strong> — quando um negócio fecha no Funil Comercial e o Pacote de Operação está completo, ele atravessa para cá.</div>
+      <div class="funnel-banner-sep">5 eventos em execução · próximo: <strong>23/05</strong></div>
+    </div>
+
+    <div class="kanban delivery" id="deliveryKanban"></div>
   </section>
 
   <section class="page" id="page-clientes">
-    <div class="page-head"><div><h1 class="page-title">Clientes</h1><p class="page-sub">Carteira completa · ticket médio, recorrência, esfriamento</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">🏢</div>
-      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
-      <div class="soon-text">Listagem com colunas: cliente, cidade, último evento, ticket médio, vendedor, status (ativo/esfriando). Busca em tempo real, filtros, link direto para a Ficha do Cliente. Ver T8.</div>
+    <div class="page-head">
+      <div><h1 class="page-title">Clientes</h1><p class="page-sub">Carteira · 10 clientes ativos · 3 recorrentes · 2 esfriando</p></div>
+      <div class="page-actions">
+        <input id="clientsSearch" placeholder="Buscar cliente..." style="padding:8px 12px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);color:var(--text);font-size:13px;width:240px">
+        <button class="btn btn-primary">+ Novo cliente</button>
+      </div>
+    </div>
+    <div class="card" style="padding:0">
+      <div class="table-scroll">
+        <table class="table" id="clientsTable">
+          <thead><tr><th>Cliente</th><th>Segmento</th><th>Cidade</th><th>Último evento</th><th style="text-align:right">Ticket médio</th><th>Vendedor</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
   <section class="page" id="page-ficha">
-    <div class="page-head"><div><h1 class="page-title">Ficha do Cliente</h1><p class="page-sub">Tela central · cadastro + histórico de locação + inteligência</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">📇</div>
-      <div class="soon-title">Em construção · Fase 1 (P1 do mockup)</div>
-      <div class="soon-text">Abas: Dados cadastrais · Histórico de locação (eventos, equipamentos, preços) · Inteligência (ticket médio, sazonalidade, radar de notícias, alerta de esfriamento) · Desconto contratual. Painel lateral com próximo evento e data de recontato. Ver T5.</div>
+    <div class="page-head">
+      <div>
+        <h1 class="page-title">Ficha do Cliente</h1>
+        <p class="page-sub">Tela central · cadastro + histórico + inteligência num só lugar</p>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-secondary" data-route="clientes">← voltar à lista</button>
+        <button class="btn btn-primary">+ Novo negócio</button>
+      </div>
+    </div>
+
+    <div class="client-header">
+      <div>
+        <div class="client-name">Servier do Brasil</div>
+        <div class="text-sm text-mut" style="margin-top:4px">Farmacêutica · São Paulo/SP · CNPJ 02.571.354/0001-65</div>
+        <div class="client-tags">
+          <span class="pill green">Cliente ativo</span>
+          <span class="pill amber">Recorrente · 4 eventos/ano</span>
+          <span class="pill" style="background:var(--blue-soft);color:var(--blue)">Vendedor: Mariana Costa</span>
+          <span class="ai-chip">radar de notícias ativo</span>
+        </div>
+      </div>
+      <div style="text-align:right;display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+        <div class="text-sm text-mut">Último contato</div>
+        <div style="font-weight:600">12/05/2026 · WhatsApp</div>
+        <div class="text-sm" style="color:var(--green)">✓ em dia</div>
+      </div>
+    </div>
+
+    <div class="client-stats">
+      <div class="kpi"><div class="kpi-label">Ticket médio</div><div class="kpi-value">R$ 287K</div><div class="kpi-meta"><span class="kpi-delta up">+12%</span> vs 2025</div></div>
+      <div class="kpi"><div class="kpi-label">Eventos realizados</div><div class="kpi-value">14</div><div class="kpi-meta">desde 2022</div></div>
+      <div class="kpi"><div class="kpi-label">Receita total</div><div class="kpi-value">R$ 4,02M</div><div class="kpi-meta">4 anos de relacionamento</div></div>
+      <div class="kpi"><div class="kpi-label">Próximo evento</div><div class="kpi-value">Out/26</div><div class="kpi-meta">Convenção Anual · prevista</div></div>
+    </div>
+
+    <div class="ficha-layout">
+      <div>
+        <div class="tabs" id="fichaTabs">
+          <div class="tab active" data-tab="dados">Dados cadastrais</div>
+          <div class="tab" data-tab="historico">Histórico de locação</div>
+          <div class="tab" data-tab="inteligencia">Inteligência</div>
+          <div class="tab" data-tab="desconto">Desconto contratual</div>
+        </div>
+
+        <div class="step-pane active" id="ficha-dados">
+          <div class="card">
+            <div class="card-head"><div class="card-title">Empresa</div></div>
+            <div class="form-grid">
+              <div class="field"><label>Razão social</label><input value="Servier do Brasil Ltda."></div>
+              <div class="field"><label>CNPJ</label><input value="02.571.354/0001-65"></div>
+              <div class="field"><label>Inscrição estadual</label><input value="113.255.789.110"></div>
+              <div class="field"><label>Segmento</label><input value="Farmacêutica · Indústria"></div>
+              <div class="field" style="grid-column:span 2"><label>Endereço de faturamento</label><input value="Av. Paulista, 1374 · 12º andar · Bela Vista · São Paulo/SP · 01310-100"></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <div class="card-head"><div class="card-title">Contatos (3)</div><button class="btn btn-ghost">+ Adicionar</button></div>
+            <table class="table">
+              <thead><tr><th>Nome</th><th>Cargo</th><th>Telefone</th><th>E-mail</th><th>Papel na decisão</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Carlos Andrade</strong> 🎂</td><td>Diretor de Marketing</td><td>(11) 99844-2210</td><td>candrade@servier.com.br</td><td><span class="pill amber">Decisor</span></td></tr>
+                <tr><td>Patrícia Lobo</td><td>Gerente de Eventos</td><td>(11) 98712-1140</td><td>plobo@servier.com.br</td><td><span class="pill" style="background:var(--blue-soft);color:var(--blue)">Operacional</span></td></tr>
+                <tr><td>Rodrigo Sousa</td><td>Procurement</td><td>(11) 99023-4456</td><td>rsousa@servier.com.br</td><td><span class="pill" style="background:var(--purple-soft);color:var(--purple)">Influenciador</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-pane" id="ficha-historico">
+          <div class="card">
+            <div class="card-head">
+              <div><div class="card-title">14 eventos realizados</div><div class="card-sub">Recorrência média: 3,5 eventos/ano · sazonalidade Q2 e Q4</div></div>
+              <button class="btn btn-ghost">Exportar CSV</button>
+            </div>
+            <table class="table">
+              <thead><tr><th>Data</th><th>Evento</th><th>Equipamentos principais</th><th style="text-align:right">Total</th></tr></thead>
+              <tbody>
+                <tr><td>10/2025</td><td>Convenção Anual 2025</td><td>PA Line Array · LED P3.9 (24m²) · Moving Beam x16</td><td style="text-align:right">R$ 312.450</td></tr>
+                <tr><td>07/2025</td><td>Lançamento Produto</td><td>LED P2.6 outdoor · Sistema som médio · Iluminação cênica</td><td style="text-align:right">R$ 186.200</td></tr>
+                <tr><td>05/2025</td><td>Treinamento Força de Vendas</td><td>Projetor 10K · Mesa Yamaha · Microfones lapela x8</td><td style="text-align:right">R$ 124.880</td></tr>
+                <tr><td>03/2025</td><td>Kickoff Comercial</td><td>Palco modular · Truss · Iluminação básica</td><td style="text-align:right">R$ 98.700</td></tr>
+                <tr><td>10/2024</td><td>Convenção Anual 2024</td><td>PA Line Array · LED P3.9 (20m²) · Streaming 4K</td><td style="text-align:right">R$ 295.300</td></tr>
+                <tr><td>...</td><td colspan="2" class="text-mut">9 eventos anteriores entre 2022 e 2024</td><td style="text-align:right" class="text-mut">R$ 3.001.450</td></tr>
+              </tbody>
+              <tfoot><tr style="border-top:2px solid var(--line-2)"><td colspan="3"><strong>Total acumulado</strong></td><td style="text-align:right"><strong>R$ 4.018.980</strong></td></tr></tfoot>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-pane" id="ficha-inteligencia">
+          <div class="card">
+            <div class="card-head"><div><div class="card-title">Radar de notícias</div><div class="card-sub">Sinais públicos capturados pela IA · últimos 90 dias</div></div><span class="ai-chip">IA</span></div>
+            <div class="timeline">
+              <div class="timeline-item"><span class="timeline-date">02/05</span><div class="timeline-text"><strong>Servier anuncia expansão da fábrica</strong> em Jacarepaguá · pode demandar evento de inauguração — <em>oportunidade de abordagem</em></div><a href="#" class="btn btn-ghost">Abrir</a></div>
+              <div class="timeline-item"><span class="timeline-date">18/04</span><div class="timeline-text"><strong>Nova diretora de marketing nomeada</strong> · Marina Salles substitui Patrícia Andrade — <em>renovar contato e apresentar a equipe</em></div><a href="#" class="btn btn-ghost">Abrir</a></div>
+              <div class="timeline-item"><span class="timeline-date">04/04</span><div class="timeline-text"><strong>Servier patrocina congresso de oncologia</strong> em SP em setembro · evento institucional de alto perfil — <em>cliente já tem fornecedor? checar</em></div><a href="#" class="btn btn-ghost">Abrir</a></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <div class="card-head"><div class="card-title">Datas importantes</div></div>
+            <div class="timeline">
+              <div class="timeline-item"><span class="timeline-date">22/05</span><div class="timeline-text">🎂 <strong>Aniversário Carlos Andrade</strong> (decisor) · hoje</div><button class="btn btn-secondary">Enviar mensagem</button></div>
+              <div class="timeline-item"><span class="timeline-date">12/06</span><div class="timeline-text">📅 Fundação da empresa (Servier) · 70 anos no Brasil</div><span class="text-sm text-mut">em 21 dias</span></div>
+              <div class="timeline-item"><span class="timeline-date">15/07</span><div class="timeline-text">⏰ Janela de pré-produção da <strong>Convenção Anual 2026</strong> (3 meses antes do evento de Out/26)</div><span class="text-sm text-mut">data calculada</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-pane" id="ficha-desconto">
+          <div class="card">
+            <div class="card-head"><div class="card-title">Desconto contratual</div></div>
+            <div class="form-grid">
+              <div class="field"><label>Percentual sobre a tabela-mestre</label><input value="12%" style="font-weight:600;color:var(--accent)"></div>
+              <div class="field"><label>Vigente desde</label><input value="01/03/2024"></div>
+              <div class="field" style="grid-column:span 2"><label>Observações</label><textarea>Desconto acordado após o 4º evento. Aplicado automaticamente em todas as propostas. Renovação anual em Março.</textarea></div>
+            </div>
+            <div class="alert" style="background:var(--blue-soft);border-color:var(--blue);color:var(--text)">
+              <div class="alert-icon" style="background:var(--blue)">i</div>
+              <div class="alert-content">
+                <div class="alert-title" style="color:var(--blue)">Como o desconto se aplica</div>
+                <div class="alert-body">Sobre cada item da proposta, o sistema aplica primeiro o preço-base da <strong>tabela-mestre V12 (vigente)</strong> e, sobre ele, o desconto de 12%. O preço final aparece como margem-piso — qualquer valor abaixo dispara o alerta de margem com aprovação do gestor.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="ficha-side">
+        <div class="card">
+          <div class="card-head"><div class="card-title">Próximo evento previsto</div></div>
+          <div style="text-align:center;padding:8px 0">
+            <div class="kpi-value" style="font-size:28px;color:var(--accent)">Out/2026</div>
+            <div class="text-sm text-mut" style="margin-top:4px">Convenção Anual</div>
+            <div style="margin-top:14px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);font-size:12px;text-align:left">
+              <div><strong>Janela de recontato:</strong></div>
+              <div style="margin-top:4px;color:var(--accent)">15/07/2026 · em 54 dias</div>
+              <div class="text-mut" style="margin-top:6px;font-size:11px">data do evento (Out) – antecedência de produção informada (3 meses)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Localização</div></div>
+          <div style="aspect-ratio:1.6;background:linear-gradient(135deg,#1d1d23,#0c0c10);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+            <svg width="100%" height="100%" viewBox="0 0 200 120" style="position:absolute;opacity:.15"><path d="M0,60 Q50,40 100,60 T200,60" stroke="var(--accent)" fill="none" stroke-width="1"/><path d="M0,80 Q60,50 120,80 T200,80" stroke="var(--blue)" fill="none" stroke-width="1"/><path d="M0,40 Q70,20 140,40 T200,40" stroke="var(--green)" fill="none" stroke-width="1"/></svg>
+            <div style="text-align:center;z-index:1">
+              <div style="font-size:24px">📍</div>
+              <div class="text-sm">São Paulo/SP</div>
+              <div class="text-sm text-mut">3 clientes próximos</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">Ações rápidas</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn btn-secondary" style="justify-content:flex-start">📞 Ligar para Carlos</button>
+            <button class="btn btn-secondary" style="justify-content:flex-start">💬 WhatsApp</button>
+            <button class="btn btn-secondary" style="justify-content:flex-start">✉️ Redigir e-mail <span class="ai-chip sm" style="margin-left:auto">IA</span></button>
+            <button class="btn btn-secondary" style="justify-content:flex-start" data-route="proposta">📝 Gerar nova proposta</button>
+          </div>
+        </div>
+      </aside>
     </div>
   </section>
 
   <section class="page" id="page-tabela">
-    <div class="page-head"><div><h1 class="page-title">Tabela-mestre de Preços</h1><p class="page-sub">Fonte oficial · reajuste periódico · histórico de versões</p></div></div>
-    <div class="soon-card">
-      <div class="soon-icon">📊</div>
-      <div class="soon-title">Em construção · Fase 2 (P2 do mockup)</div>
-      <div class="soon-text">Catálogo de equipamentos com preço-base por item, versão vigente (ex.: V12 — reajustada em 01/01/2026 — IPCA 4,62%), botão de reajuste e histórico de versões. Ver T11.</div>
+    <div class="page-head">
+      <div><h1 class="page-title">Tabela-mestre de Preços</h1><p class="page-sub">Fonte oficial · uma única tabela para toda a operação</p></div>
+      <div class="page-actions">
+        <button class="btn btn-secondary">Ver histórico de versões</button>
+        <button class="btn btn-primary">+ Aplicar reajuste</button>
+      </div>
+    </div>
+
+    <div class="price-bar">
+      <span class="price-version">Versão vigente: <strong>V12</strong></span>
+      <span class="text-sm text-mut">reajustada em <strong style="color:var(--text)">01/01/2026</strong></span>
+      <span class="text-sm text-mut">índice <strong style="color:var(--text)">IPCA 4,62%</strong></span>
+      <span class="text-sm" style="color:var(--green);margin-left:auto">✓ Aplicada em todas as propostas geradas a partir de 01/01</span>
+    </div>
+
+    <div class="alert" style="background:var(--accent-soft);border-color:var(--accent);color:var(--text);margin-bottom:14px">
+      <div class="alert-icon" style="background:var(--accent);color:#1a0f00">⚡</div>
+      <div class="alert-content">
+        <div class="alert-title" style="color:var(--accent)">Princípio</div>
+        <div class="alert-body">O preço que entra numa proposta não nasce de uma negociação solta — nasce desta tabela. Clientes recorrentes podem ter percentual de desconto contratual aplicado automaticamente sobre o preço-base.</div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:0">
+      <div class="table-scroll">
+        <table class="table" id="priceTable">
+          <thead><tr><th>Equipamento</th><th>SKU</th><th>Categoria</th><th style="text-align:right">Preço-base (diária)</th><th>Última alteração</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -1295,6 +1799,25 @@ const STAGES = [
   { id:'lost', title:'Perdido', dot:'var(--red)' },
 ];
 
+// ----- Funil de Entrega (T7) -----
+const DELIVERY_STAGES = [
+  { id:'pre',     title:'Pré-produção',      dot:'var(--blue)' },
+  { id:'setup',   title:'Montagem',          dot:'var(--purple)' },
+  { id:'running', title:'Em andamento',      dot:'var(--accent)' },
+  { id:'tear',    title:'Desmontagem',       dot:'var(--orange)' },
+  { id:'post',    title:'Pós-evento',        dot:'var(--green)' },
+];
+const DELIVERIES = [
+  { stage:'pre', client:'Hospital Albert', event:'Simpósio Anual', date:'18/11', city:'São Paulo', crew:['AM','BS','MC'], aiSchedule:true, status:'Onboarding cliente concluído' },
+  { stage:'pre', client:'Loft Imóveis', event:'Workshop Vendas', date:'08/08', city:'São Paulo', crew:['RL','BS'], aiSchedule:true, status:'Aguardando confirmação de equipe' },
+  { stage:'setup', client:'Vivo', event:'Lançamento Produto', date:'14/06', city:'São Paulo', crew:['MC','AM','RL','BS'], aiSchedule:true, status:'Truss 80% · LED 50%', hot:true },
+  { stage:'setup', client:'iFood', event:'Convenção Interna', date:'10/06', city:'São Paulo', crew:['JP','RL'], status:'Equipe a caminho' },
+  { stage:'running', client:'Sebrae RJ', event:'Feira de Empreendedorismo', date:'22/05', city:'Rio de Janeiro', crew:['MC','AM','BS','RL'], status:'Operação em curso · sem ocorrências', hot:true },
+  { stage:'tear', client:'Petrobras', event:'Workshop ESG', date:'18/05', city:'Rio de Janeiro', crew:['AM','RL'], status:'Desmontagem 60% · vistoria pendente' },
+  { stage:'post', client:'Banco Plural', event:'Convenção Corporativa', date:'10/05', city:'Rio de Janeiro', crew:['MC','JP'], status:'Avaliação enviada · faturamento OK' },
+  { stage:'post', client:'Eletrobras', event:'Workshop Liderança', date:'06/05', city:'Brasília', crew:['BS'], status:'NPS 9 · próximo evento previsto: Out/2026' },
+];
+
 const EQUIPMENT = [
   { icon:'📺', name:'Painel LED P2.6 outdoor', sku:'LED-P26-018', status:'conflict', statusLabel:'CONFLITO', pill:'red' },
   { icon:'📺', name:'Painel LED P2.6 outdoor', sku:'LED-P26-019', status:'available', statusLabel:'Disponível', pill:'green' },
@@ -1351,6 +1874,327 @@ function renderKanban(){
     });
   });
 }
+
+// =================== FUNIL DE ENTREGA (T7) ===================
+function renderDeliveryKanban(){
+  const root = document.getElementById('deliveryKanban');
+  if(!root) return;
+  root.innerHTML = DELIVERY_STAGES.map(s => {
+    const evs = DELIVERIES.filter(d => d.stage === s.id);
+    return `
+      <div class="kb-col">
+        <div class="kb-col-head">
+          <div class="kb-col-title"><span class="stage-dot" style="background:${s.dot}"></span>${s.title}</div>
+          <span class="kb-col-count">${evs.length}</span>
+        </div>
+        ${evs.map(d => `
+          <div class="deal-card ${d.hot?'hot':''}" data-route="operacional">
+            <div class="deal-client">${d.client}</div>
+            <div class="deal-event">${d.event} · ${d.date} · ${d.city}</div>
+            <div class="deal-meta" style="margin-top:8px">
+              <span class="text-sm text-mut">${d.status}</span>
+            </div>
+            <div class="deal-meta" style="margin-top:8px;border-top:1px solid var(--line);padding-top:8px;justify-content:space-between">
+              <div style="display:flex;gap:-4px">
+                ${d.crew.map((c,i) => `<div class="avatar" style="width:22px;height:22px;font-size:10px;margin-left:${i?-6:0}px;border:2px solid var(--bg-3)">${c}</div>`).join('')}
+              </div>
+              ${d.aiSchedule ? '<span class="ai-chip sm">cronograma IA</span>' : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+  root.querySelectorAll('[data-route]').forEach(el => {
+    el.addEventListener('click', e => { e.preventDefault(); route(el.dataset.route); });
+  });
+}
+
+// =================== DADOS T8 / T9 / T10 / T11 ===================
+const CLIENTS = [
+  { name:'Servier do Brasil',  segment:'Farmacêutica', city:'São Paulo',     last:'10/2025', ticket:'R$ 287K', vendor:'Mariana Costa', status:'active' },
+  { name:'Banco Plural',       segment:'Financeiro',   city:'Rio de Janeiro', last:'12/2024', ticket:'R$ 198K', vendor:'Rafael Lima',   status:'cooling' },
+  { name:'Loft Imóveis',       segment:'Real estate',  city:'São Paulo',     last:'03/2026', ticket:'R$ 142K', vendor:'Beatriz Souza', status:'active' },
+  { name:'Universidade Veiga', segment:'Educação',     city:'Rio de Janeiro', last:'07/2025', ticket:'R$ 320K', vendor:'Rafael Lima',   status:'active' },
+  { name:'Vivo',               segment:'Telecom',      city:'São Paulo',     last:'06/2025', ticket:'R$ 198K', vendor:'Mariana Costa', status:'active' },
+  { name:'iFood',              segment:'Tecnologia',   city:'São Paulo',     last:'04/2025', ticket:'R$ 156K', vendor:'Beatriz Souza', status:'active' },
+  { name:'Hospital Albert',    segment:'Saúde',        city:'São Paulo',     last:'11/2025', ticket:'R$ 245K', vendor:'Mariana Costa', status:'active' },
+  { name:'Eletrobras',         segment:'Energia',      city:'Brasília',      last:'05/2025', ticket:'R$ 412K', vendor:'Rafael Lima',   status:'active' },
+  { name:'Petrobras',          segment:'Energia',      city:'Rio de Janeiro', last:'08/2024', ticket:'R$ 287K', vendor:'Beatriz Souza', status:'cooling' },
+  { name:'Sebrae RJ',          segment:'Institucional',city:'Rio de Janeiro', last:'05/2026', ticket:'R$ 124K', vendor:'Mariana Costa', status:'active' },
+];
+
+const PROSPECTS = [
+  { title:'FENABRAVE 2026', body:'Feira anunciada para outubro em São Paulo · Centro de Convenções São Paulo Expo · porte estimado: 8.000 visitantes/dia', source:'agenda.saopaulo-expo.com.br', hook:'Empresa organizadora ainda sem fornecedor de AV confirmado · janela de 6 meses', score:92, scoreLabel:'high', date:'18-22/10/2026' },
+  { title:'Hospital Sírio-Libanês', body:'Anunciou simpósio internacional de oncologia para setembro · público médico de alto valor · evento institucional', source:'imprensa.sirio-libanes.org', hook:'Hospital frequente em eventos corporativos · cliente novo na carteira', score:88, scoreLabel:'high', date:'10-12/09/2026' },
+  { title:'Magalu · Convenção Anual', body:'Perfil recorrente · realiza convenção todos os anos em outubro · 2.500 colaboradores presenciais', source:'magazineluiza.com.br/ri', hook:'Cliente perdido em 2024 para concorrente · momento de reaproximar', score:81, scoreLabel:'high', date:'~10/2026' },
+  { title:'Centro de Convenções Frei Caneca · agenda Q3', body:'8 eventos corporativos confirmados no calendário público · empresas variadas', source:'freicaneca.com.br/agenda', hook:'Mapear cada organizador · 3 empresas ainda sem AV', score:76, scoreLabel:'mid', date:'Jul-Set/2026' },
+  { title:'Audio Eventos (concorrente) atendeu rebranding Natura', body:'Concorrente publicou case do rebranding Natura · sinal competitivo importante', source:'instagram.com/audioeventos', hook:'Cliente Natura em transição · oportunidade de segundo fornecedor', score:70, scoreLabel:'mid', date:'04/2026', kind:'competitor' },
+];
+
+const INBOX = [
+  { title:'Bradesco · Convenção Anual 2026', body:'Veio por WhatsApp · solicitou orçamento para 600 pessoas · data 23/05', source:'WhatsApp', hook:'Cliente novo · alta urgência', score:95, scoreLabel:'high', date:'Hoje · 09:23' },
+  { title:'XP Inc. · Expert XP 2026', body:'Indicação do Itaú · evento grande no Allianz Parque · 12.000 pessoas', source:'Indicação', hook:'Marcar reunião de qualificação esta semana', score:91, scoreLabel:'high', date:'Hoje · 08:11' },
+  { title:'Magalu · Convenção Anual', body:'Detectado pelo Agente de Prospecção · cliente perdido em 2024', source:'Agente de Prospecção', hook:'Reaproximar antes do concorrente', score:81, scoreLabel:'high', date:'Ontem · 16:42', ai:true },
+  { title:'Lojas Renner · Encontro de Líderes', body:'Veio pelo formulário do site · briefing inicial preenchido', source:'Site / formulário', hook:'Lead qualificado pelo conteúdo do briefing', score:74, scoreLabel:'mid', date:'Ontem · 14:08' },
+  { title:'Hospital Sírio-Libanês · Simpósio Onco', body:'Detectado pelo Agente · publicação em imprensa.sirio-libanes.org', source:'Agente de Prospecção', hook:'Aprovar abordagem fria via e-mail institucional', score:88, scoreLabel:'high', date:'Ontem · 11:30', ai:true },
+];
+
+const PRICE_TABLE = [
+  { name:'Painel LED P3.9 (módulo 0,5×0,5m)', sku:'LED-P39-MOD', cat:'Vídeo',       price:'R$ 480',    last:'01/01/2026' },
+  { name:'Painel LED P2.6 outdoor',          sku:'LED-P26-018', cat:'Vídeo',        price:'R$ 1.250',  last:'01/01/2026' },
+  { name:"PA Line Array L'Acoustics K2",      sku:'PA-LAK2-K01', cat:'Som',          price:'R$ 8.400',  last:'01/01/2026' },
+  { name:'Mesa Yamaha 32 canais',             sku:'MIX-YH32-01', cat:'Som',          price:'R$ 1.480',  last:'01/01/2026' },
+  { name:'Microfone Shure SM58 (kit 8)',      sku:'MIC-SM58-K01', cat:'Som',         price:'R$ 620',    last:'01/01/2026' },
+  { name:'Microfone Lapela Sennheiser',       sku:'MIC-LAP-SS01', cat:'Som',         price:'R$ 380',    last:'01/01/2026' },
+  { name:'Moving Beam 230 (kit 24)',          sku:'MB230-K02',   cat:'Iluminação',   price:'R$ 2.880',  last:'01/01/2026' },
+  { name:'Par LED RGBW (kit 12)',             sku:'PAR-LED-K12', cat:'Iluminação',   price:'R$ 940',    last:'01/01/2026' },
+  { name:'Mesa de luz Avolites Quartz',       sku:'LUZ-AVO-Q01', cat:'Iluminação',   price:'R$ 1.180',  last:'01/01/2026' },
+  { name:'Truss Q30 (6m)',                    sku:'TRU-Q30-06',  cat:'Estrutura',    price:'R$ 460',    last:'01/01/2026' },
+  { name:'Palco modular 8×4m',                sku:'PAL-MOD-84',  cat:'Estrutura',    price:'R$ 3.200',  last:'01/01/2026' },
+  { name:'Praticável 2×1m',                   sku:'PRA-201',     cat:'Estrutura',    price:'R$ 180',    last:'01/01/2026' },
+  { name:'Projetor Laser 12K Christie',       sku:'PRJ-CH12K-01', cat:'Vídeo',       price:'R$ 5.800',  last:'01/01/2026' },
+  { name:'Switcher ATEM 4 M/E',               sku:'SW-ATEM-4ME', cat:'Vídeo',        price:'R$ 1.640',  last:'01/01/2026' },
+  { name:'Streaming Kit 4K (transmissão)',    sku:'STR-4K-002',  cat:'Vídeo',        price:'R$ 2.100',  last:'01/01/2026' },
+  { name:'Operador AV (diária 12h)',          sku:'MO-AV-OP',    cat:'Mão de obra',  price:'R$ 980',    last:'01/01/2026' },
+  { name:'Cadeiras Tiffany (lote 100)',       sku:'CAD-TIF-L100', cat:'Apoio',       price:'R$ 1.200',  last:'01/01/2026' },
+  { name:'Gerador 60kVA',                     sku:'GER-60KVA',   cat:'Apoio',        price:'R$ 1.450',  last:'01/01/2026' },
+];
+
+// ===== Itens sugeridos pela IA para a proposta T6 =====
+const AI_SUGGESTED_ITEMS = [
+  { name:"PA Line Array L'Acoustics K2",  sku:'PA-LAK2-K01',  base:8400,  qty:1, days:1, reason:'280 participantes em sala de 640m² exige PA de médio porte' },
+  { name:'Mesa Yamaha 32 canais',         sku:'MIX-YH32-01',  base:1480,  qty:1, days:1, reason:'múltiplos microfones + transmissão' },
+  { name:'Microfone Lapela Sennheiser',   sku:'MIC-LAP-SS01', base:380,   qty:4, days:1, reason:'palco talk-show com até 4 palestrantes' },
+  { name:'Painel LED P3.9 (módulo 0,5×0,5m)', sku:'LED-P39-MOD', base:480, qty:80, days:1, reason:'painel principal 5m×4m (20m²) para 280 participantes' },
+  { name:'Moving Beam 230 (kit 24)',      sku:'MB230-K02',    base:2880,  qty:1, days:1, reason:'iluminação cênica padrão para convenção corporativa' },
+  { name:'Par LED RGBW (kit 12)',         sku:'PAR-LED-K12',  base:940,   qty:1, days:1, reason:'wash de plateia + ambientação' },
+  { name:'Palco modular 8×4m',            sku:'PAL-MOD-84',   base:3200,  qty:1, days:1, reason:'palco principal com pé-direito 6m permite estrutura completa' },
+  { name:'Streaming Kit 4K',              sku:'STR-4K-002',   base:2100,  qty:1, days:1, reason:'requisito explícito de transmissão 4K + gravação' },
+  { name:'Operador AV (diária 12h)',      sku:'MO-AV-OP',     base:980,   qty:3, days:2, reason:'janela de montagem 12h + dia do evento · 3 operadores' },
+];
+
+// =================== RENDERERS ===================
+function renderClientsList(filter=''){
+  const tbody = document.querySelector('#clientsTable tbody');
+  if(!tbody) return;
+  const f = filter.toLowerCase().trim();
+  const rows = CLIENTS.filter(c => !f || c.name.toLowerCase().includes(f) || c.city.toLowerCase().includes(f) || c.segment.toLowerCase().includes(f));
+  tbody.innerHTML = rows.map(c => `
+    <tr data-route="ficha" style="cursor:pointer">
+      <td><strong>${c.name}</strong></td>
+      <td class="text-mut">${c.segment}</td>
+      <td>${c.city}</td>
+      <td>${c.last}</td>
+      <td style="text-align:right;font-weight:600">${c.ticket}</td>
+      <td>${c.vendor}</td>
+      <td>${c.status==='cooling' ? '<span class="pill" style="background:var(--orange-soft);color:var(--orange)">esfriando</span>' : '<span class="pill green">ativo</span>'}</td>
+    </tr>
+  `).join('');
+  tbody.querySelectorAll('[data-route]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); route(el.dataset.route); }));
+}
+
+function leadCardHTML(l, contextActions){
+  const cls = `lead-score ${l.scoreLabel}`;
+  return `
+    <div class="lead-card">
+      <div>
+        <div class="lead-head">
+          <span class="lead-title">${l.title}</span>
+          ${l.ai ? '<span class="ai-chip">capturado pela IA</span>' : ''}
+          ${l.kind==='competitor' ? '<span class="pill" style="background:var(--red-soft);color:var(--red)">concorrente</span>' : ''}
+        </div>
+        <div class="lead-meta">
+          <span>📅 ${l.date}</span>
+          <span>🔗 <a href="#" style="color:var(--blue)">${l.source}</a></span>
+        </div>
+        <div class="lead-body">${l.body}</div>
+        <div class="lead-body" style="margin-top:6px"><strong>Sugestão de abordagem:</strong> <em>${l.hook}</em></div>
+      </div>
+      <div class="lead-actions">
+        <div class="${cls}">${l.score}</div>
+        <div class="lead-source">pontuação</div>
+        ${contextActions(l)}
+      </div>
+    </div>
+  `;
+}
+
+function renderProspects(){
+  const root = document.getElementById('prospectList');
+  if(!root) return;
+  root.innerHTML = PROSPECTS.map(l => leadCardHTML(l, () => `
+    <button class="btn btn-primary" data-prospect-send>→ Lead Inbox</button>
+    <button class="btn btn-ghost" data-prospect-discard>Descartar</button>
+  `)).join('');
+  root.querySelectorAll('[data-prospect-send]').forEach(b => b.addEventListener('click', e => {
+    const card = e.target.closest('.lead-card');
+    card.style.opacity = '.3';
+    showLockToast({title:'Lead enviado ao Lead Inbox', sub:'O vendedor verá na triagem do funil.', action:'Abrir Lead Inbox', target:'leadinbox', kind:'success'});
+  }));
+  root.querySelectorAll('[data-prospect-discard]').forEach(b => b.addEventListener('click', e => {
+    const card = e.target.closest('.lead-card');
+    card.style.transition='.3s'; card.style.opacity='0'; card.style.transform='translateX(40px)';
+    setTimeout(() => card.remove(), 320);
+  }));
+}
+
+function renderInbox(){
+  const root = document.getElementById('inboxList');
+  if(!root) return;
+  root.innerHTML = INBOX.map(l => leadCardHTML(l, () => `
+    <button class="btn btn-primary" data-inbox-qualify>✓ Qualificar</button>
+    <button class="btn btn-ghost" data-inbox-discard>Descartar</button>
+  `)).join('');
+  root.querySelectorAll('[data-inbox-qualify]').forEach(b => b.addEventListener('click', e => {
+    const card = e.target.closest('.lead-card');
+    card.style.transition='.3s'; card.style.opacity='0'; card.style.transform='translateX(-40px)';
+    setTimeout(() => { card.remove(); updateInboxCount(); }, 320);
+    showLockToast({title:'Lead qualificado', sub:'Novo card criado em Funil Comercial → Qualificação.', action:'Abrir pipeline', target:'crm', kind:'success'});
+  }));
+  root.querySelectorAll('[data-inbox-discard]').forEach(b => b.addEventListener('click', e => {
+    const card = e.target.closest('.lead-card');
+    card.style.transition='.3s'; card.style.opacity='0';
+    setTimeout(() => { card.remove(); updateInboxCount(); }, 320);
+  }));
+}
+function updateInboxCount(){
+  const cnt = document.querySelectorAll('#inboxList .lead-card').length;
+  const el = document.getElementById('inboxCount');
+  if(el) el.textContent = `${cnt} lead${cnt===1?'':'s'} aguardando`;
+}
+
+function renderPriceTable(){
+  const tbody = document.querySelector('#priceTable tbody');
+  if(!tbody) return;
+  tbody.innerHTML = PRICE_TABLE.map(p => `
+    <tr>
+      <td><strong>${p.name}</strong></td>
+      <td><code style="font-size:11px;color:var(--text-3)">${p.sku}</code></td>
+      <td><span class="pill" style="background:var(--bg-3);color:var(--text-2);border:1px solid var(--line)">${p.cat}</span></td>
+      <td style="text-align:right;font-family:var(--font-mono);font-weight:600;color:var(--accent)">${p.price}</td>
+      <td class="text-mut">${p.last}</td>
+      <td><button class="btn btn-ghost">Editar</button></td>
+    </tr>
+  `).join('');
+}
+
+// =================== GERADOR DE PROPOSTA (T6) ===================
+const PROP_STATE = { step:1, items: AI_SUGGESTED_ITEMS.map(i => ({...i, customPrice:null})), discount:0.12 };
+
+function fmt(v){ return 'R$ ' + Math.round(v).toLocaleString('pt-BR'); }
+
+function renderPropItems(){
+  const root = document.getElementById('propItems');
+  if(!root) return;
+  root.innerHTML = PROP_STATE.items.map((it,idx) => `
+    <div class="prop-item">
+      <div class="prop-item-name">
+        <strong>${it.name}</strong>
+        <span><span class="ai-chip sm">IA</span> ${it.reason}</span>
+      </div>
+      <input type="number" value="${it.qty}" min="0" data-prop-qty="${idx}" title="quantidade">
+      <span class="text-sm text-mut" style="text-align:right">${it.days}d</span>
+      <span class="price-final">${fmt(it.base * it.qty * it.days)}</span>
+      <button class="remove-btn" data-prop-remove="${idx}" title="Remover">×</button>
+    </div>
+  `).join('');
+  root.querySelectorAll('[data-prop-remove]').forEach(b => b.addEventListener('click', e => {
+    PROP_STATE.items.splice(+e.currentTarget.dataset.propRemove,1);
+    renderPropItems(); renderPriceStep();
+  }));
+  root.querySelectorAll('[data-prop-qty]').forEach(i => i.addEventListener('input', e => {
+    PROP_STATE.items[+e.target.dataset.propQty].qty = +e.target.value || 0;
+    renderPropItems(); renderPriceStep();
+  }));
+}
+
+function renderPriceStep(){
+  const root = document.getElementById('propPriceItems');
+  if(!root) return;
+  let sumTable = 0, sumFinal = 0;
+  root.innerHTML = PROP_STATE.items.map((it,idx) => {
+    const tableSub = it.base * it.qty * it.days;
+    const floor = Math.round(tableSub * (1 - PROP_STATE.discount));
+    const current = it.customPrice == null ? floor : it.customPrice;
+    const below = current < floor;
+    sumTable += tableSub;
+    sumFinal += current;
+    return `
+      <div class="prop-item">
+        <div class="prop-item-name">
+          <strong>${it.name}</strong>
+          <span>tabela ${fmt(it.base)} × ${it.qty} × ${it.days}d · piso ${fmt(floor)} (-12%)</span>
+        </div>
+        <input type="number" value="${current}" data-price-idx="${idx}" data-floor="${floor}" data-name="${it.name}" data-original="${tableSub}">
+        <span class="text-sm text-mut" style="text-align:right">${below ? '⚠ abaixo' : '✓ ok'}</span>
+        <span class="price-final ${below?'warn':''}">${fmt(current)}</span>
+        <span></span>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('sumTable').textContent = fmt(sumTable);
+  document.getElementById('sumDiscount').textContent = '— ' + fmt(sumTable - Math.round(sumTable*(1-PROP_STATE.discount)));
+  document.getElementById('sumTotal').textContent = fmt(sumFinal);
+  const ppT = document.getElementById('ppTotal'); if(ppT) ppT.textContent = fmt(sumFinal);
+
+  root.querySelectorAll('[data-price-idx]').forEach(i => i.addEventListener('change', e => {
+    const idx = +e.target.dataset.priceIdx;
+    const floor = +e.target.dataset.floor;
+    const newVal = +e.target.value;
+    PROP_STATE.items[idx].customPrice = newVal;
+    if(newVal < floor){
+      // dispara modal de margem
+      document.getElementById('marginItemName').textContent = e.target.dataset.name;
+      document.getElementById('marginItemPrice').textContent = fmt(floor - newVal);
+      document.getElementById('marginModal').classList.add('open');
+    }
+    renderPriceStep();
+  }));
+}
+
+function gotoPropStep(n){
+  PROP_STATE.step = n;
+  document.querySelectorAll('#propStepper .step').forEach(s => {
+    const sn = +s.dataset.step;
+    s.classList.toggle('active', sn === n);
+    s.classList.toggle('done', sn < n);
+  });
+  document.querySelectorAll('[data-pane]').forEach(p => p.classList.toggle('active', +p.dataset.pane === n));
+  if(n === 2) renderPropItems();
+  if(n === 3) renderPriceStep();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+document.addEventListener('click', e => {
+  const next = e.target.closest('[data-prop-next]');
+  if(next){ e.preventDefault(); gotoPropStep(+next.dataset.propNext); return; }
+  const stepClick = e.target.closest('#propStepper .step');
+  if(stepClick){ gotoPropStep(+stepClick.dataset.step); return; }
+  if(e.target.closest('[data-modal-close]')) document.getElementById('marginModal').classList.remove('open');
+  if(e.target.closest('[data-modal-confirm]')){
+    document.getElementById('marginModal').classList.remove('open');
+    showLockToast({title:'Aprovação solicitada', sub:'A gestora comercial recebeu a justificativa. Você será notificado.', action:'OK', target:'proposta', kind:'info'});
+  }
+  if(e.target.closest('#btnGenProposal')){
+    showLockToast({title:'Proposta gerada e enviada!', sub:'Link público criado · WhatsApp e e-mail disparados ao cliente.', action:'Voltar ao negócio', target:'deal', kind:'success'});
+  }
+});
+
+// Tabs da ficha do cliente
+document.addEventListener('click', e => {
+  const t = e.target.closest('#fichaTabs .tab');
+  if(!t) return;
+  document.querySelectorAll('#fichaTabs .tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.querySelectorAll('[id^="ficha-"]').forEach(p => p.classList.remove('active'));
+  document.getElementById('ficha-' + t.dataset.tab)?.classList.add('active');
+});
+
+// Busca da lista de clientes
+document.addEventListener('input', e => {
+  if(e.target.id === 'clientsSearch') renderClientsList(e.target.value);
+});
 
 // =================== PATRIMÔNIO ===================
 function renderEquip(){
@@ -1525,7 +2369,12 @@ sidebar?.querySelectorAll('.nav-item').forEach(n => {
 window.addEventListener('resize', () => { if(window.innerWidth > 820) closeNav(); });
 
 renderKanban();
+renderDeliveryKanban();
 renderEquip();
+renderClientsList();
+renderProspects();
+renderInbox();
+renderPriceTable();
 renderCharts();
 
 // =================== TOAST DA TRAVA DO FUNIL (Seção 2.1) ===================
@@ -1535,11 +2384,16 @@ const lockToastSub = document.getElementById('lockToastSub');
 const lockToastAction = document.getElementById('lockToastAction');
 let _lockToastTimer = null;
 let _lockToastTarget = null;
-function showLockToast({title, sub, action, target}={}){
+function showLockToast({title, sub, action, target, kind}={}){
   if(title) lockToastTitle.textContent = title;
   if(sub) lockToastSub.textContent = sub;
   if(action) lockToastAction.textContent = action;
   _lockToastTarget = target || null;
+  lockToast.classList.remove('success','info');
+  if(kind === 'success') lockToast.classList.add('success');
+  if(kind === 'info') lockToast.classList.add('info');
+  const icon = lockToast.querySelector('.toast-icon');
+  if(icon) icon.textContent = kind === 'success' ? '✓' : (kind === 'info' ? 'i' : '🔒');
   lockToast.classList.add('visible');
   clearTimeout(_lockToastTimer);
   _lockToastTimer = setTimeout(() => lockToast.classList.remove('visible'), 5200);
