@@ -253,6 +253,81 @@
     .login-feats{grid-template-columns:1fr}
   }
 
+  /* === Busca global (⌘K) === */
+  .search-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:400;display:none;align-items:flex-start;justify-content:center;padding-top:14vh}
+  .search-backdrop.open{display:flex;animation:fadeIn .15s ease}
+  .search-palette{background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--r-lg);width:100%;max-width:580px;box-shadow:0 24px 60px rgba(0,0,0,.6);overflow:hidden}
+  .search-input-wrap{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line)}
+  .search-input-wrap input{flex:1;background:transparent;border:none;color:var(--text);font-size:15px;outline:none}
+  .search-input-wrap kbd{font-family:var(--font-mono);font-size:11px;padding:2px 8px;background:var(--bg-4);border:1px solid var(--line);border-radius:4px;color:var(--text-3)}
+  .search-results{max-height:60vh;overflow-y:auto;padding:8px}
+  .search-section{padding:6px 14px;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-3);font-weight:600}
+  .search-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r-sm);cursor:pointer;color:var(--text-2);transition:.1s}
+  .search-item:hover,.search-item.active{background:var(--bg-3);color:var(--text)}
+  .search-item .si-ic{width:24px;height:24px;border-radius:var(--r-sm);background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+  .search-item .si-text{flex:1;min-width:0}
+  .search-item .si-text strong{display:block;font-size:13.5px;font-weight:500;color:var(--text)}
+  .search-item .si-text span{font-size:11.5px;color:var(--text-3)}
+  .search-item .si-tag{font-size:10px;color:var(--text-3);background:var(--bg-3);padding:2px 7px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+  .search-empty{padding:30px 20px;text-align:center;color:var(--text-3);font-size:13px}
+
+  /* Animação de transição de página */
+  .page.active{animation:pageIn .25s cubic-bezier(.2,.8,.2,1)}
+  @keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* === Pacote de Operação (T12) === */
+  .delivery-progress{display:flex;align-items:center;gap:0;margin-bottom:24px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 18px;overflow-x:auto}
+  .dp-step{display:flex;align-items:center;gap:10px;flex-shrink:0;color:var(--text-3)}
+  .dp-step.done{color:var(--text-2)}
+  .dp-step.current{color:var(--text)}
+  .dp-dot{width:28px;height:28px;border-radius:50%;background:var(--bg-4);color:var(--text-3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:1px solid var(--line-2);flex-shrink:0}
+  .dp-step.done .dp-dot{background:var(--green);color:#053b25;border-color:var(--green)}
+  .dp-step.done .dp-dot::before{content:'✓'}
+  .dp-step.done .dp-dot span{display:none}
+  .dp-step.current .dp-dot{background:var(--accent);color:#1a0f00;border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+  .dp-label{display:flex;flex-direction:column;line-height:1.2;font-size:12px;white-space:nowrap}
+  .dp-label strong{font-size:13px;font-weight:600}
+  .dp-line{flex:1;height:1px;background:var(--line);min-width:24px}
+  .dp-line.done{background:var(--green)}
+
+  .pack-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:14px}
+  .pack-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column}
+  .pack-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg-3)}
+  .pack-head-l{display:flex;align-items:center;gap:10px}
+  .pack-ic{width:30px;height:30px;border-radius:var(--r-sm);background:var(--bg-4);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .pack-title{font-weight:600;font-size:14px}
+  .pack-sub{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px}
+  .pack-body{padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:13px;flex:1}
+  .pack-row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--line)}
+  .pack-row:last-child{border-bottom:none}
+  .pack-row strong{font-size:11.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-3);font-weight:600}
+  .pack-row span{color:var(--text);text-align:right;font-weight:500}
+  .pack-row.warn span{color:var(--orange)}
+  .pack-row.bad span{color:var(--red)}
+  .pack-foot{padding:10px 18px;background:var(--bg-3);border-top:1px solid var(--line);font-size:12px;color:var(--text-3);display:flex;justify-content:space-between;align-items:center}
+
+  /* Cronograma de montagem IA */
+  .schedule{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px}
+  .schedule-row{display:grid;grid-template-columns:90px 32px 1fr 110px;gap:14px;align-items:center;padding:10px 12px;border-radius:var(--r-sm);transition:.15s}
+  .schedule-row:hover{background:var(--bg-3)}
+  .schedule-row + .schedule-row{margin-top:2px}
+  .schedule-time{font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--accent)}
+  .schedule-icon{width:32px;height:32px;border-radius:50%;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-size:14px;border:1px solid var(--line)}
+  .schedule-task strong{display:block;font-size:13.5px;font-weight:600}
+  .schedule-task span{font-size:11.5px;color:var(--text-3)}
+  .schedule-team{text-align:right;font-size:12px;color:var(--text-2)}
+
+  /* Ocorrências */
+  .occ{background:var(--bg-3);border:1px solid var(--line);border-left:3px solid var(--text-3);border-radius:var(--r-sm);padding:10px 14px;margin-bottom:8px}
+  .occ.info{border-left-color:var(--blue)} .occ.warn{border-left-color:var(--orange)} .occ.success{border-left-color:var(--green)} .occ.error{border-left-color:var(--red)}
+  .occ-head{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--text-3);margin-bottom:3px}
+
+  @media (max-width:980px){
+    .pack-grid{grid-template-columns:1fr}
+    .schedule-row{grid-template-columns:80px 28px 1fr;gap:10px}
+    .schedule-team{grid-column:span 3;text-align:left;color:var(--text-3)}
+  }
+
   /* === Drag and drop kanban === */
   .deal-card{user-select:none}
   .deal-card.dragging{opacity:.4;transform:rotate(-2deg) scale(.97)}
@@ -844,7 +919,7 @@
       <strong id="bcCurrent">Dashboard</strong>
     </div>
     <div class="topbar-actions">
-      <button class="icon-btn" title="Buscar" aria-label="Buscar">
+      <button class="icon-btn search-trigger" title="Buscar (⌘K)" aria-label="Buscar" id="searchTrigger">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
       <button class="icon-btn" title="Notificações" aria-label="Notificações">
@@ -1221,86 +1296,138 @@
   <section class="page" id="page-operacional">
     <div class="page-head">
       <div>
-        <h1 class="page-title">Operacional</h1>
-        <p class="page-sub">Cronograma integrado · montagem, execução e desmontagem dos próximos 7 dias</p>
+        <div class="row" style="margin-bottom:6px">
+          <span class="pill" style="background:rgba(62,207,142,.18);color:var(--green)">Em montagem</span>
+          <span class="text-sm text-mut">Pacote de Operação completo · handoff em 12/05</span>
+        </div>
+        <h1 class="page-title">Vivo · Lançamento de Produto</h1>
+        <p class="page-sub">Centro Fecomercio · 14 jun · 120 pax · valor fechado <strong class="text-accent">R$ 287.400</strong> · responsável <strong style="color:var(--text)">André Mendes</strong></p>
       </div>
       <div class="page-actions">
-        <button class="btn btn-secondary">Semana 21-27 mai ▾</button>
-        <button class="btn btn-primary">Nova OS</button>
+        <button class="btn btn-secondary" data-route="entrega">← Funil de Entrega</button>
+        <button class="btn btn-secondary">Histórico</button>
+        <button class="btn btn-primary">+ Registrar ocorrência</button>
       </div>
     </div>
 
-    <div class="alert" style="background:var(--orange-soft);border-color:var(--orange)">
-      <div class="alert-icon" style="background:var(--orange)">!</div>
-      <div class="alert-content">
-        <div class="alert-title" style="color:var(--orange)">3 OS exigem ação</div>
-        <div class="alert-body">
-          Petrobras · ESG (27/05) sem coordenador atribuído · Vale · Treinamento (25/05) com pendência logística · Itaú · Roadshow (28/05) aguardando lista de equipe.
+    <!-- Barra de progresso das 5 etapas do funil de entrega -->
+    <div class="delivery-progress">
+      <div class="dp-step done"><div class="dp-dot"><span>1</span></div><div class="dp-label"><strong>Pré-produção</strong><span>concluído 22/05</span></div></div>
+      <div class="dp-line done"></div>
+      <div class="dp-step current"><div class="dp-dot"><span>2</span></div><div class="dp-label"><strong>Montagem</strong><span>em andamento · 60%</span></div></div>
+      <div class="dp-line"></div>
+      <div class="dp-step"><div class="dp-dot"><span>3</span></div><div class="dp-label"><strong>Evento</strong><span>14 jun · 18h</span></div></div>
+      <div class="dp-line"></div>
+      <div class="dp-step"><div class="dp-dot"><span>4</span></div><div class="dp-label"><strong>Desmontagem</strong><span>15 jun · 02h</span></div></div>
+      <div class="dp-line"></div>
+      <div class="dp-step"><div class="dp-dot"><span>5</span></div><div class="dp-label"><strong>Pós-evento</strong><span>NPS + faturamento</span></div></div>
+    </div>
+
+    <!-- Pacote de Operação · 4 blocos -->
+    <div class="pack-grid">
+      <div class="pack-card">
+        <div class="pack-head">
+          <div class="pack-head-l"><div class="pack-ic">📍</div><div><div class="pack-title">Bloco 1 · Logística</div><div class="pack-sub">onde, quando e como</div></div></div>
+          <span class="pill green">Completo</span>
+        </div>
+        <div class="pack-body">
+          <div class="pack-row"><strong>Endereço de entrega</strong><span>R. Dr. Plínio Barreto, 285 · Centro Fecomercio · São Paulo/SP</span></div>
+          <div class="pack-row"><strong>Contato no local</strong><span>Patrícia Lobo · (11) 98712-1140</span></div>
+          <div class="pack-row"><strong>Janela de montagem</strong><span>13/06 · 06h às 18h (12h)</span></div>
+          <div class="pack-row"><strong>Janela de desmontagem</strong><span>14/06 · 23h às 15/06 03h</span></div>
+          <div class="pack-row"><strong>Restrições</strong><span>Doca traseira · elevador de carga · piso vinílico</span></div>
+          <div class="pack-row warn"><strong>Frete especial</strong><span>Sim · LED frágil (carga isolada)</span></div>
+        </div>
+      </div>
+
+      <div class="pack-card">
+        <div class="pack-head">
+          <div class="pack-head-l"><div class="pack-ic">🛠️</div><div><div class="pack-title">Bloco 2 · Escopo Técnico</div><div class="pack-sub">o que vai ser entregue</div></div></div>
+          <span class="pill green">Completo</span>
+        </div>
+        <div class="pack-body">
+          <div class="pack-row"><strong>Som</strong><span>PA L'Acoustics K2 · mesa Yamaha 32ch · 4 lapelas</span></div>
+          <div class="pack-row"><strong>Vídeo</strong><span>Painel LED P3.9 · 80 módulos · streaming 4K</span></div>
+          <div class="pack-row"><strong>Iluminação</strong><span>Moving Beam ×24 · par LED ×12 · mesa Avolites</span></div>
+          <div class="pack-row"><strong>Estrutura</strong><span>Palco modular 8×4m · truss Q30 6m</span></div>
+          <div class="pack-row"><strong>Mão de obra</strong><span>3 operadores AV (12h × 2 dias)</span></div>
+          <div class="pack-row"><strong>Requisitos do local</strong><span>220V trifásico 80A · internet dedicada 200Mb · fixação no teto OK</span></div>
+        </div>
+      </div>
+
+      <div class="pack-card">
+        <div class="pack-head">
+          <div class="pack-head-l"><div class="pack-ic">💰</div><div><div class="pack-title">Bloco 3 · Comercial Confirmado</div><div class="pack-sub">condições fechadas</div></div></div>
+          <span class="pill green">Completo</span>
+        </div>
+        <div class="pack-body">
+          <div class="pack-row"><strong>Valor final</strong><span style="color:var(--accent);font-weight:600">R$ 287.400</span></div>
+          <div class="pack-row"><strong>Forma de pagamento</strong><span>50% sinal + 50% em 30 ddl</span></div>
+          <div class="pack-row"><strong>Sinal confirmado</strong><span style="color:var(--green)">✓ R$ 143.700 · 14/05</span></div>
+          <div class="pack-row"><strong>Razão social</strong><span>Telefônica Brasil S.A. · 02.558.157/0001-62</span></div>
+          <div class="pack-row"><strong>E-mail para NF</strong><span>fiscal@vivo.com.br · IE 105.114.770.116</span></div>
+          <div class="pack-row"><strong>Aprovação cliente</strong><span>Patrícia Lobo · ClickSign 12/05</span></div>
+        </div>
+      </div>
+
+      <div class="pack-card">
+        <div class="pack-head">
+          <div class="pack-head-l"><div class="pack-ic">⚠️</div><div><div class="pack-title">Bloco 4 · Riscos e Exceções</div><div class="pack-sub">tudo que foi prometido fora do padrão</div></div></div>
+          <span class="pill amber">2 exceções</span>
+        </div>
+        <div class="pack-body">
+          <div class="pack-row warn"><strong>Exceção 1 · margem</strong><span>Desconto extra de 4% acima do contratual<br><span class="text-mut" style="font-size:11px">aprovado por Joana Pires · 11/05</span></span></div>
+          <div class="pack-row warn"><strong>Exceção 2 · escopo</strong><span>Operador AV bônus na manhã do evento (cortesia)<br><span class="text-mut" style="font-size:11px">prometido na negociação · sem custo adicional</span></span></div>
+          <div class="pack-row"><strong>Pontos de atenção</strong><span>Cliente exigiu carro reserva de painel LED por causa do lançamento</span></div>
+          <div class="pack-row"><strong>Plano B</strong><span>Em caso de queda do streaming 4K, fallback para HD com aviso ao palco</span></div>
         </div>
       </div>
     </div>
 
+    <!-- Cronograma de montagem gerado por IA -->
     <div class="card mb-18">
       <div class="card-head">
-        <div>
-          <div class="card-title">Cronograma da semana</div>
-          <div class="card-sub">Cada barra representa uma OS · clique para abrir</div>
-        </div>
-        <div class="row text-sm text-mut">
-          <span class="row"><span style="width:10px;height:10px;background:var(--accent);border-radius:2px"></span> Montagem</span>
-          <span class="row"><span style="width:10px;height:10px;background:var(--green);border-radius:2px"></span> Execução</span>
-          <span class="row"><span style="width:10px;height:10px;background:var(--blue);border-radius:2px"></span> Desmontagem</span>
+        <div><div class="card-title">Cronograma de montagem</div><div class="card-sub">Sequência sugerida pela IA · janela de 12h · validado pela operação · André Mendes</div></div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="ai-chip">cronograma gerado pela IA</span>
+          <button class="btn btn-secondary">Editar</button>
         </div>
       </div>
-      <div class="gantt">
-        <div class="gantt-wrap">
-          <div class="gantt-header">
-            <div class="gantt-header-label"></div>
-            <div class="gantt-header-days">
-              <div class="gantt-day">Qua 21</div>
-              <div class="gantt-day">Qui 22</div>
-              <div class="gantt-day">Sex 23</div>
-              <div class="gantt-day weekend">Sáb 24</div>
-              <div class="gantt-day weekend">Dom 25</div>
-              <div class="gantt-day">Seg 26</div>
-              <div class="gantt-day">Ter 27</div>
-            </div>
-          </div>
-          <div class="gantt-row"><div class="gantt-label">Bradesco · Convenção</div><div class="gantt-track"><div class="gantt-bar amber" style="left:14.28%;width:14.28%">Montagem</div><div class="gantt-bar green" style="left:28.56%;width:28.56%">Execução</div><div class="gantt-bar blue" style="left:57.12%;width:7.14%">Desm.</div></div></div>
-          <div class="gantt-row"><div class="gantt-label">Vale · Treinamento</div><div class="gantt-track"><div class="gantt-bar amber" style="left:42.84%;width:7.14%">Mont.</div><div class="gantt-bar green" style="left:49.98%;width:14.28%">Execução</div></div></div>
-          <div class="gantt-row"><div class="gantt-label">Petrobras · ESG</div><div class="gantt-track"><div class="gantt-bar amber" style="left:71.4%;width:14.28%">Montagem</div><div class="gantt-bar green" style="left:85.68%;width:14.32%">Execução</div></div></div>
-          <div class="gantt-row"><div class="gantt-label">Itaú BBA · Roadshow</div><div class="gantt-track"><div class="gantt-bar orange" style="left:85.68%;width:14.32%">Mont.</div></div></div>
-          <div class="gantt-row"><div class="gantt-label">Ambev · Lançamento</div><div class="gantt-track"><div class="gantt-bar purple" style="left:0;width:14.28%">Desmontagem</div></div></div>
-        </div>
+      <div class="schedule" style="margin-top:14px;border:none;padding:0;background:transparent">
+        <div class="schedule-row"><span class="schedule-time">06:00</span><div class="schedule-icon">🚚</div><div class="schedule-task"><strong>Chegada ao local · descarga</strong><span>3 caminhões · doca traseira</span></div><div class="schedule-team">2 técnicos</div></div>
+        <div class="schedule-row"><span class="schedule-time">06:30</span><div class="schedule-icon">🏗️</div><div class="schedule-task"><strong>Estrutura · truss e palco</strong><span>Palco modular 8×4m + truss Q30 6m</span></div><div class="schedule-team">André + 2 técnicos</div></div>
+        <div class="schedule-row"><span class="schedule-time">09:00</span><div class="schedule-icon">📺</div><div class="schedule-task"><strong>Painel de LED · 80 módulos</strong><span>Montar antes da iluminação que ilumina o painel</span></div><div class="schedule-team">3 técnicos</div></div>
+        <div class="schedule-row"><span class="schedule-time">11:30</span><div class="schedule-icon">💡</div><div class="schedule-task"><strong>Iluminação · moving beam + par LED</strong><span>Foco em palco + wash de plateia</span></div><div class="schedule-team">2 técnicos</div></div>
+        <div class="schedule-row"><span class="schedule-time">11:30</span><div class="schedule-icon">🔊</div><div class="schedule-task"><strong>Som · PA + mesa (em paralelo)</strong><span>L'Acoustics K2 + Yamaha 32ch</span></div><div class="schedule-team">2 técnicos</div></div>
+        <div class="schedule-row"><span class="schedule-time">14:00</span><div class="schedule-icon">📡</div><div class="schedule-task"><strong>Streaming · setup e teste</strong><span>Kit 4K + internet dedicada · gravação backup</span></div><div class="schedule-team">1 operador AV</div></div>
+        <div class="schedule-row"><span class="schedule-time">16:00</span><div class="schedule-icon">🎤</div><div class="schedule-task"><strong>Passagem técnica · ensaio</strong><span>Cliente presente · validar áudio e cenografia</span></div><div class="schedule-team">Equipe completa</div></div>
+        <div class="schedule-row"><span class="schedule-time">17:30</span><div class="schedule-icon">✓</div><div class="schedule-task"><strong>Briefing final com o cliente</strong><span>Repasso de cronograma do evento</span></div><div class="schedule-team">André + Patrícia</div></div>
       </div>
     </div>
 
-    <div class="grid" style="grid-template-columns:1fr 1fr">
-      <div class="card">
-        <div class="card-head"><div class="card-title">OS #2098 · Bradesco Convenção</div><span class="pill amber">Em montagem</span></div>
-        <table class="table" style="margin:-4px -14px -4px">
-          <tbody>
-            <tr><td style="color:var(--text-3)">Coordenador</td><td><strong>Bruno Cardoso</strong></td></tr>
-            <tr><td style="color:var(--text-3)">Equipe</td><td>8 técnicos + 1 coord. · <a href="#" class="text-accent text-sm">ver lista</a></td></tr>
-            <tr><td style="color:var(--text-3)">Equipamentos</td><td>47 itens · <span class="pill green">tudo conferido ✓</span></td></tr>
-            <tr><td style="color:var(--text-3)">Logística</td><td>3 caminhões · saída 22/05 06:00</td></tr>
-            <tr><td style="color:var(--text-3)">Local</td><td>Riocentro · Pavilhão 4</td></tr>
-            <tr><td style="color:var(--text-3)">Contato no local</td><td>Marcelo Souza · (21) 9 8888-4321</td></tr>
-          </tbody>
-        </table>
+    <!-- Registro de ocorrências -->
+    <div class="card">
+      <div class="card-head">
+        <div><div class="card-title">Registro de ocorrências</div><div class="card-sub">Tudo que aconteceu fica registrado · histórico viaja com o cliente</div></div>
+        <button class="btn btn-secondary">+ Adicionar</button>
       </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">OS #2104 · Vale Treinamento</div><span class="pill orange">Pendência</span></div>
-        <table class="table" style="margin:-4px -14px -4px">
-          <tbody>
-            <tr><td style="color:var(--text-3)">Coordenador</td><td><strong>Larissa Mendes</strong></td></tr>
-            <tr><td style="color:var(--text-3)">Equipe</td><td>4 técnicos · <span class="pill orange">2 freelas a confirmar</span></td></tr>
-            <tr><td style="color:var(--text-3)">Equipamentos</td><td>18 itens · <span class="pill red">conflito LED P2.6</span></td></tr>
-            <tr><td style="color:var(--text-3)">Logística</td><td>1 caminhão · saída 24/05 14:00</td></tr>
-            <tr><td style="color:var(--text-3)">Local</td><td>Hotel Fasano · Salão Atlântico</td></tr>
-            <tr><td style="color:var(--text-3)">Contato no local</td><td>Tatiana Lima · (11) 9 7777-2233</td></tr>
-          </tbody>
-        </table>
+      <div style="margin-top:8px">
+        <div class="occ info">
+          <div class="occ-head"><span>22/05 · 14:20</span><span>André Mendes</span></div>
+          <strong>Equipe completa confirmada</strong> · 3 técnicos próprios + 1 operador AV freelance (Carlos Mateus) confirmaram presença para 13/06 06:00.
+        </div>
+        <div class="occ warn">
+          <div class="occ-head"><span>20/05 · 11:08</span><span>Patrícia Lobo (cliente)</span></div>
+          <strong>Cliente pediu carro reserva de painel LED</strong> · concedido · custo absorvido pela locadora · registrado no Bloco 4 do Pacote.
+        </div>
+        <div class="occ success">
+          <div class="occ-head"><span>14/05 · 09:15</span><span>Sistema</span></div>
+          <strong>Sinal confirmado · R$ 143.700</strong> · ClickSign + boleto compensado · libera produção.
+        </div>
+        <div class="occ info">
+          <div class="occ-head"><span>12/05 · 17:30</span><span>Mariana Costa</span></div>
+          <strong>Handoff feito · Pacote de Operação completo</strong> · evento cruzou para Funil de Entrega · onboarding agendado para 13/05.
+        </div>
       </div>
     </div>
   </section>
@@ -1876,9 +2003,9 @@
         <div class="card">
           <div class="card-head"><div class="card-title">Ações rápidas</div></div>
           <div style="display:flex;flex-direction:column;gap:8px">
-            <button class="btn btn-secondary" style="justify-content:flex-start">📞 Ligar para Carlos</button>
-            <button class="btn btn-secondary" style="justify-content:flex-start">💬 WhatsApp</button>
-            <button class="btn btn-secondary" style="justify-content:flex-start">✉️ Redigir e-mail <span class="ai-chip sm" style="margin-left:auto">IA</span></button>
+            <button class="btn btn-secondary" style="justify-content:flex-start" data-quick="call">📞 Ligar para Carlos</button>
+            <button class="btn btn-secondary" style="justify-content:flex-start" data-quick="whatsapp">💬 WhatsApp</button>
+            <button class="btn btn-secondary" style="justify-content:flex-start" data-quick="email">✉️ Redigir e-mail <span class="ai-chip sm" style="margin-left:auto">IA</span></button>
             <button class="btn btn-secondary" style="justify-content:flex-start" data-route="proposta">📝 Gerar nova proposta</button>
           </div>
         </div>
@@ -2117,6 +2244,18 @@
     </div>
   </section>
 </main>
+
+<!-- ===== Busca global (⌘K) ===== -->
+<div class="search-backdrop" id="searchBackdrop">
+  <div class="search-palette" role="dialog" aria-label="Busca global">
+    <div class="search-input-wrap">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-3)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar clientes, negócios, equipamentos, telas..." autocomplete="off">
+      <kbd>ESC</kbd>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
 
 <!-- ===== Toast de bloqueio da trava do funil ===== -->
 <div class="toast-wrap" id="lockToast" role="alert" aria-live="assertive">
@@ -2982,6 +3121,122 @@ document.getElementById('loginForm')?.addEventListener('submit', e => {
   enterApp('LA');
 });
 document.querySelectorAll('[data-demo-user]').forEach(b => b.addEventListener('click', () => enterApp(b.dataset.demoUser)));
+
+// Quick actions da Ficha do Cliente
+const QUICK = {
+  call:     { title:'Ligando para Carlos Andrade…', sub:'Integração com VoIP · chamada registrada na timeline ao desligar.', kind:'info' },
+  whatsapp: { title:'WhatsApp aberto', sub:'A conversa fica vinculada ao card do cliente.', kind:'info' },
+  email:    { title:'E-mail redigido pela IA', sub:'Rascunho criado com base no histórico e no aniversário de hoje. Revise antes de enviar.', kind:'success' },
+};
+document.addEventListener('click', e => {
+  const q = e.target.closest('[data-quick]');
+  if(!q) return;
+  const cfg = QUICK[q.dataset.quick];
+  if(cfg) showLockToast({...cfg, action:'OK', target:'ficha'});
+});
+
+// =================== BUSCA GLOBAL (⌘K) ===================
+const SEARCH_PAGES = [
+  { kind:'tela', label:'Dashboard',                  desc:'Pendências, indicadores e alertas', route:'dashboard',  ic:'🏠' },
+  { kind:'tela', label:'Funil Comercial',            desc:'Pipeline de 7 etapas',              route:'crm',        ic:'🎯' },
+  { kind:'tela', label:'Funil de Entrega',           desc:'Eventos em execução',               route:'entrega',    ic:'🎬' },
+  { kind:'tela', label:'Gerador de Proposta',        desc:'Proposta personalizada com IA',     route:'proposta',   ic:'✨' },
+  { kind:'tela', label:'Agente de Prospecção',       desc:'Leads encontrados pela IA',         route:'prospeccao', ic:'🛰️' },
+  { kind:'tela', label:'Lead Inbox',                 desc:'Triagem de leads novos',            route:'leadinbox',  ic:'📥' },
+  { kind:'tela', label:'Clientes',                   desc:'Carteira de 10 clientes',           route:'clientes',   ic:'🏢' },
+  { kind:'tela', label:'Ficha do Cliente',           desc:'Servier do Brasil',                 route:'ficha',      ic:'📇' },
+  { kind:'tela', label:'Tabela-mestre de Preços',    desc:'V12 · IPCA 4,62%',                  route:'tabela',     ic:'📊' },
+  { kind:'tela', label:'Pacote de Operação',         desc:'Vivo · Lançamento',                 route:'operacional',ic:'📦' },
+  { kind:'tela', label:'Relatórios',                 desc:'KPIs e dashboards',                 route:'relatorios', ic:'📈' },
+  { kind:'tela', label:'Configuração de Funis',      desc:'Editor de etapas e travas',         route:'config',     ic:'🔧' },
+  { kind:'tela', label:'Administração',              desc:'Usuários e integrações',            route:'admin',      ic:'⚙️' },
+];
+
+function buildSearchIndex(){
+  const idx = [...SEARCH_PAGES];
+  CLIENTS.forEach(c => idx.push({ kind:'cliente', label:c.name, desc:`${c.segment} · ${c.city} · ticket ${c.ticket}`, route:'ficha', ic:'🏢' }));
+  DEALS.forEach(d => idx.push({ kind:'negócio', label:`${d.client} · ${d.event}`, desc:`${d.value} · ${d.date}`, route:'deal', ic:'💼' }));
+  DELIVERIES.forEach(d => idx.push({ kind:'entrega', label:`${d.client} · ${d.event}`, desc:`${d.date} · ${d.city} · ${d.status}`, route:'operacional', ic:'🎬' }));
+  PRICE_TABLE.forEach(p => idx.push({ kind:'equipamento', label:p.name, desc:`${p.cat} · ${p.price}/diária · ${p.sku}`, route:'tabela', ic:'🎚️' }));
+  PROSPECTS.forEach(l => idx.push({ kind:'prospect', label:l.title, desc:l.body.slice(0,80)+'…', route:'prospeccao', ic:'🛰️' }));
+  return idx;
+}
+let _searchIndex = null;
+function searchIndex(){ if(!_searchIndex) _searchIndex = buildSearchIndex(); return _searchIndex; }
+
+const searchBackdrop = document.getElementById('searchBackdrop');
+const searchInput    = document.getElementById('searchInput');
+const searchResults  = document.getElementById('searchResults');
+let _searchSelected = 0;
+
+function openSearch(){
+  searchBackdrop.classList.add('open');
+  setTimeout(() => searchInput.focus(), 50);
+  searchInput.value = '';
+  renderSearch('');
+}
+function closeSearch(){ searchBackdrop.classList.remove('open'); }
+
+function renderSearch(q){
+  q = q.toLowerCase().trim();
+  let items;
+  if(!q){
+    items = searchIndex().filter(i => i.kind === 'tela');
+  } else {
+    items = searchIndex().filter(i =>
+      i.label.toLowerCase().includes(q) ||
+      (i.desc||'').toLowerCase().includes(q) ||
+      i.kind.includes(q)
+    ).slice(0, 16);
+  }
+  if(items.length === 0){
+    searchResults.innerHTML = `<div class="search-empty">Nada encontrado para "<strong>${q}</strong>".</div>`;
+    return;
+  }
+  // agrupa
+  const groups = {};
+  items.forEach(i => (groups[i.kind] = groups[i.kind] || []).push(i));
+  const order = ['tela','cliente','negócio','entrega','prospect','equipamento'];
+  let html = '';
+  order.forEach(k => {
+    if(!groups[k]) return;
+    html += `<div class="search-section">${k}s</div>`;
+    groups[k].forEach((i,idx) => {
+      html += `<div class="search-item" data-route="${i.route}"><div class="si-ic">${i.ic}</div><div class="si-text"><strong>${i.label}</strong><span>${i.desc||''}</span></div><span class="si-tag">${i.kind}</span></div>`;
+    });
+  });
+  searchResults.innerHTML = html;
+  _searchSelected = 0;
+  highlightSelected();
+  searchResults.querySelectorAll('.search-item').forEach(el => {
+    el.addEventListener('click', () => {
+      route(el.dataset.route);
+      closeSearch();
+    });
+  });
+}
+function highlightSelected(){
+  const items = searchResults.querySelectorAll('.search-item');
+  items.forEach((it,i) => it.classList.toggle('active', i === _searchSelected));
+  items[_searchSelected]?.scrollIntoView({block:'nearest'});
+}
+
+document.getElementById('searchTrigger')?.addEventListener('click', openSearch);
+searchBackdrop?.addEventListener('click', e => { if(e.target === searchBackdrop) closeSearch(); });
+searchInput?.addEventListener('input', e => renderSearch(e.target.value));
+searchInput?.addEventListener('keydown', e => {
+  const items = searchResults.querySelectorAll('.search-item');
+  if(e.key === 'Escape'){ closeSearch(); return; }
+  if(e.key === 'ArrowDown'){ e.preventDefault(); _searchSelected = (_searchSelected+1) % items.length; highlightSelected(); return; }
+  if(e.key === 'ArrowUp'){ e.preventDefault(); _searchSelected = (_searchSelected-1+items.length) % items.length; highlightSelected(); return; }
+  if(e.key === 'Enter'){ e.preventDefault(); const it = items[_searchSelected]; if(it){ route(it.dataset.route); closeSearch(); } }
+});
+window.addEventListener('keydown', e => {
+  if((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){
+    e.preventDefault();
+    if(searchBackdrop.classList.contains('open')) closeSearch(); else openSearch();
+  }
+});
 
 // =================== TOAST DA TRAVA DO FUNIL (Seção 2.1) ===================
 const lockToast = document.getElementById('lockToast');
