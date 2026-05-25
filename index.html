@@ -7,9 +7,41 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  // Aplica o tema antes do paint para evitar flash. Default = light.
+  (function(){
+    try {
+      var t = localStorage.getItem('rs.theme');
+      if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
+    } catch(e){}
+  })();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root{
+    /* LIGHT (default) — clean, minimalista */
+    --bg:#fafafa; --bg-2:#ffffff; --bg-3:#f4f4f6; --bg-4:#ececef;
+    --line:#e5e5ea; --line-2:#d4d4d9;
+    --text:#0a0a0b; --text-2:#52525b; --text-3:#8a8a93;
+    --accent:#b8862e; --accent-2:#d4a857; --accent-soft:rgba(184,134,46,.10);
+    --green:#1f9d6a; --green-soft:rgba(31,157,106,.10);
+    --red:#e0394a; --red-soft:rgba(224,57,74,.10);
+    --blue:#3a7ee0; --blue-soft:rgba(58,126,224,.10);
+    --purple:#7d5be0; --purple-soft:rgba(125,91,224,.10);
+    --orange:#e57f1f; --orange-soft:rgba(229,127,31,.10);
+    --on-accent:#1a0f00; --on-green:#04321f; --on-red:#fff; --on-blue:#fff; --on-orange:#3a1d00;
+    --scroll-thumb:#cfcfd4; --scroll-thumb-hover:#a8a8b0;
+    --shadow-1:0 1px 2px rgba(15,15,20,.04), 0 1px 1px rgba(15,15,20,.03);
+    --shadow-2:0 4px 16px rgba(15,15,20,.06), 0 2px 4px rgba(15,15,20,.04);
+    --shadow-3:0 12px 36px rgba(15,15,20,.10);
+    --shadow-overlay:0 24px 64px rgba(15,15,20,.14);
+    --backdrop:rgba(15,15,20,.30);
+    --r-sm:6px; --r-md:10px; --r-lg:14px;
+    --font-display:'Bricolage Grotesque',sans-serif;
+    --font-body:'Inter Tight',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+  [data-theme="dark"]{
     --bg:#0a0a0b; --bg-2:#111114; --bg-3:#16161a; --bg-4:#1d1d23;
     --line:#24242b; --line-2:#2e2e36;
     --text:#f5f5f7; --text-2:#a8a8b3; --text-3:#6b6b76;
@@ -19,13 +51,15 @@
     --blue:#5e9eff; --blue-soft:rgba(94,158,255,.12);
     --purple:#a78bfa; --purple-soft:rgba(167,139,250,.12);
     --orange:#f59e3a; --orange-soft:rgba(245,158,58,.12);
-    --r-sm:6px; --r-md:10px; --r-lg:14px;
-    --font-display:'Bricolage Grotesque',sans-serif;
-    --font-body:'Inter Tight',sans-serif;
-    --font-mono:'JetBrains Mono',monospace;
+    --scroll-thumb:#2e2e36; --scroll-thumb-hover:#3a3a45;
+    --shadow-1:0 1px 2px rgba(0,0,0,.4);
+    --shadow-2:0 8px 24px rgba(0,0,0,.45);
+    --shadow-3:0 20px 60px rgba(0,0,0,.6);
+    --shadow-overlay:0 24px 64px rgba(0,0,0,.55);
+    --backdrop:rgba(0,0,0,.6);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  html,body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;transition:background-color .25s ease,color .25s ease}
   body{display:flex;min-height:100vh}
   body.app-locked{overflow:hidden}
   button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
@@ -33,8 +67,8 @@
   a{color:inherit;text-decoration:none}
   ::-webkit-scrollbar{width:8px;height:8px}
   ::-webkit-scrollbar-track{background:transparent}
-  ::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:4px}
-  ::-webkit-scrollbar-thumb:hover{background:#3a3a45}
+  ::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--scroll-thumb-hover)}
 
   /* SIDEBAR */
   .sidebar{width:248px;background:var(--bg-2);border-right:1px solid var(--line);padding:22px 14px;position:fixed;height:100vh;overflow-y:auto;z-index:50;display:flex;flex-direction:column}
@@ -61,7 +95,7 @@
   .ai-field::after{content:'✦ IA';position:absolute;top:6px;right:8px;font-size:9px;font-weight:700;color:var(--blue);letter-spacing:.4px;opacity:.8}
 
   /* === Toast de bloqueio da trava (padrão Seção 2.1) === */
-  .toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120%);z-index:200;background:var(--bg-3);border:1px solid var(--red);border-left:4px solid var(--red);border-radius:var(--r-md);padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 12px 36px rgba(0,0,0,.5);transition:transform .3s cubic-bezier(.2,.8,.2,1);max-width:560px}
+  .toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120%);z-index:200;background:var(--bg-3);border:1px solid var(--red);border-left:4px solid var(--red);border-radius:var(--r-md);padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow-3);transition:transform .3s cubic-bezier(.2,.8,.2,1);max-width:560px}
   .toast-wrap.visible{transform:translateX(-50%) translateY(0)}
   .toast-icon{width:28px;height:28px;border-radius:50%;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:700}
   .toast-body{display:flex;flex-direction:column;gap:2px}
@@ -91,7 +125,7 @@
   .funnel-banner.commercial{background:rgba(212,168,87,.08);border-color:rgba(212,168,87,.3);color:var(--accent-2)}
   .funnel-banner.delivery{background:rgba(62,207,142,.08);border-color:rgba(62,207,142,.3);color:var(--green)}
   .funnel-banner strong{color:var(--text)}
-  .funnel-banner .funnel-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.04);font-size:15px}
+  .funnel-banner .funnel-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--bg-3);font-size:15px}
   .funnel-banner-sep{flex:1;text-align:right;color:var(--text-3);font-size:12px}
   .funnel-switch{display:inline-flex;gap:6px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);padding:3px}
   .funnel-switch a{padding:5px 12px;font-size:12px;font-weight:500;color:var(--text-2);border-radius:4px;transition:.15s}
@@ -149,9 +183,9 @@
   .prop-summary .kpi-value{font-size:24px;margin-top:6px}
 
   /* === Modal de margem === */
-  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-backdrop{position:fixed;inset:0;background:var(--backdrop);backdrop-filter:blur(4px);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
   .modal-backdrop.open{display:flex;animation:fadeIn .2s ease}
-  .modal{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);width:100%;max-width:520px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  .modal{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);width:100%;max-width:520px;padding:24px;box-shadow:var(--shadow-3)}
   .modal-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
   .modal-icon{width:36px;height:36px;border-radius:50%;background:var(--red-soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0}
   .modal-title{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-.3px}
@@ -202,12 +236,12 @@
   .proposal-preview .pp-title{font-family:var(--font-display);font-size:34px;font-weight:800;line-height:1.1;letter-spacing:-1px;margin-bottom:8px}
   .proposal-preview .pp-sub{color:var(--text-2);font-size:14px;max-width:520px;margin:0 auto 28px}
   .proposal-preview .pp-block{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left;margin-bottom:20px}
-  .proposal-preview .pp-block > div{background:rgba(255,255,255,.03);border:1px solid var(--line);padding:14px;border-radius:var(--r-md)}
+  .proposal-preview .pp-block > div{background:var(--bg-3);border:1px solid var(--line);padding:14px;border-radius:var(--r-md)}
   .proposal-preview .pp-block strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:6px}
   .proposal-preview .pp-block span{font-size:15px;font-weight:600;color:var(--text)}
 
   /* === Login (T1) === */
-  .login-shell{display:flex;min-height:100vh;width:100%;background:linear-gradient(135deg,#0a0a0b,#16161a);position:fixed;inset:0;z-index:500;overflow:auto}
+  .login-shell{display:flex;min-height:100vh;width:100%;background:linear-gradient(135deg,var(--bg),var(--bg-3));position:fixed;inset:0;z-index:500;overflow:auto}
   .login-shell.hidden{display:none}
   .app-locked .sidebar,.app-locked .main,.app-locked .toast-wrap,.app-locked .modal-backdrop{display:none !important}
   body.locked{overflow:hidden}
@@ -223,7 +257,7 @@
   .login-headline span{color:var(--accent)}
   .login-sub{font-size:15px;color:var(--text-2);max-width:480px;line-height:1.6;margin-bottom:32px}
   .login-feats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:480px}
-  .login-feat{display:flex;gap:10px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:var(--r-md)}
+  .login-feat{display:flex;gap:10px;align-items:flex-start;padding:12px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-md)}
   .login-feat-ic{width:30px;height:30px;border-radius:var(--r-sm);background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
   .login-feat-txt strong{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
   .login-feat-txt span{font-size:11.5px;color:var(--text-3);line-height:1.4}
@@ -254,9 +288,9 @@
   }
 
   /* === Overlay "Gerando proposta com IA" === */
-  .ai-overlay{position:fixed;inset:0;background:rgba(8,8,12,.85);backdrop-filter:blur(8px);z-index:350;display:none;align-items:center;justify-content:center;padding:20px}
+  .ai-overlay{position:fixed;inset:0;background:var(--backdrop);backdrop-filter:blur(8px);z-index:350;display:none;align-items:center;justify-content:center;padding:20px}
   .ai-overlay.open{display:flex;animation:fadeIn .25s ease}
-  .ai-overlay-box{max-width:560px;width:100%;text-align:center;padding:40px;background:linear-gradient(180deg,var(--bg-2),var(--bg-3));border:1px solid var(--line-2);border-radius:var(--r-lg);box-shadow:0 32px 80px rgba(0,0,0,.6);position:relative;overflow:hidden}
+  .ai-overlay-box{max-width:560px;width:100%;text-align:center;padding:40px;background:linear-gradient(180deg,var(--bg-2),var(--bg-3));border:1px solid var(--line-2);border-radius:var(--r-lg);box-shadow:var(--shadow-overlay);position:relative;overflow:hidden}
   .ai-overlay-box::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(94,158,255,.15),transparent 30%);animation:spin 4s linear infinite;pointer-events:none}
   .ai-overlay-box > *{position:relative;z-index:1}
   @keyframes spin{to{transform:rotate(360deg)}}
@@ -281,7 +315,7 @@
   .onb-headline{font-family:var(--font-display);font-size:34px;font-weight:800;line-height:1.05;letter-spacing:-.8px;margin-bottom:10px}
   .onb-sub{color:var(--text-2);font-size:14.5px;line-height:1.6;max-width:680px;margin-bottom:18px}
   .onb-quick{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-  .onb-quick > div{padding:14px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:var(--r-md)}
+  .onb-quick > div{padding:14px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-md)}
   .onb-quick strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);margin-bottom:4px}
   .onb-quick span{font-size:15px;font-weight:600;color:var(--text)}
 
@@ -329,9 +363,9 @@
   .signing-status.signed .signing-status-ic{background:var(--green-soft);color:var(--green)}
 
   /* === Busca global (⌘K) === */
-  .search-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:400;display:none;align-items:flex-start;justify-content:center;padding-top:14vh}
+  .search-backdrop{position:fixed;inset:0;background:var(--backdrop);backdrop-filter:blur(4px);z-index:400;display:none;align-items:flex-start;justify-content:center;padding-top:14vh}
   .search-backdrop.open{display:flex;animation:fadeIn .15s ease}
-  .search-palette{background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--r-lg);width:100%;max-width:580px;box-shadow:0 24px 60px rgba(0,0,0,.6);overflow:hidden}
+  .search-palette{background:var(--bg-2);border:1px solid var(--line-2);border-radius:var(--r-lg);width:100%;max-width:580px;box-shadow:var(--shadow-3);overflow:hidden}
   .search-input-wrap{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line)}
   .search-input-wrap input{flex:1;background:transparent;border:none;color:var(--text);font-size:15px;outline:none}
   .search-input-wrap kbd{font-family:var(--font-mono);font-size:11px;padding:2px 8px;background:var(--bg-4);border:1px solid var(--line);border-radius:4px;color:var(--text-3)}
@@ -489,6 +523,13 @@
   .icon-btn{width:34px;height:34px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text-2);transition:.15s;position:relative}
   .icon-btn:hover{background:var(--bg-3);color:var(--text)}
   .icon-btn .dot{position:absolute;top:8px;right:9px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--bg)}
+  /* Theme toggle — sun/moon swap */
+  .theme-toggle{position:relative;overflow:hidden}
+  .theme-toggle svg{position:absolute;width:16px;height:16px;transition:transform .35s cubic-bezier(.5,1.5,.4,1),opacity .25s ease}
+  .theme-toggle .ic-sun{opacity:0;transform:rotate(-90deg) scale(.6)}
+  .theme-toggle .ic-moon{opacity:1;transform:rotate(0) scale(1)}
+  [data-theme="dark"] .theme-toggle .ic-sun{opacity:1;transform:rotate(0) scale(1)}
+  [data-theme="dark"] .theme-toggle .ic-moon{opacity:0;transform:rotate(90deg) scale(.6)}
   .page{padding:28px 32px;min-height:calc(100vh - 60px);display:none}
   .page.active{display:block;animation:fadeIn .3s ease}
   @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
@@ -553,7 +594,7 @@
   .kb-col-count{background:var(--bg-4);color:var(--text-2);padding:1px 8px;border-radius:12px;font-size:11px;font-weight:600}
   .kb-col-total{font-size:11px;color:var(--text-3);margin-bottom:10px;font-family:var(--font-mono)}
   .deal-card{background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-md);padding:12px;margin-bottom:8px;cursor:pointer;transition:.15s;position:relative}
-  .deal-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 6px 20px -8px rgba(0,0,0,.5)}
+  .deal-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow-2)}
   .deal-card.hot::after{content:'🔥';position:absolute;top:8px;right:8px;font-size:13px}
   .deal-client{font-weight:600;font-size:13px;margin-bottom:3px;color:var(--text)}
   .deal-event{font-size:11.5px;color:var(--text-2);margin-bottom:8px;line-height:1.4}
@@ -657,7 +698,7 @@
 
   /* MOBILE NAV (default hidden on desktop) */
   .nav-toggle{display:none}
-  .sidebar-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:45}
+  .sidebar-backdrop{position:fixed;inset:0;background:var(--backdrop);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:45}
   .sidebar-backdrop.open{opacity:1;pointer-events:auto}
   body.nav-locked{overflow:hidden}
 
@@ -672,7 +713,7 @@
   /* ===== SMALL TABLET / LARGE PHONE (≤820px) ===== */
   @media(max-width:820px){
     /* drawer */
-    .sidebar{transform:translateX(-100%);transition:transform .25s ease;box-shadow:24px 0 48px -16px rgba(0,0,0,.6);width:280px}
+    .sidebar{transform:translateX(-100%);transition:transform .25s ease;box-shadow:var(--shadow-3);width:280px}
     .sidebar.open{transform:translateX(0)}
     .main{margin-left:0}
     .nav-toggle{display:flex}
@@ -995,6 +1036,10 @@
     <div class="topbar-actions">
       <button class="icon-btn search-trigger" title="Buscar (⌘K)" aria-label="Buscar" id="searchTrigger">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn theme-toggle" id="themeToggle" title="Alternar tema" aria-label="Alternar tema">
+        <svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
       <button class="icon-btn" title="Notificações" aria-label="Notificações">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
@@ -3348,6 +3393,8 @@ function renderReports(){
   if(_reportsRendered) return;
   if(!document.getElementById('chartForecast')) return;
   _reportsRendered = true;
+  chartTheme();
+  const t = getChartTheme();
 
   // Receita prevista vs realizada
   new Chart(document.getElementById('chartForecast'), {
@@ -3355,11 +3402,11 @@ function renderReports(){
     data:{
       labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
       datasets:[
-        { label:'Realizada', data:[420,380,510,495,610,null,null,null,null,null,null,null], borderColor:'#3ecf8e', backgroundColor:'rgba(62,207,142,.15)', tension:.35, fill:true, pointRadius:3, borderWidth:2.5 },
-        { label:'Prevista', data:[400,400,500,500,600,640,720,680,820,920,860,940], borderColor:'#d4a857', backgroundColor:'rgba(212,168,87,.05)', tension:.35, fill:false, borderDash:[5,5], pointRadius:2, borderWidth:2 }
+        { label:'Realizada', data:[420,380,510,495,610,null,null,null,null,null,null,null], borderColor:t.green, backgroundColor:'rgba(62,207,142,.15)', tension:.35, fill:true, pointRadius:3, borderWidth:2.5 },
+        { label:'Prevista', data:[400,400,500,500,600,640,720,680,820,920,860,940], borderColor:t.accent, backgroundColor:'rgba(212,168,87,.05)', tension:.35, fill:false, borderDash:[5,5], pointRadius:2, borderWidth:2 }
       ]
     },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#a8a8b3'}},tooltip:{backgroundColor:'#1d1d23'}},scales:{x:{grid:{display:false},ticks:{color:'#6b6b76'}},y:{grid:{color:'#1d1d23'},ticks:{color:'#6b6b76',callback:v=>'R$ '+v+'K'}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:t.text}},tooltip:{backgroundColor:t.tooltipBg}},scales:{x:{grid:{display:false},ticks:{color:t.textMut}},y:{grid:{color:t.grid},ticks:{color:t.textMut,callback:v=>'R$ '+v+'K'}}}}
   });
 
   // Conversão por etapa
@@ -3367,9 +3414,9 @@ function renderReports(){
     type:'bar',
     data:{
       labels:['Lead','Qualificado','Disponibilidade','Visita técnica','Proposta','Negociação','Fechado'],
-      datasets:[{ data:[100,72,68,64,54,42,38], backgroundColor:['#5e9eff','#a78bfa','#5e9eff','#a78bfa','#d4a857','#f59e3a','#3ecf8e'], borderRadius:6 }]
+      datasets:[{ data:[100,72,68,64,54,42,38], backgroundColor:[t.blue,t.purple,t.blue,t.purple,t.accent,t.orange,t.green], borderRadius:6 }]
     },
-    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1d1d23',callbacks:{label:c=>c.parsed.x+'%'}}},scales:{x:{grid:{color:'#1d1d23'},ticks:{color:'#6b6b76',callback:v=>v+'%'},max:100},y:{grid:{display:false},ticks:{color:'#a8a8b3'}}}}
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{backgroundColor:t.tooltipBg,callbacks:{label:c=>c.parsed.x+'%'}}},scales:{x:{grid:{color:t.grid},ticks:{color:t.textMut,callback:v=>v+'%'},max:100},y:{grid:{display:false},ticks:{color:t.text}}}}
   });
 
   // Origem dos leads
@@ -3377,9 +3424,9 @@ function renderReports(){
     type:'doughnut',
     data:{
       labels:['Agente de Prospecção (IA)','WhatsApp','Indicação','Site/formulário','RD Station','Cold call'],
-      datasets:[{ data:[38,22,18,11,7,4], backgroundColor:['#5e9eff','#3ecf8e','#d4a857','#a78bfa','#f59e3a','#6b6b76'], borderColor:'#0a0a0b', borderWidth:2 }]
+      datasets:[{ data:[38,22,18,11,7,4], backgroundColor:[t.blue,t.green,t.accent,t.purple,t.orange,t.textMut], borderColor:t.surface, borderWidth:2 }]
     },
-    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:'#a8a8b3',boxWidth:10,padding:8,font:{size:11}}},tooltip:{backgroundColor:'#1d1d23',callbacks:{label:c=>c.label+': '+c.parsed+'%'}}}}
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{color:t.text,boxWidth:10,padding:8,font:{size:11}}},tooltip:{backgroundColor:t.tooltipBg,callbacks:{label:c=>c.label+': '+c.parsed+'%'}}}}
   });
 
   // Ranking de vendedores
@@ -3423,16 +3470,32 @@ function renderEquip(){
 }
 
 // =================== CHARTS ===================
-const chartDefaults = {
-  color:'#a8a8b3',
-  borderColor:'#24242b',
-  gridColor:'#1d1d23'
-};
+function cssVar(name){
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+function getChartTheme(){
+  return {
+    text:        cssVar('--text-2') || '#a8a8b3',
+    textMut:     cssVar('--text-3') || '#6b6b76',
+    border:      cssVar('--line')   || '#24242b',
+    grid:        cssVar('--line')   || '#1d1d23',
+    tooltipBg:   cssVar('--bg-4')   || '#1d1d23',
+    tooltipBd:   cssVar('--line-2') || '#2e2e36',
+    surface:     cssVar('--bg-2')   || '#0a0a0b',
+    accent:      cssVar('--accent') || '#d4a857',
+    green:       cssVar('--green')  || '#3ecf8e',
+    red:         cssVar('--red')    || '#ef4d5b',
+    blue:        cssVar('--blue')   || '#5e9eff',
+    purple:      cssVar('--purple') || '#a78bfa',
+    orange:      cssVar('--orange') || '#f59e3a'
+  };
+}
 
 function chartTheme(){
   if(window.Chart){
-    Chart.defaults.color = chartDefaults.color;
-    Chart.defaults.borderColor = chartDefaults.borderColor;
+    const t = getChartTheme();
+    Chart.defaults.color = t.text;
+    Chart.defaults.borderColor = t.border;
     Chart.defaults.font.family = "'Inter Tight', sans-serif";
   }
 }
@@ -3441,6 +3504,7 @@ let charts = {};
 function renderCharts(){
   if(!window.Chart) return;
   chartTheme();
+  const t = getChartTheme();
 
   // Revenue
   const revEl = document.getElementById('chartRevenue');
@@ -3450,16 +3514,16 @@ function renderCharts(){
       data:{
         labels:['Dez','Jan','Fev','Mar','Abr','Mai'],
         datasets:[
-          {label:'Realizada', data:[820,940,1010,1180,1055,1247], backgroundColor:'#d4a857', borderRadius:6, barThickness:24},
+          {label:'Realizada', data:[820,940,1010,1180,1055,1247], backgroundColor:t.accent, borderRadius:6, barThickness:24},
           {label:'Projetada', data:[null,null,null,null,null,null,1410], backgroundColor:'rgba(94,158,255,.6)', borderRadius:6, barThickness:24}
         ]
       },
       options:{
         responsive:true, maintainAspectRatio:false,
-        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1d1d23', borderColor:'#2e2e36', borderWidth:1, padding:10}},
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:t.tooltipBg, borderColor:t.tooltipBd, borderWidth:1, padding:10}},
         scales:{
-          x:{grid:{display:false}, ticks:{color:'#6b6b76'}},
-          y:{grid:{color:'#1d1d23'}, ticks:{color:'#6b6b76', callback:v => 'R$ '+v+'K'}}
+          x:{grid:{display:false}, ticks:{color:t.textMut}},
+          y:{grid:{color:t.grid}, ticks:{color:t.textMut, callback:v => 'R$ '+v+'K'}}
         }
       }
     });
@@ -3472,12 +3536,12 @@ function renderCharts(){
       type:'bar',
       data:{
         labels:['Lead','Qualificado','Proposta','Negociação','Ganho'],
-        datasets:[{data:[124,68,32,18,11], backgroundColor:['#5e9eff','#a78bfa','#d4a857','#f59e3a','#3ecf8e'], borderRadius:4}]
+        datasets:[{data:[124,68,32,18,11], backgroundColor:[t.blue,t.purple,t.accent,t.orange,t.green], borderRadius:4}]
       },
       options:{
         indexAxis:'y', responsive:true, maintainAspectRatio:false,
-        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1d1d23'}},
-        scales:{x:{grid:{color:'#1d1d23'}, ticks:{color:'#6b6b76'}}, y:{grid:{display:false}, ticks:{color:'#a8a8b3', font:{weight:'600'}}}}
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:t.tooltipBg}},
+        scales:{x:{grid:{color:t.grid}, ticks:{color:t.textMut}}, y:{grid:{display:false}, ticks:{color:t.text, font:{weight:'600'}}}}
       }
     });
   }
@@ -3491,20 +3555,30 @@ function renderCharts(){
         labels:['Jun','Jul','Ago','Set','Out','Nov','Dez','Jan','Fev','Mar','Abr','Mai'],
         datasets:[{
           data:[58,61,64,62,65,67,69,68,70,72,67,73],
-          borderColor:'#3ecf8e', backgroundColor:'rgba(62,207,142,.12)',
-          tension:.35, fill:true, pointRadius:3, pointBackgroundColor:'#3ecf8e', borderWidth:2.5
+          borderColor:t.green, backgroundColor:'rgba(62,207,142,.12)',
+          tension:.35, fill:true, pointRadius:3, pointBackgroundColor:t.green, borderWidth:2.5
         }]
       },
       options:{
         responsive:true, maintainAspectRatio:false,
-        plugins:{legend:{display:false}, tooltip:{backgroundColor:'#1d1d23'}},
+        plugins:{legend:{display:false}, tooltip:{backgroundColor:t.tooltipBg}},
         scales:{
-          x:{grid:{display:false}, ticks:{color:'#6b6b76'}},
-          y:{min:0, max:100, grid:{color:'#1d1d23'}, ticks:{color:'#6b6b76'}}
+          x:{grid:{display:false}, ticks:{color:t.textMut}},
+          y:{min:0, max:100, grid:{color:t.grid}, ticks:{color:t.textMut}}
         }
       }
     });
   }
+}
+
+function resetCharts(){
+  Object.values(charts).forEach(c => { try{ c.destroy(); }catch(e){} });
+  charts = {};
+  _reportsRendered = false;
+  document.querySelectorAll('#chartForecast, #chartFunnel, #chartSources').forEach(c => {
+    const inst = window.Chart && Chart.getChart && Chart.getChart(c);
+    if(inst) inst.destroy();
+  });
 }
 
 // =================== ROUTER ===================
@@ -3547,6 +3621,39 @@ function route(name){
   setTimeout(renderCharts, 50);
   if(name === 'relatorios') setTimeout(renderReports, 80);
 }
+
+// =================== THEME ===================
+const THEME_KEY = 'rs.theme';
+function applyTheme(theme){
+  const html = document.documentElement;
+  if(theme === 'dark') html.setAttribute('data-theme','dark');
+  else html.removeAttribute('data-theme');
+  const btn = document.getElementById('themeToggle');
+  if(btn) btn.setAttribute('aria-label', theme === 'dark' ? 'Mudar para tema claro' : 'Mudar para tema escuro');
+  // Recriar charts para refletir as novas cores
+  if(typeof resetCharts === 'function'){
+    resetCharts();
+    if(window.Chart) renderCharts();
+    const activeRoute = document.querySelector('.nav-item.active')?.dataset.route;
+    if(activeRoute === 'relatorios') setTimeout(renderReports, 60);
+  }
+}
+function getStoredTheme(){
+  try{ return localStorage.getItem(THEME_KEY); }catch(e){ return null; }
+}
+function setStoredTheme(theme){
+  try{ localStorage.setItem(THEME_KEY, theme); }catch(e){}
+}
+(function initTheme(){
+  // Default = light. Honra preferência salva pelo usuário.
+  const saved = getStoredTheme();
+  applyTheme(saved === 'dark' ? 'dark' : 'light');
+})();
+document.getElementById('themeToggle')?.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  setStoredTheme(next);
+  applyTheme(next);
+});
 
 // =================== INIT ===================
 document.querySelectorAll('[data-route]').forEach(el => {
