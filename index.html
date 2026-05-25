@@ -603,6 +603,8 @@
   .deal-card{background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-md);padding:12px;margin-bottom:8px;cursor:pointer;transition:.15s;position:relative}
   .deal-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow-2)}
   .deal-card.hot::after{content:'🔥';position:absolute;top:8px;right:8px;font-size:13px}
+  @keyframes dealFlash{0%{box-shadow:0 0 0 0 var(--accent),0 0 0 4px var(--accent-soft);transform:scale(1.02)}60%{box-shadow:0 0 0 2px var(--accent),0 0 0 10px transparent}100%{box-shadow:none;transform:scale(1)}}
+  .deal-card.flash-new{animation:dealFlash 2.2s cubic-bezier(.2,.8,.2,1);border-color:var(--accent)}
   .deal-client{font-weight:600;font-size:13px;margin-bottom:3px;color:var(--text)}
   .deal-event{font-size:11.5px;color:var(--text-2);margin-bottom:8px;line-height:1.4}
   .deal-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text-3)}
@@ -1056,7 +1058,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <span class="dot"></span>
       </button>
-      <button class="btn btn-primary btn-new-deal">
+      <button class="btn btn-primary btn-new-deal" data-action="new-deal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <span class="btn-label">Novo Deal</span>
       </button>
@@ -1224,7 +1226,7 @@
     <div class="page-head">
       <div>
         <h1 class="page-title">Funil Comercial</h1>
-        <p class="page-sub">12 negócios em jogo · R$ 3.840.000 em pipeline ponderado · arraste os cards entre as colunas</p>
+        <p class="page-sub" id="pipelineSub">12 negócios em jogo · R$ 3.840.000 em pipeline ponderado · arraste os cards entre as colunas</p>
       </div>
       <div class="page-actions">
         <div class="funnel-switch">
@@ -1236,7 +1238,7 @@
           <option>Pipeline: Indicações</option>
           <option>Pipeline: Cold call</option>
         </select>
-        <button class="btn btn-primary">+ Novo negócio</button>
+        <button class="btn btn-primary" data-action="new-deal">+ Novo negócio</button>
       </div>
     </div>
 
@@ -2065,6 +2067,74 @@
     </div>
   </div>
 
+  <!-- Modal · Novo negócio -->
+  <div class="modal-backdrop" id="newDealModal">
+    <div class="modal" style="max-width:640px">
+      <div class="modal-head">
+        <div class="modal-icon" style="background:var(--accent-soft);color:var(--accent)">+</div>
+        <div>
+          <div class="modal-title">Novo negócio</div>
+          <div class="text-sm text-mut">O card entra direto no Funil Comercial assim que você salvar</div>
+        </div>
+      </div>
+      <form id="newDealForm" novalidate>
+        <div class="form-grid">
+          <div class="field" style="grid-column:span 2">
+            <label>Cliente</label>
+            <input id="ndClient" list="ndClientList" placeholder="Buscar ou digitar novo cliente..." autocomplete="off" required>
+            <datalist id="ndClientList"></datalist>
+            <span class="field-hint" id="ndClientHint">10 clientes na carteira · digite para encontrar ou criar novo</span>
+          </div>
+          <div class="field" style="grid-column:span 2">
+            <label>Evento / Briefing</label>
+            <input id="ndEvent" placeholder="Ex.: Convenção Anual 2026" required>
+          </div>
+          <div class="field">
+            <label>Data prevista</label>
+            <input id="ndDate" placeholder="Ex.: 18 out" required>
+          </div>
+          <div class="field">
+            <label>Valor estimado</label>
+            <input id="ndValue" type="number" min="1" step="1" placeholder="Em R$ mil (ex.: 285)" required>
+            <span class="field-hint">em R$ mil — entra como “R$ XK” no card</span>
+          </div>
+          <div class="field">
+            <label>Cidade</label>
+            <input id="ndCity" placeholder="Ex.: São Paulo">
+          </div>
+          <div class="field">
+            <label>Vendedor responsável</label>
+            <select id="ndOwner" required>
+              <option value="CM">Camila Moura</option>
+              <option value="MC">Mariana Costa</option>
+              <option value="RP">Rafael Pinheiro</option>
+              <option value="JS">Juliana Sales</option>
+              <option value="MV">Marcos Vinicius</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Etapa inicial</label>
+            <select id="ndStage">
+              <option value="lead" selected>Lead (novo contato)</option>
+              <option value="qualified">Qualificado</option>
+              <option value="proposal">Em Proposta</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Prioridade</label>
+            <label style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-sm);cursor:pointer;font-size:13.5px">
+              <input id="ndHot" type="checkbox" style="accent-color:var(--accent)"> 🔥 Marcar como quente
+            </label>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-secondary" data-modal-close>Cancelar</button>
+          <button type="submit" class="btn btn-primary">Criar negócio →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <section class="page" id="page-prospeccao">
     <div class="page-head">
       <div>
@@ -2330,7 +2400,7 @@
       </div>
       <div class="page-actions">
         <button class="btn btn-secondary" data-route="clientes">← voltar à lista</button>
-        <button class="btn btn-primary">+ Novo negócio</button>
+        <button class="btn btn-primary" data-action="new-deal" data-prefill-client="Servier do Brasil">+ Novo negócio</button>
       </div>
     </div>
 
@@ -2885,6 +2955,17 @@ function renderKanban(){
     lockReason: d => DEAL_LOCKS[dealKey(d)],
     afterMove: rerenderPipeline,
   });
+
+  // Atualiza o subtítulo do pipeline com totais reais
+  const sub = document.getElementById('pipelineSub');
+  if(sub){
+    const open = DEALS.filter(d => d.stage !== 'won' && d.stage !== 'lost');
+    const totalK = open.reduce((acc,d) => acc + parseFloat(String(d.value).replace(/[^\d]/g,'')||0), 0);
+    const totalFmt = totalK >= 1000
+      ? `R$ ${(totalK/1000).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}M`
+      : `R$ ${totalK.toLocaleString('pt-BR')}K`;
+    sub.innerHTML = `${open.length} negócios em jogo · <strong>${totalFmt}</strong> em pipeline aberto · arraste os cards entre as colunas`;
+  }
 }
 
 // Drag & drop genérico para os Kanbans. Move o data entre stages e re-renderiza.
@@ -3348,7 +3429,12 @@ document.addEventListener('click', e => {
   if(next){ e.preventDefault(); gotoPropStep(+next.dataset.propNext); return; }
   const stepClick = e.target.closest('#propStepper .step');
   if(stepClick){ gotoPropStep(+stepClick.dataset.step); return; }
-  if(e.target.closest('[data-modal-close]')) document.getElementById('marginModal').classList.remove('open');
+  const closeBtn = e.target.closest('[data-modal-close]');
+  if(closeBtn){
+    const m = closeBtn.closest('.modal-backdrop');
+    if(m) m.classList.remove('open');
+    else document.getElementById('marginModal').classList.remove('open');
+  }
   if(e.target.closest('[data-modal-confirm]')){
     document.getElementById('marginModal').classList.remove('open');
     showLockToast({title:'Aprovação solicitada', sub:'A gestora comercial recebeu a justificativa. Você será notificado.', action:'OK', target:'proposta', kind:'info'});
@@ -3912,6 +3998,120 @@ document.addEventListener('click', (e) => {
     sub: btn.dataset.lockReason || 'Faltam 3 campos obrigatórios desta etapa.',
     action: 'Ver campos pendentes',
     target: btn.dataset.target || 'deal'
+  });
+});
+
+// =================== NOVO DEAL (criação funcional) ===================
+const newDealModal = document.getElementById('newDealModal');
+const newDealForm  = document.getElementById('newDealForm');
+const ndClientList = document.getElementById('ndClientList');
+const ndClientHint = document.getElementById('ndClientHint');
+const ndClientInp  = document.getElementById('ndClient');
+
+function refreshClientDatalist(){
+  if(!ndClientList) return;
+  ndClientList.innerHTML = CLIENTS.map(c => `<option value="${c.name}">`).join('');
+  if(ndClientHint) ndClientHint.textContent = `${CLIENTS.length} clientes na carteira · digite para encontrar ou criar novo`;
+}
+refreshClientDatalist();
+
+ndClientInp?.addEventListener('input', () => {
+  const v = ndClientInp.value.trim().toLowerCase();
+  if(!v) { ndClientHint.textContent = `${CLIENTS.length} clientes na carteira · digite para encontrar ou criar novo`; return; }
+  const match = CLIENTS.find(c => c.name.toLowerCase() === v);
+  ndClientHint.textContent = match
+    ? `✓ ${match.name} · ${match.segment} · vendedor atual ${match.vendor}`
+    : `+ "${ndClientInp.value.trim()}" entrará como cliente novo na carteira`;
+});
+
+function openNewDealModal(prefillClient){
+  newDealForm.reset();
+  refreshClientDatalist();
+  if(prefillClient) ndClientInp.value = prefillClient;
+  ndClientInp.dispatchEvent(new Event('input'));
+  newDealModal.classList.add('open');
+  setTimeout(() => (prefillClient ? document.getElementById('ndEvent') : ndClientInp).focus(), 80);
+}
+
+document.addEventListener('click', e => {
+  const trig = e.target.closest('[data-action="new-deal"]');
+  if(!trig) return;
+  e.preventDefault();
+  openNewDealModal(trig.dataset.prefillClient);
+});
+
+// Fecha clicando no backdrop
+newDealModal?.addEventListener('click', e => {
+  if(e.target === newDealModal) newDealModal.classList.remove('open');
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && newDealModal.classList.contains('open')) newDealModal.classList.remove('open');
+});
+
+newDealForm?.addEventListener('submit', e => {
+  e.preventDefault();
+  const client = ndClientInp.value.trim();
+  const event  = document.getElementById('ndEvent').value.trim();
+  const date   = document.getElementById('ndDate').value.trim();
+  const valueK = parseInt(document.getElementById('ndValue').value, 10);
+  const city   = document.getElementById('ndCity').value.trim();
+  const owner  = document.getElementById('ndOwner').value;
+  const stage  = document.getElementById('ndStage').value;
+  const hot    = document.getElementById('ndHot').checked;
+
+  if(!client || !event || !date || !valueK || !owner){
+    showLockToast({title:'Preencha os campos obrigatórios', sub:'Cliente, evento, data, valor e vendedor são necessários.', action:'OK', kind:'info'});
+    return;
+  }
+
+  // Evita duplicata exata (mesmo cliente + evento)
+  if(DEALS.some(d => d.client === client && d.event === event)){
+    showLockToast({title:'Negócio duplicado', sub:`Já existe um card "${client} · ${event}" no funil.`, action:'Abrir pipeline', target:'crm', kind:'info'});
+    return;
+  }
+
+  const valueFmt = valueK >= 1000
+    ? `R$ ${(valueK/1000).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:2})}M`
+    : `R$ ${valueK}K`;
+
+  const newDeal = {
+    stage, client, event, value: valueFmt,
+    date: date || '—',
+    owner, sla:'ok', slaTime:'recém-criado',
+    hot, city: city || undefined,
+    _new: true,
+  };
+  DEALS.unshift(newDeal);
+
+  // Se for cliente novo, registra na carteira para autocomplete futuro
+  if(!CLIENTS.some(c => c.name.toLowerCase() === client.toLowerCase())){
+    const ownerName = document.getElementById('ndOwner').selectedOptions[0]?.text || owner;
+    CLIENTS.push({
+      name: client, segment:'—', city: city || '—',
+      last: '—', ticket: valueFmt, vendor: ownerName, status:'active',
+    });
+    if(typeof renderClientsList === 'function') renderClientsList();
+  }
+
+  newDealModal.classList.remove('open');
+  renderKanban();
+
+  // Vai para o pipeline e destaca o card recém-criado
+  route('crm');
+  setTimeout(() => {
+    const key = `${client}|${event}`;
+    const card = document.querySelector(`#kanban .deal-card[data-deal-key="${CSS.escape(key)}"]`);
+    if(card){
+      card.classList.add('flash-new');
+      card.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(() => card.classList.remove('flash-new'), 2400);
+    }
+  }, 220);
+
+  showLockToast({
+    title:'Negócio criado',
+    sub:`${client} · ${event} entrou em "${STAGES.find(s => s.id === stage).title}" (${valueFmt}).`,
+    action:'Abrir pipeline', target:'crm', kind:'success',
   });
 });
 </script>
