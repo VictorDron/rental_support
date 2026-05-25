@@ -605,6 +605,14 @@
   .deal-card.hot::after{content:'🔥';position:absolute;top:8px;right:8px;font-size:13px}
   @keyframes dealFlash{0%{box-shadow:0 0 0 0 var(--accent),0 0 0 4px var(--accent-soft);transform:scale(1.02)}60%{box-shadow:0 0 0 2px var(--accent),0 0 0 10px transparent}100%{box-shadow:none;transform:scale(1)}}
   .deal-card.flash-new{animation:dealFlash 2.2s cubic-bezier(.2,.8,.2,1);border-color:var(--accent)}
+
+  /* Briefing — derivações IA */
+  .briefing-derive{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px;padding:10px 12px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:var(--r-sm);font-size:12px}
+  .briefing-derive.warn{background:var(--red-soft);border-left-color:var(--red)}
+  .briefing-derive .brd-arrow{font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;font-size:11px;margin-right:6px}
+  .briefing-derive.warn .brd-arrow{color:var(--red)}
+  .briefing-derive .brd-chip{display:inline-flex;align-items:center;background:var(--bg-2);border:1px solid var(--line);padding:3px 9px;border-radius:12px;font-size:11.5px;color:var(--text)}
+  .briefing-derive .brd-chip.warn{border-color:var(--red);color:var(--red);font-weight:600}
   .deal-client{font-weight:600;font-size:13px;margin-bottom:3px;color:var(--text)}
   .deal-event{font-size:11.5px;color:var(--text-2);margin-bottom:8px;line-height:1.4}
   .deal-meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text-3)}
@@ -1082,9 +1090,9 @@
     <div class="card" style="margin-bottom:18px;border-left:3px solid var(--accent)">
       <div class="card-head"><div><div class="card-title">Minhas pendências · o que você precisa fazer hoje</div><div class="card-sub">As travas de campo do funil sinalizam onde os negócios não avançam</div></div><span class="pill amber">5 pendências</span></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:6px">
-        <a href="#" data-route="deal" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--red);text-decoration:none">
+        <a href="#" data-route="deal" data-after-route-tab="briefing" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--red);text-decoration:none">
           <div style="font-size:18px">🔒</div>
-          <div style="flex:1"><div style="font-weight:600;font-size:12.5px">Servier · Convenção 2026</div><div class="text-sm text-mut">3 campos pendentes para avançar para Negociação</div></div>
+          <div style="flex:1"><div style="font-weight:600;font-size:12.5px">Servier · Convenção 2026</div><div class="text-sm text-mut">3 campos pendentes no briefing · trava avanço para Negociação</div></div>
         </a>
         <a href="#" data-route="leadinbox" style="display:flex;gap:10px;padding:10px;background:var(--bg-3);border-radius:var(--r-sm);border-left:3px solid var(--blue);text-decoration:none">
           <div style="font-size:18px">📥</div>
@@ -1274,12 +1282,12 @@
       <div class="alert-content">
         <div class="alert-title" style="color:var(--orange)">Faltam 3 campos para avançar para Negociação</div>
         <div class="alert-body" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
-          <a href="#" class="field-pill" style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Validade da proposta</a>
-          <a href="#" class="field-pill" style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Condição de pagamento</a>
-          <a href="#" class="field-pill" style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Escopo de frete/montagem</a>
+          <a href="#" class="field-pill" data-go-briefing style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Validade da proposta</a>
+          <a href="#" class="field-pill" data-go-briefing style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Condição de pagamento</a>
+          <a href="#" class="field-pill" data-go-briefing style="background:var(--bg-2);color:var(--text-2);text-decoration:none;border:1px solid var(--line)">⚠ Escopo de frete/montagem</a>
         </div>
       </div>
-      <button class="btn btn-primary" data-route="proposta" style="background:var(--orange);color:#1a0f00">Abrir proposta</button>
+      <button class="btn btn-primary" data-go-briefing style="background:var(--orange);color:#1a0f00">Completar briefing →</button>
     </div>
 
     <div class="deal-stepper">
@@ -1298,6 +1306,7 @@
 
     <div class="tabs" id="dealTabs">
       <div class="tab active" data-deal-tab="resumo">Resumo</div>
+      <div class="tab" data-deal-tab="briefing">Briefing <span class="ai-chip sm" style="margin-left:6px">IA</span></div>
       <div class="tab" data-deal-tab="proposta">Proposta</div>
       <div class="tab" data-deal-tab="patrimonio">Disponibilidade</div>
       <div class="tab" data-deal-tab="equipe">Equipe</div>
@@ -1383,6 +1392,302 @@
             <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:12px">Agendar follow-up</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- ===== Aba Briefing ===== -->
+    <div class="step-pane" id="deal-briefing">
+      <div class="alert" style="background:var(--accent-soft);border-color:var(--accent);margin-bottom:14px">
+        <div class="alert-icon" style="background:var(--accent);color:#fff">✦</div>
+        <div class="alert-content">
+          <div class="alert-title" style="color:var(--accent)">Briefing capturado em 15/05 · roteiro Support Rental v3</div>
+          <div class="alert-body">As respostas abaixo alimentam o configurador da Etapa 3. <strong>Editar qualquer resposta recalcula os itens da proposta.</strong> Briefing é o que separa o vendedor que cota no escuro do vendedor que entrega proposta no ponto.</div>
+        </div>
+        <div class="alert-actions">
+          <button class="btn btn-primary" id="btnBriefingRegen">↻ Recalcular proposta a partir do briefing</button>
+        </div>
+      </div>
+
+      <!-- Bloco 1 — Contexto -->
+      <div class="card mb-18">
+        <div class="card-head">
+          <div><div class="card-title">Bloco 1 · Contexto <span class="text-mut" style="font-weight:400;font-size:13px">— 5 min de conversa que define tudo</span></div></div>
+          <span class="pill green">✓ respondido · 4/4</span>
+        </div>
+        <div class="form-grid">
+          <div class="field" style="grid-column:span 2">
+            <label>Que tipo de evento é?</label>
+            <select>
+              <option>Confraternização</option>
+              <option>Lançamento de produto</option>
+              <option selected>Convenção corporativa · com premiação</option>
+              <option>Treinamento corporativo</option>
+              <option>Premiação isolada</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Formato do público</label>
+            <select>
+              <option>Auditório · cadeiras viradas para o palco</option>
+              <option selected>Misto · auditório → mesas redondas</option>
+              <option>Em pé · circulando</option>
+              <option>Mesas redondas o tempo todo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Tem palco principal?</label>
+            <select>
+              <option selected>Sim · abertura + premiação no palco</option>
+              <option>Sim · apenas painéis</option>
+              <option>Não · só ambientação</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Dia ou noite?</label>
+            <select>
+              <option>Dia (08h–18h)</option>
+              <option selected>Noite (19h–00h)</option>
+              <option>Dia e noite (corrido)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Implicação técnica detectada pela IA</label>
+            <input value="palco + telão + som de fala + som musical + iluminação cênica forte" readonly style="opacity:.85">
+          </div>
+        </div>
+        <div class="briefing-derive">
+          <span class="brd-arrow">→ gera</span>
+          <span class="brd-chip">Palco modular 8×4m</span>
+          <span class="brd-chip">Painel LED P3.9 (backdrop)</span>
+          <span class="brd-chip">PA L'Acoustics K2</span>
+          <span class="brd-chip">Moving Beam 230 (kit cênico)</span>
+        </div>
+      </div>
+
+      <!-- Bloco 2 — Data e local -->
+      <div class="card mb-18">
+        <div class="card-head">
+          <div><div class="card-title">Bloco 2 · Data e local <span class="text-mut" style="font-weight:400;font-size:13px">— sem isso, não cota</span></div></div>
+          <span class="pill green">✓ respondido · 4/4</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Data definida?</label>
+            <select>
+              <option>Sim · data fixa</option>
+              <option selected>Janela flexível dentro de Outubro/2026</option>
+              <option>Sem data</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Local</label>
+            <select>
+              <option selected>Confirmado · Centro Fecomercio</option>
+              <option>Em busca · cliente decide</option>
+              <option>Cliente espera indicação nossa</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Espaço</label>
+            <select>
+              <option selected>Fechado</option>
+              <option>Ao ar livre · prevê tenda + plano de chuva</option>
+              <option>Misto</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Visita técnica realizada?</label>
+            <select>
+              <option selected>Sim · 12/05 com Mariana + Carlos</option>
+              <option>Agendada</option>
+              <option>Não realizada — proposta sujeita a revisão</option>
+            </select>
+          </div>
+        </div>
+        <div class="briefing-derive">
+          <span class="brd-arrow">→ habilita</span>
+          <span class="brd-chip">Avanço da Etapa 3 (Disponibilidade)</span>
+          <span class="brd-chip">Cronograma de montagem 13/06</span>
+        </div>
+      </div>
+
+      <!-- Bloco 3 — Dimensionamento -->
+      <div class="card mb-18">
+        <div class="card-head">
+          <div><div class="card-title">Bloco 3 · Dimensionamento <span class="text-mut" style="font-weight:400;font-size:13px">— o core da locadora</span></div></div>
+          <span class="pill green">✓ respondido · 4/4</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Público confirmado ou estimado?</label>
+            <select>
+              <option>Confirmado · 280</option>
+              <option selected>Estimado · 250–280 · dimensionar por 280</option>
+              <option>Em definição</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Momentos no mesmo evento</label>
+            <select>
+              <option>Único momento</option>
+              <option selected>Três · abertura + premiação + jantar/festa</option>
+              <option>Dois</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column:span 2">
+            <label>Necessidades técnicas</label>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;padding:8px 0">
+              <label class="field-pill"><input type="checkbox" checked> Palco</label>
+              <label class="field-pill"><input type="checkbox" checked> Telão</label>
+              <label class="field-pill"><input type="checkbox" checked> Som de fala</label>
+              <label class="field-pill"><input type="checkbox" checked> Som musical</label>
+              <label class="field-pill"><input type="checkbox" checked> Iluminação cênica</label>
+              <label class="field-pill"><input type="checkbox" checked> Climatização</label>
+              <label class="field-pill"><input type="checkbox" checked> Gerador (segurança)</label>
+              <label class="field-pill"><input type="checkbox"> Piso/praticável</label>
+              <label class="field-pill"><input type="checkbox"> Banheiros químicos</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Transmissão ou gravação?</label>
+            <select>
+              <option>Nenhuma</option>
+              <option>Transmissão ao vivo</option>
+              <option selected>Gravação 4K (sem transmissão)</option>
+              <option>Ambos</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Capacidade calculada pela IA</label>
+            <input value="PA dimensionado p/ 320 pax · LED 5×4m visível até fundo do salão" readonly style="opacity:.85">
+          </div>
+        </div>
+        <div class="briefing-derive">
+          <span class="brd-arrow">→ gera</span>
+          <span class="brd-chip">Mesa Yamaha 32ch + 4 lapelas</span>
+          <span class="brd-chip">Streaming Kit 4K</span>
+          <span class="brd-chip">Operadores AV (3 × 12h × 2 dias)</span>
+        </div>
+      </div>
+
+      <!-- Bloco 4 — Fronteira do escopo -->
+      <div class="card mb-18">
+        <div class="card-head">
+          <div><div class="card-title">Bloco 4 · Fronteira do escopo <span class="text-mut" style="font-weight:400;font-size:13px">— o que protege contra "não foi isso que combinamos"</span></div></div>
+          <span class="pill amber">parcial · 4/5</span>
+        </div>
+        <table class="table">
+          <thead><tr><th style="width:50%">Item</th><th>Status</th><th>Responsável</th></tr></thead>
+          <tbody>
+            <tr><td>Alimentação e bebidas</td><td><span class="pill" style="background:var(--bg-3)">fora do escopo</span></td><td>Buffet próprio do cliente</td></tr>
+            <tr><td>Decoração e cenografia</td><td><span class="pill" style="background:var(--bg-3)">fora do escopo</span></td><td>Cliente</td></tr>
+            <tr><td>Credenciamento e segurança</td><td><span class="pill" style="background:var(--bg-3)">fora do escopo</span></td><td>Centro Fecomercio</td></tr>
+            <tr><td>Garçom · limpeza · transporte</td><td><span class="pill" style="background:var(--bg-3)">fora do escopo</span></td><td>Cliente / buffet</td></tr>
+            <tr><td><strong>Frete e montagem do nosso material</strong></td><td><span class="pill red">⚠ pendente</span></td><td>—</td></tr>
+          </tbody>
+        </table>
+        <div class="briefing-derive warn">
+          <span class="brd-arrow">⚠ trava</span>
+          <span class="brd-chip warn">Escopo de frete/montagem é um dos 3 campos que travam o avanço para Negociação</span>
+        </div>
+      </div>
+
+      <!-- Bloco 5 — Logística de montagem -->
+      <div class="card mb-18">
+        <div class="card-head">
+          <div><div class="card-title">Bloco 5 · Logística de montagem <span class="text-mut" style="font-weight:400;font-size:13px">— porque rampa errada acaba com a margem</span></div></div>
+          <span class="pill amber">parcial · 3/4</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Janela de montagem/desmontagem</label>
+            <input value="13/06 · 06h–18h (12h) | desmont. 14/06 23h–15/06 03h" readonly style="opacity:.85">
+          </div>
+          <div class="field">
+            <label>Acesso para carga e descarga</label>
+            <input value="Doca traseira · elevador de carga · piso vinílico" readonly style="opacity:.85">
+          </div>
+          <div class="field">
+            <label>Energia disponível?</label>
+            <select>
+              <option>Sim · suficiente</option>
+              <option selected>Insuficiente · prever gerador</option>
+              <option>A confirmar</option>
+            </select>
+          </div>
+          <div class="field pending">
+            <label>ART + alvará + bombeiros — quem responde?</label>
+            <select>
+              <option value="" selected>— selecionar —</option>
+              <option>ART nossa · alvará e bombeiros com o cliente</option>
+              <option>Tudo conosco (cobrança em separado)</option>
+              <option>Tudo com o cliente</option>
+            </select>
+            <span class="field-hint">Para 280 pax é sério. Formalize por escrito antes do contrato.</span>
+          </div>
+        </div>
+        <div class="briefing-derive">
+          <span class="brd-arrow">→ gera</span>
+          <span class="brd-chip">Gerador 180kVA</span>
+          <span class="brd-chip">Pacote de Operação · Bloco 1 · Logística</span>
+        </div>
+      </div>
+
+      <!-- Bloco 6 — Orçamento e decisão -->
+      <div class="card mb-18">
+        <div class="card-head">
+          <div><div class="card-title">Bloco 6 · Orçamento e decisão <span class="text-mut" style="font-weight:400;font-size:13px">— a pergunta que dá vergonha mas você precisa fazer</span></div></div>
+          <span class="pill amber">parcial · 2/3</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Faixa de investimento</label>
+            <input value="R$ 280K – R$ 320K (alinhada na visita técnica)" readonly style="opacity:.85">
+          </div>
+          <div class="field">
+            <label>Quem aprova e prazo</label>
+            <input value="Carlos Andrade (Diretor MKT) · prazo 30/05" readonly style="opacity:.85">
+          </div>
+          <div class="field" style="grid-column:span 2">
+            <label>Ponto de contato no dia do evento</label>
+            <input value="Patrícia Lobo · Gerente de Eventos Servier · (11) 98712-1140" readonly style="opacity:.85">
+          </div>
+          <div class="field pending">
+            <label>Condição de pagamento aceita pelo cliente</label>
+            <select>
+              <option value="" selected>— selecionar —</option>
+              <option>50% sinal + 50% 30ddl</option>
+              <option>30% sinal + 70% 30ddl</option>
+              <option>100% à vista (desconto especial)</option>
+              <option>30/30/30 (sinal/produção/evento)</option>
+            </select>
+            <span class="field-hint">Campo pendente · trava avanço para Negociação</span>
+          </div>
+          <div class="field pending">
+            <label>Validade da proposta</label>
+            <select>
+              <option value="" selected>— selecionar —</option>
+              <option>7 dias</option>
+              <option>15 dias</option>
+              <option>30 dias</option>
+              <option>45 dias</option>
+            </select>
+            <span class="field-hint">Campo pendente · trava avanço para Negociação</span>
+          </div>
+        </div>
+        <div class="briefing-derive warn">
+          <span class="brd-arrow">⚠ trava</span>
+          <span class="brd-chip warn">Validade e condição de pagamento são os 2 campos restantes que travam Negociação</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;background:var(--bg-3);border:1px solid var(--line);border-radius:var(--r-md);gap:12px">
+        <div>
+          <div style="font-weight:600;font-size:14px">O briefing fundamenta 9 itens da proposta atual</div>
+          <div class="text-sm text-mut" style="margin-top:2px">Cada bloco mapeia para decisões técnicas e comerciais · sem briefing, não há proposta defensável.</div>
+        </div>
+        <button class="btn btn-primary" data-deal-tab-go="proposta">Ver proposta gerada →</button>
       </div>
     </div>
 
@@ -3759,6 +4064,8 @@ document.querySelectorAll('[data-route]').forEach(el => {
   el.addEventListener('click', e => {
     e.preventDefault();
     route(el.dataset.route);
+    const afterTab = el.dataset.afterRouteTab;
+    if(afterTab) setTimeout(() => activateDealTab(afterTab), 60);
   });
 });
 
@@ -3981,7 +4288,15 @@ function showLockToast({title, sub, action, target, kind}={}){
 }
 lockToastAction?.addEventListener('click', () => {
   lockToast.classList.remove('visible');
-  if(_lockToastTarget) route(_lockToastTarget);
+  if(!_lockToastTarget) return;
+  // Suporta "deal-<tab>" para abrir o deal já na aba certa
+  if(_lockToastTarget.startsWith('deal-')){
+    const tab = _lockToastTarget.slice(5);
+    route('deal');
+    setTimeout(() => activateDealTab(tab), 60);
+    return;
+  }
+  route(_lockToastTarget);
 });
 
 // Quando o usuário tenta clicar em "Avançar etapa" travado, dispara o toast.
@@ -4109,11 +4424,52 @@ newDealForm?.addEventListener('submit', e => {
   }, 220);
 
   showLockToast({
-    title:'Negócio criado',
-    sub:`${client} · ${event} entrou em "${STAGES.find(s => s.id === stage).title}" (${valueFmt}).`,
-    action:'Abrir pipeline', target:'crm', kind:'success',
+    title:'Negócio criado · preencha o briefing',
+    sub:`${client} · ${event} entrou em "${STAGES.find(s => s.id === stage).title}" (${valueFmt}). Briefing capturado vira proposta automática.`,
+    action:'Preencher briefing →', target:'deal-briefing', kind:'success',
   });
 });
+
+// ============= BRIEFING (Etapa 2) =============
+// Recalcular proposta a partir do briefing → overlay IA → vai pra aba Proposta
+document.addEventListener('click', e => {
+  if(e.target.closest('#btnBriefingRegen')){
+    e.preventDefault();
+    playAIOverlay(() => {
+      activateDealTab('proposta');
+      showLockToast({
+        title:'Proposta recalculada a partir do briefing',
+        sub:'9 itens revisados · Painel LED reajustado para 5×4m · Operadores AV mantidos em 3.',
+        action:'Ver proposta', target:null, kind:'success',
+      });
+    });
+  }
+  // CTA do final do briefing → abre aba proposta
+  const goBtn = e.target.closest('[data-deal-tab-go]');
+  if(goBtn){
+    e.preventDefault();
+    activateDealTab(goBtn.dataset.dealTabGo);
+  }
+  // Pendência da faixa laranja → vai pro briefing
+  const goBriefing = e.target.closest('[data-go-briefing]');
+  if(goBriefing){
+    e.preventDefault();
+    activateDealTab('briefing');
+  }
+  // Stepper: clicar em "Etapa 2 Briefing" abre a aba
+  const stepBriefing = e.target.closest('.deal-stepper .step');
+  if(stepBriefing){
+    const label = stepBriefing.querySelector('strong')?.textContent?.trim().toLowerCase();
+    if(label === 'briefing'){ e.preventDefault(); activateDealTab('briefing'); }
+    if(label === 'proposta'){ e.preventDefault(); activateDealTab('proposta'); }
+  }
+});
+
+function activateDealTab(name){
+  document.querySelectorAll('#dealTabs .tab').forEach(t => t.classList.toggle('active', t.dataset.dealTab === name));
+  document.querySelectorAll('#page-deal [id^="deal-"].step-pane').forEach(p => p.classList.toggle('active', p.id === 'deal-' + name));
+  window.scrollTo({top: document.getElementById('dealTabs').offsetTop - 80, behavior:'smooth'});
+}
 </script>
 
 </body>
