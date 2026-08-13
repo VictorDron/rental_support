@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" width="41" height="41" role="img" aria-label="Cumulus LED">
+  <defs>
+    <linearGradient id="clFav" x1="0" y1="41" x2="41" y2="0" gradientUnits="userSpaceOnUse">
+
+      <stop offset="0" stop-color="#ffad02"/>
+      <stop offset=".36" stop-color="#f47340"/>
+      <stop offset=".68" stop-color="#ef2f88"/>
+      <stop offset="1" stop-color="#8843f2"/>
+    </linearGradient>
+  </defs>
+  <rect width="41" height="41" rx="10" fill="url(#clFav)"/>
+  <g fill="#fff" transform="translate(-3.5,0)">
+    <rect x="10" y="23" width="22" height="8" rx="4"/>
+    <circle cx="17" cy="22" r="7"/>
+    <circle cx="26" cy="20" r="9"/>
+    <circle cx="32" cy="25" r="6"/>
+  </g>
+</svg>

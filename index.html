@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cumulus LED · cumulus.crm</title>
+<meta name="description" content="cumulus.crm — CRM da Cumulus LED: funil comercial e de entrega para locação, venda e instalação de painéis de LED.">
+<meta name="theme-color" content="#8843f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#a46bff" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -77,10 +82,11 @@
   /* SIDEBAR */
   .sidebar{width:248px;background:var(--bg-2);border-right:1px solid var(--line);padding:22px 14px;position:fixed;height:100vh;overflow-y:auto;z-index:50;display:flex;flex-direction:column}
   .brand{display:flex;align-items:center;justify-content:flex-start;padding:6px 8px 22px;border-bottom:1px solid var(--line);margin-bottom:18px}
-  .brand-logo{height:38px;width:auto;display:block;object-fit:contain;transition:filter .2s ease}
-  /* No modo claro, inverte tons para que o texto branco do logo fique legível, preservando o laranja */
-  :root .brand-logo, :root .login-brand img{filter:invert(1) hue-rotate(180deg)}
-  [data-theme="dark"] .brand-logo, [data-theme="dark"] .login-brand img{filter:none}
+  /* Marca Cumulus LED — nuvem de pixels + wordmark. Herda a cor do tema, sem filtros. */
+  .brand-logo{display:flex;align-items:center;gap:9px}
+  .brand-mark{height:30px;width:auto;display:block;flex-shrink:0}
+  .brand-word{font-family:var(--font-display);font-size:21px;font-weight:800;letter-spacing:-.6px;line-height:1;color:var(--text);white-space:nowrap}
+  .brand-word .led{background:var(--led-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-left:5px}
   .brand-sub{font-size:10px;color:var(--text-3);letter-spacing:1.5px;text-transform:uppercase;margin-top:6px;display:block}
   .nav-group{margin-bottom:18px}
   .nav-group-title{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-3);padding:0 10px;margin-bottom:6px;font-weight:600}
@@ -256,7 +262,8 @@
   .login-left::before{content:'';position:absolute;top:-30%;right:-20%;width:120%;height:120%;background:radial-gradient(circle,color-mix(in srgb, var(--accent) 12%, transparent) 0%,transparent 50%);pointer-events:none}
   .login-left > *{position:relative;z-index:1}
   .login-brand{display:flex;align-items:center;gap:12px}
-  .login-brand img{height:38px}
+  .login-brand .brand-mark{height:34px}
+  .login-brand .brand-word{font-size:24px}
   .login-brand .b-sub{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--accent);font-weight:600;border-left:1px solid var(--line);padding-left:10px}
   .login-hero{margin-top:auto}
   .login-eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px}
@@ -269,6 +276,8 @@
   .login-feat-txt strong{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
   .login-feat-txt span{font-size:11.5px;color:var(--text-3);line-height:1.4}
   .login-foot{font-size:11px;color:var(--text-3);margin-top:32px}
+  .login-foot a{color:var(--text-2);font-weight:600;transition:color .15s ease}
+  .login-foot a:hover{color:var(--accent)}
 
   .login-right{width:440px;padding:48px;display:flex;flex-direction:column;justify-content:center;background:var(--bg-2)}
   .login-form-head{margin-bottom:32px}
@@ -881,8 +890,20 @@
   </button>
   <div class="login-left">
     <div class="login-brand">
-      <img src="assets/logo.png" alt="Support Rental">
-      <span class="b-sub">agente.crm</span>
+      <a class="brand-logo" href="https://cumulusled.com.br" target="_blank" rel="noopener" aria-label="Cumulus LED">
+        <svg class="brand-mark" viewBox="0 0 41 26" role="img" aria-label="Cumulus LED">
+          <defs><linearGradient id="clMarkLogin" x1="2" y1="0" x2="38.5" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ffad02"/><stop offset=".36" stop-color="#f47340"/><stop offset=".68" stop-color="#ef2f88"/><stop offset="1" stop-color="#8843f2"/>
+          </linearGradient></defs>
+          <g fill="url(#clMarkLogin)">
+            <rect x="9.5" y="2" width="6.5" height="6.5" rx="1.7" opacity=".85"/><rect x="17" y="2" width="6.5" height="6.5" rx="1.7"/><rect x="24.5" y="2" width="6.5" height="6.5" rx="1.7" opacity=".85"/>
+            <rect x="2" y="9.5" width="6.5" height="6.5" rx="1.7" opacity=".8"/><rect x="9.5" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="17" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="24.5" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="32" y="9.5" width="6.5" height="6.5" rx="1.7" opacity=".8"/>
+            <rect x="2" y="17" width="6.5" height="6.5" rx="1.7" opacity=".7"/><rect x="9.5" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="17" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="24.5" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="32" y="17" width="6.5" height="6.5" rx="1.7" opacity=".7"/>
+          </g>
+        </svg>
+        <span class="brand-word">Cumulus<span class="led">LED</span></span>
+      </a>
+      <span class="b-sub">cumulus.crm</span>
     </div>
     <div class="login-hero">
       <div class="login-eyebrow">O CRM que entende locação de painéis de LED</div>
@@ -931,8 +952,20 @@
 <aside class="sidebar" id="sidebar">
   <div class="brand">
     <div style="display:flex;flex-direction:column;align-items:flex-start;gap:2px">
-      <img src="assets/logo.png" alt="Support Rental" class="brand-logo">
-      <span class="brand-sub">agente.crm</span>
+      <a class="brand-logo" href="https://cumulusled.com.br" target="_blank" rel="noopener" aria-label="Cumulus LED">
+        <svg class="brand-mark" viewBox="0 0 41 26" role="img" aria-label="Cumulus LED">
+          <defs><linearGradient id="clMarkNav" x1="2" y1="0" x2="38.5" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ffad02"/><stop offset=".36" stop-color="#f47340"/><stop offset=".68" stop-color="#ef2f88"/><stop offset="1" stop-color="#8843f2"/>
+          </linearGradient></defs>
+          <g fill="url(#clMarkNav)">
+            <rect x="9.5" y="2" width="6.5" height="6.5" rx="1.7" opacity=".85"/><rect x="17" y="2" width="6.5" height="6.5" rx="1.7"/><rect x="24.5" y="2" width="6.5" height="6.5" rx="1.7" opacity=".85"/>
+            <rect x="2" y="9.5" width="6.5" height="6.5" rx="1.7" opacity=".8"/><rect x="9.5" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="17" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="24.5" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="32" y="9.5" width="6.5" height="6.5" rx="1.7" opacity=".8"/>
+            <rect x="2" y="17" width="6.5" height="6.5" rx="1.7" opacity=".7"/><rect x="9.5" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="17" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="24.5" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="32" y="17" width="6.5" height="6.5" rx="1.7" opacity=".7"/>
+          </g>
+        </svg>
+        <span class="brand-word">Cumulus<span class="led">LED</span></span>
+      </a>
+      <span class="brand-sub">cumulus.crm</span>
     </div>
   </div>
 

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 46" width="260" height="46" role="img" aria-label="Cumulus LED">
+  <title>Cumulus LED</title>
+  <desc>Logo Cumulus LED para fundos escuros. Para fundos claros use logo.svg.</desc>
+  <defs>
+    <linearGradient id="clLogoMark" x1="2" y1="0" x2="38.5" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffad02"/>
+      <stop offset=".36" stop-color="#f47340"/>
+      <stop offset=".68" stop-color="#ef2f88"/>
+      <stop offset="1" stop-color="#8843f2"/>
+    </linearGradient>
+    <linearGradient id="clLogoWord" x1="170" y1="0" x2="238" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f47340"/>
+      <stop offset=".5" stop-color="#ef2f88"/>
+      <stop offset="1" stop-color="#8843f2"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(0,10) scale(1.15)" fill="url(#clLogoMark)">
+    <rect x="9.5" y="2" width="6.5" height="6.5" rx="1.7" opacity=".85"/><rect x="17" y="2" width="6.5" height="6.5" rx="1.7"/><rect x="24.5" y="2" width="6.5" height="6.5" rx="1.7" opacity=".85"/>
+    <rect x="2" y="9.5" width="6.5" height="6.5" rx="1.7" opacity=".8"/><rect x="9.5" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="17" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="24.5" y="9.5" width="6.5" height="6.5" rx="1.7"/><rect x="32" y="9.5" width="6.5" height="6.5" rx="1.7" opacity=".8"/>
+    <rect x="2" y="17" width="6.5" height="6.5" rx="1.7" opacity=".7"/><rect x="9.5" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="17" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="24.5" y="17" width="6.5" height="6.5" rx="1.7" opacity=".9"/><rect x="32" y="17" width="6.5" height="6.5" rx="1.7" opacity=".7"/>
+  </g>
+  <text x="60" y="33" font-family="'Bricolage Grotesque','Inter Tight','Segoe UI',Helvetica,Arial,sans-serif" font-size="27" font-weight="800" letter-spacing="-.8" fill="#f5f5f7">Cumulus<tspan fill="url(#clLogoWord)" dx="6">LED</tspan></text>
+</svg>
