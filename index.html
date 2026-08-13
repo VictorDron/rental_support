@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Support Rental · agente.crm</title>
+<title>Cumulus LED · cumulus.crm</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
   // Aplica o tema antes do paint para evitar flash. Default = light.
   (function(){
     try {
-      var t = localStorage.getItem('rs.theme');
+      var t = localStorage.getItem('cumulus.theme');
       if (t === 'dark') document.documentElement.setAttribute('data-theme','dark');
     } catch(e){}
   })();
@@ -40,6 +40,9 @@
     --font-display:'Bricolage Grotesque',sans-serif;
     --font-body:'Inter Tight',sans-serif;
     --font-mono:'JetBrains Mono',monospace;
+    /* Rampa LED Cumulus — vibrante nos dois temas, usada em gradientes de marca */
+    --led-yellow:#ffad02; --led-orange:#f47340; --led-pink:#ef2f88; --led-purple:#8843f2;
+    --led-grad:linear-gradient(90deg,var(--led-yellow),var(--led-orange),var(--led-pink),var(--led-purple));
   }
   [data-theme="dark"]{
     --bg:#0a0a0b; --bg-2:#111114; --bg-3:#16161a; --bg-4:#1d1d23;
@@ -881,7 +884,7 @@
       <span class="b-sub">agente.crm</span>
     </div>
     <div class="login-hero">
-      <div class="login-eyebrow">O CRM que entende locação de eventos</div>
+      <div class="login-eyebrow">O CRM que entende locação de painéis de LED</div>
       <h1 class="login-headline">Não vende uma vez.<br><span>Cuida do evento inteiro.</span></h1>
       <p class="login-sub">Dois funis conectados — Comercial e Entrega — com o Pacote de Operação garantindo que cada negócio chegue redondo na operação. Sem retrabalho, sem "não foi isso que combinamos".</p>
       <div class="login-feats">
@@ -891,7 +894,7 @@
         <div class="login-feat"><div class="login-feat-ic">📦</div><div class="login-feat-txt"><strong>Pacote de Operação</strong><span>Handoff redondo do comercial para operação</span></div></div>
       </div>
     </div>
-    <div class="login-foot">© Support Rental · agente.crm by agente.lab · 2026</div>
+    <div class="login-foot">© <a href="https://cumulusled.com.br" target="_blank" rel="noopener">Cumulus LED</a> · cumulus.crm by agente.lab · 2026</div>
   </div>
 
   <div class="login-right">
@@ -902,7 +905,7 @@
     <form class="login-form" id="loginForm">
       <div class="field">
         <label>E-mail</label>
-        <input type="email" placeholder="seu@supportrental.com.br" value="leonardo@supportrental.com.br" autocomplete="email">
+        <input type="email" placeholder="seu@cumulusled.com.br" value="leonardo@cumulusled.com.br" autocomplete="email">
       </div>
       <div class="field">
         <label>Senha</label>
@@ -1050,7 +1053,7 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
     <div class="breadcrumb">
-      <span class="bc-root">Support Rental</span>
+      <span class="bc-root">Cumulus LED</span>
       <span class="sep">/</span>
       <strong id="bcCurrent">Dashboard</strong>
     </div>
@@ -1400,7 +1403,7 @@
       <div class="alert" style="background:var(--accent-soft);border-color:var(--accent);margin-bottom:14px">
         <div class="alert-icon" style="background:var(--accent);color:#fff">✦</div>
         <div class="alert-content">
-          <div class="alert-title" style="color:var(--accent)">Briefing capturado em 15/05 · roteiro Support Rental v3</div>
+          <div class="alert-title" style="color:var(--accent)">Briefing capturado em 15/05 · roteiro Cumulus LED v3</div>
           <div class="alert-body">As respostas abaixo alimentam o configurador da Etapa 3. <strong>Editar qualquer resposta recalcula os itens da proposta.</strong> Briefing é o que separa o vendedor que cota no escuro do vendedor que entrega proposta no ponto.</div>
         </div>
         <div class="alert-actions">
@@ -2513,11 +2516,11 @@
         <h1>Contrato de Locação de Equipamentos</h1>
         <div class="doc-meta">Contrato Nº 2026/0089 · gerado em 22/05/2026 · ClickSign #c8d7e2a4</div>
 
-        <p><strong>Locadora:</strong> Support Rental Locações Eventos Ltda · CNPJ 14.823.711/0001-04</p>
+        <p><strong>Locadora:</strong> Cumulus LED Painéis e Locações Ltda · CNPJ 14.823.711/0001-04</p>
         <p><strong>Locatária:</strong> Servier do Brasil Ltda · CNPJ 02.571.354/0001-65 · representada por Carlos Andrade, Diretor de Marketing</p>
 
         <h2>Objeto</h2>
-        <p>Locação de equipamentos audiovisuais e serviços técnicos para a <strong>Convenção Servier 2026</strong>, a ser realizada no Centro Fecomercio (São Paulo/SP), nos dias 18 e 19 de outubro de 2026, para um público estimado de 280 participantes.</p>
+        <p>Locação de painéis de LED, equipamentos audiovisuais e serviços técnicos para a <strong>Convenção Servier 2026</strong>, a ser realizada no Centro Fecomercio (São Paulo/SP), nos dias 18 e 19 de outubro de 2026, para um público estimado de 280 participantes.</p>
 
         <h2>Escopo (resumo)</h2>
         <table>
@@ -2540,7 +2543,7 @@
         <div class="signing-sig">
           <div class="sig-block">
             <div class="sig-line">Leonardo Arruda</div>
-            <strong>Support Rental</strong><br>Diretor Comercial · assinado em 22/05/2026 14:14
+            <strong>Cumulus LED</strong><br>Diretor Comercial · assinado em 22/05/2026 14:14
           </div>
           <div class="sig-block">
             <div class="sig-line unsigned" id="signClientLine">Carlos Andrade</div>
@@ -2573,7 +2576,7 @@
     <div class="onb-hero">
       <div class="onb-eyebrow">Servier · Convenção Anual 2026</div>
       <h2 class="onb-headline">Olá Carlos. <span style="color:var(--accent)">Você está em boas mãos.</span></h2>
-      <p class="onb-sub">A partir de agora, a Support Rental cuida do seu evento de ponta a ponta. Você vai saber exatamente o que esperar, quando e quem falar com você em cada momento. Sem surpresas, sem ansiedade — só um evento bem feito.</p>
+      <p class="onb-sub">A partir de agora, a Cumulus LED cuida do seu evento de ponta a ponta. Você vai saber exatamente o que esperar, quando e quem falar com você em cada momento. Sem surpresas, sem ansiedade — só um evento bem feito.</p>
       <div class="onb-quick">
         <div><strong>Evento</strong><span>18–19 out 2026</span></div>
         <div><strong>Local</strong><span>Centro Fecomercio · SP</span></div>
@@ -2992,12 +2995,12 @@
           <table class="table">
             <thead><tr><th></th><th>Nome</th><th>Papel</th><th>E-mail</th><th>Último acesso</th><th>Status</th><th></th></tr></thead>
             <tbody>
-              <tr><td><div class="avatar">MC</div></td><td><strong>Mariana Costa</strong></td><td><span class="pill amber">Vendedora sênior</span></td><td>mariana@supportrental.com.br</td><td>há 5 min</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
-              <tr><td><div class="avatar">RL</div></td><td><strong>Rafael Lima</strong></td><td><span class="pill amber">Vendedor pleno</span></td><td>rafael@supportrental.com.br</td><td>há 1h</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
-              <tr><td><div class="avatar">BS</div></td><td><strong>Beatriz Souza</strong></td><td><span class="pill" style="background:var(--blue-soft);color:var(--blue)">SDR</span></td><td>beatriz@supportrental.com.br</td><td>há 12 min</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
-              <tr><td><div class="avatar">JP</div></td><td><strong>Joana Pires</strong></td><td><span class="pill" style="background:var(--purple-soft);color:var(--purple)">Gestora comercial</span></td><td>joana@supportrental.com.br</td><td>há 2h</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
-              <tr><td><div class="avatar">AM</div></td><td><strong>André Mendes</strong></td><td><span class="pill" style="background:var(--green-soft);color:var(--green)">Operação</span></td><td>andre@supportrental.com.br</td><td>ontem</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
-              <tr><td><div class="avatar">LA</div></td><td><strong>Leonardo Arruda</strong></td><td><span class="pill" style="background:var(--red-soft);color:var(--red)">Admin</span></td><td>leonardo@supportrental.com.br</td><td>agora</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">MC</div></td><td><strong>Mariana Costa</strong></td><td><span class="pill amber">Vendedora sênior</span></td><td>mariana@cumulusled.com.br</td><td>há 5 min</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">RL</div></td><td><strong>Rafael Lima</strong></td><td><span class="pill amber">Vendedor pleno</span></td><td>rafael@cumulusled.com.br</td><td>há 1h</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">BS</div></td><td><strong>Beatriz Souza</strong></td><td><span class="pill" style="background:var(--blue-soft);color:var(--blue)">SDR</span></td><td>beatriz@cumulusled.com.br</td><td>há 12 min</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">JP</div></td><td><strong>Joana Pires</strong></td><td><span class="pill" style="background:var(--purple-soft);color:var(--purple)">Gestora comercial</span></td><td>joana@cumulusled.com.br</td><td>há 2h</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">AM</div></td><td><strong>André Mendes</strong></td><td><span class="pill" style="background:var(--green-soft);color:var(--green)">Operação</span></td><td>andre@cumulusled.com.br</td><td>ontem</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">LA</div></td><td><strong>Leonardo Arruda</strong></td><td><span class="pill" style="background:var(--red-soft);color:var(--red)">Admin</span></td><td>leonardo@cumulusled.com.br</td><td>agora</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -3058,7 +3061,7 @@
           <tbody>
             <tr><td><strong>Base legal — execução de contrato</strong></td><td>Contatos dos clientes ativos · sem ressalva</td><td><span class="pill green">OK</span></td></tr>
             <tr><td><strong>Base legal — interesse legítimo</strong></td><td>Radar de notícias + Agente de Prospecção · teste de proporcionalidade registrado</td><td><span class="pill green">OK</span></td></tr>
-            <tr><td><strong>Aviso de privacidade público</strong></td><td>supportrental.com.br/privacidade · última atualização 12/04/2026</td><td><span class="pill green">Publicado</span></td></tr>
+            <tr><td><strong>Aviso de privacidade público</strong></td><td>cumulusled.com.br/privacidade · última atualização 12/04/2026</td><td><span class="pill green">Publicado</span></td></tr>
             <tr><td><strong>Retenção de inativos</strong></td><td>5 anos após o último evento · anonimização automática</td><td><span class="pill green">Configurado</span></td></tr>
             <tr><td><strong>Plano de resposta a incidentes</strong></td><td>Notificação à ANPD em até 72h quando aplicável</td><td><span class="pill amber">Em revisão</span></td></tr>
             <tr><td><strong>Direitos do titular (LGPD Art. 18)</strong></td><td>Atendidos pela ficha do cliente (T5) · consulta, correção, exclusão</td><td><span class="pill green">Ativo</span></td></tr>
@@ -4025,7 +4028,7 @@ function route(name){
 }
 
 // =================== THEME ===================
-const THEME_KEY = 'rs.theme';
+const THEME_KEY = 'cumulus.theme';
 function applyTheme(theme){
   const html = document.documentElement;
   if(theme === 'dark') html.setAttribute('data-theme','dark');
