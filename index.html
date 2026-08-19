@@ -927,7 +927,7 @@
     <form class="login-form" id="loginForm">
       <div class="field">
         <label>E-mail</label>
-        <input type="email" placeholder="seu@cumulusled.com.br" value="leonardo@cumulusled.com.br" autocomplete="email">
+        <input type="email" placeholder="seu@cumulusled.com.br" value="vinicius@cumulusled.com.br" autocomplete="email">
       </div>
       <div class="field">
         <label>Senha</label>
@@ -942,7 +942,7 @@
 
     <div class="login-or">ou entre como demo</div>
     <div class="login-quick">
-      <button class="login-quick-btn" data-demo-user="LA"><div class="avatar qa">LA</div><div><strong style="display:block">Leonardo Arruda</strong><span class="text-mut" style="font-size:11px">Diretor Comercial · Admin</span></div></button>
+      <button class="login-quick-btn" data-demo-user="VI"><div class="avatar qa">VI</div><div><strong style="display:block">Vinicius</strong><span class="text-mut" style="font-size:11px">Diretor Comercial · Admin</span></div></button>
       <button class="login-quick-btn" data-demo-user="MC"><div class="avatar qa">MC</div><div><strong style="display:block">Mariana Costa</strong><span class="text-mut" style="font-size:11px">Vendedora sênior</span></div></button>
       <button class="login-quick-btn" data-demo-user="AM"><div class="avatar qa">AM</div><div><strong style="display:block">André Mendes</strong><span class="text-mut" style="font-size:11px">Operação</span></div></button>
     </div>
@@ -1073,9 +1073,9 @@
   </div>
 
   <div class="sidebar-foot">
-    <div class="avatar">LA</div>
+    <div class="avatar">VI</div>
     <div class="sidebar-foot-info">
-      <strong>Leonardo Arruda</strong>
+      <strong>Vinicius</strong>
       <span>Diretor Comercial</span>
     </div>
   </div>
@@ -2255,7 +2255,7 @@
           </div>
           <div class="review-text" style="color:var(--text)">"Equipamento atrasou 1h na montagem e impactou o cronograma. Equipe foi atenciosa mas o erro inicial pesou."</div>
           <div class="alert-actions" style="margin-top:10px">
-            <button class="btn btn-primary" style="background:var(--red);color:#fff">Acionar Leonardo</button>
+            <button class="btn btn-primary" style="background:var(--red);color:#fff">Acionar Vinicius</button>
             <button class="btn btn-secondary">Agendar call</button>
           </div>
         </div>
@@ -2576,7 +2576,7 @@
 
         <div class="signing-sig">
           <div class="sig-block">
-            <div class="sig-line">Leonardo Arruda</div>
+            <div class="sig-line">Vinicius</div>
             <strong>Cumulus LED</strong><br>Diretor Comercial · assinado em 22/05/2026 14:14
           </div>
           <div class="sig-block">
@@ -3034,7 +3034,7 @@
               <tr><td><div class="avatar">BS</div></td><td><strong>Beatriz Souza</strong></td><td><span class="pill" style="background:var(--blue-soft);color:var(--blue)">SDR</span></td><td>beatriz@cumulusled.com.br</td><td>há 12 min</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
               <tr><td><div class="avatar">JP</div></td><td><strong>Joana Pires</strong></td><td><span class="pill" style="background:var(--purple-soft);color:var(--purple)">Gestora comercial</span></td><td>joana@cumulusled.com.br</td><td>há 2h</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
               <tr><td><div class="avatar">AM</div></td><td><strong>André Mendes</strong></td><td><span class="pill" style="background:var(--green-soft);color:var(--green)">Operação</span></td><td>andre@cumulusled.com.br</td><td>ontem</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
-              <tr><td><div class="avatar">LA</div></td><td><strong>Leonardo Arruda</strong></td><td><span class="pill" style="background:var(--red-soft);color:var(--red)">Admin</span></td><td>leonardo@cumulusled.com.br</td><td>agora</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
+              <tr><td><div class="avatar">VI</div></td><td><strong>Vinicius</strong></td><td><span class="pill" style="background:var(--red-soft);color:var(--red)">Admin</span></td><td>vinicius@cumulusled.com.br</td><td>agora</td><td><span class="pill green">ativo</span></td><td><button class="btn btn-ghost">Editar</button></td></tr>
             </tbody>
           </table>
         </div>
@@ -4143,12 +4143,12 @@ renderCharts();
 
 // =================== LOGIN (T1) ===================
 const LOGIN_USERS = {
-  LA: { name:'Leonardo Arruda', role:'Diretor Comercial' },
+  VI: { name:'Vinicius', role:'Diretor Comercial' },
   MC: { name:'Mariana Costa',  role:'Vendedora sênior' },
   AM: { name:'André Mendes',   role:'Operação' },
 };
 function enterApp(initials){
-  const u = LOGIN_USERS[initials] || LOGIN_USERS.LA;
+  const u = LOGIN_USERS[initials] || LOGIN_USERS.VI;
   const av = document.querySelector('.sidebar-foot .avatar');
   const info = document.querySelector('.sidebar-foot-info');
   if(av) av.textContent = initials;
@@ -4161,7 +4161,7 @@ function enterApp(initials){
 }
 document.getElementById('loginForm')?.addEventListener('submit', e => {
   e.preventDefault();
-  enterApp('LA');
+  enterApp('VI');
 });
 document.querySelectorAll('[data-demo-user]').forEach(b => b.addEventListener('click', () => enterApp(b.dataset.demoUser)));
 
